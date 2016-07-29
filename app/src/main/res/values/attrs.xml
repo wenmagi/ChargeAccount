@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Rotate3dAnimation">
+        <attr name="rollType" format="enum">
+            <enum name="x" value="0" />
+            <enum name="y" value="1" />
+            <enum name="z" value="2" />
+        </attr>
+        <attr name="fromDeg" format="float" />
+        <attr name="toDeg" format="float" />
+        <attr name="pivotX" format="fraction" />
+        <attr name="pivotY" format="fraction" />
+    </declare-styleable>
+
+    <declare-styleable name="RectTextView">
+        <attr name="bitmap_src" format="reference" />
+        <attr name="bitmap_width" format="reference|dimension" />
+        <attr name="bitmap_height" format="reference|dimension" />
+        <attr name="bitmap_marginLeft" format="reference|dimension" />
+        <attr name="bitmap_margintTop" format="dimension|reference" />
+
+        <attr name="text_margin" format="dimension|reference" />
+        <attr name="right_top_text" format="reference|string" />
+        <attr name="right_top_text_size" format="reference|dimension" />
+        <attr name="right_top_text_color" format="reference|color" />
+
+        <attr name="right_bottom_text" format="reference|string" />
+        <attr name="right_bottom_text_size" format="reference|dimension" />
+        <attr name="right_bottom_text_color" format="reference|color" />
+        <attr name="right_bottom_text_marginTop" format="dimension|reference" />
+    </declare-styleable>
+    <declare-styleable name="Leans45DegreeView">
+        <attr name="leans_height" format="dimension|reference" />
+    </declare-styleable>
+
+</resources>

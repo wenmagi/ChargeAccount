@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.wen.magi.baseframe.views.fortest.RectTextView
+        android:id="@+id/zidingyi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main_tv1"
+        android:background="@color/alpha_30_percent_black"
+        app:bitmap_height="50dp"
+        app:bitmap_src="@drawable/custom_img"
+        app:right_bottom_text="@string/right_top_text"
+        app:right_top_text="@string/right_top_text"
+        app:text_margin="10dp" />
+</LinearLayout>
+

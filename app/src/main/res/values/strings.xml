@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">AndroidBaseFrame</string>
+    <string name="dialog_default_title">Here\'s a message!</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="LOADING">Loading...</string>
+    <string name="no_network_warn">internet failed</string>
+
+
+    <!--for test-->
+    <string name="right_top_text">场馆绑定页面，若已定位用户位置，将当前城市的小熊快跑智能健身房置顶显示；若用户还未定位位置或定位失败，则默认置顶北京的小熊快跑智能健身房</string>
+</resources>
