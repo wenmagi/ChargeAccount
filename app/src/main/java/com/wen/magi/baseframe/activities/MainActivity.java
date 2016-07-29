@@ -10,9 +10,9 @@ import android.widget.TextView;
 import com.wen.magi.baseframe.R;
 import com.wen.magi.baseframe.annotations.From;
 import com.wen.magi.baseframe.base.BaseActivity;
+import com.wen.magi.baseframe.fortest.DialogTestActivity;
 import com.wen.magi.baseframe.utils.LogUtils;
 import com.wen.magi.baseframe.utils.SysUtils;
-import com.wen.magi.baseframe.views.BounceListView;
 import com.wen.magi.baseframe.web.WebActivity;
 
 import java.util.ArrayList;
@@ -28,9 +28,6 @@ public class MainActivity extends BaseActivity {
 
     @From(R.id.main_tv1)
     private TextView mainTv1;
-
-    @From(R.id.list_view)
-    private BounceListView listView;
 
     @From(R.id.stub_id1)
     private ViewStub viewStub;

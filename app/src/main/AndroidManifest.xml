@@ -15,7 +15,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.DialogTestActivity"></activity>
+        <activity android:name=".fortest.DialogTestActivity"></activity>
         <activity android:name=".web.WebActivity"></activity>
 
         <receiver android:name=".receivers.AppNetWorkReceiver">

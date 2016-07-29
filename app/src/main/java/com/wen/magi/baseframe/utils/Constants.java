@@ -15,4 +15,12 @@ public class Constants {
      */
     public static final String SETTINGS_IS_PUSHMESSAGE_ON = "settings_is_pushmessage_on";
     public static final String SETTINGS_PIC_QUALITY = "settings_pic_quality";
+
+
+    public static final int MAX_EVENTS_COUNT = 15;
+    public static final int MAX_EVENTS_SCROLL_COUNT = 84000;// must include
+    public static final int MAX_WEEK_SCROLL_COUNT = MAX_EVENTS_SCROLL_COUNT / 7;
+    public static final int MAX_MONTH_SCROLL_COUNT = MAX_EVENTS_SCROLL_COUNT / 30;
+
+
 }

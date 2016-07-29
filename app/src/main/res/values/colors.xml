@@ -22,5 +22,39 @@
     <color name="material_blue_grey_95">#ff21272b</color>
     <color name="material_deep_teal_20">#ff80cbc4</color>
     <color name="material_deep_teal_50">#ff009688</color>
+
+
+    <color name="transparency">#00000000</color>
+    <color name="yellow">#ffffeb0d</color>
+    <color name="yellow_pressed">#fffff9a1</color>
+    <color name="red">#ffff0000</color>
+    <color name="gray">#ff5e6166</color>
+    <color name="gray_pressed">#fff4f4f4</color>
+    <color name="orange">#ffff510d</color>
+    <color name="orange_pressed">#ffcd3f07</color>
+    <color name="green">#ff45c01a</color>
+
+    <color name="white">#ffffffff</color>
+    <color name="alpha_20_white">#33ffffff</color>
+    <color name="alpha_30_percent_white">#4Dffffff</color>
+    <color name="alpha_50_percent_white">#80ffffff</color>
+    <color name="alpha_80_percent_white">#ceffffff</color>
+
+    <color name="black">#ff000000</color>
+    <color name="alpha_20_percent_black">#33000000</color>
     <color name="alpha_30_percent_black">#4D000000</color>
+    <color name="alpha_50_percent_black">#80000000</color>
+    <color name="alpha_80_percent_black">#CC000000</color>
+
+    <color name="setting_background_gray">#fff1f1f1</color>
+    <!--页面的背景灰色-->
+    <color name="text_color_gray_99">#ff999999</color>
+    <!-- hint gray （例如EditText的hint颜色值） -->
+    <color name="text_color_gray_66">#ff666666</color>
+    <!-- gray -->
+    <color name="text_color_gray_33">#ff333333</color>
+    <!-- deep gray（深黑色，但比黑色优雅） -->
+    <color name="line_gray">#ffdddddd</color>
+
+
 </resources>

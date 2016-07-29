@@ -1,4 +1,4 @@
-package com.wen.magi.baseframe.activities;
+package com.wen.magi.baseframe.fortest;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
