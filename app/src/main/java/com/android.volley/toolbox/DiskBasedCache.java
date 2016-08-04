@@ -20,8 +20,9 @@ import android.os.SystemClock;
 
 import com.android.volley.Cache;
 import com.android.volley.VolleyLog;
-import com.kuaipao.utils.IOUtils;
-import com.kuaipao.utils.LangUtils;
+import com.wen.magi.baseframe.utils.IOUtils;
+import com.wen.magi.baseframe.utils.LangUtils;
+import com.wen.magi.baseframe.utils.StringUtils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -300,7 +301,7 @@ public class DiskBasedCache implements Cache {
     }
 
     public String getMD5Key(String key){
-        return IOUtils.md5(key);
+        return StringUtils.md5(key);
     }
 
     /**

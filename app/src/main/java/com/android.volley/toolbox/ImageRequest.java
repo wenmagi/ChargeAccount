@@ -22,8 +22,9 @@ import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyLog;
-import com.kuaipao.utils.LangUtils;
-import com.kuaipao.utils.LogUtils;
+import com.wen.magi.baseframe.utils.LangUtils;
+import com.wen.magi.baseframe.utils.LogUtils;
+import com.wen.magi.baseframe.utils.StringUtils;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -192,7 +193,7 @@ public class ImageRequest extends Request<Bitmap> {
         if (data.length > 100){
 
         }else{
-            path = LangUtils.utf8String(data, "");
+            path = StringUtils.utf8String(data, "");
             if (path.contains("ppy_card")){
                 isPath = true;
             }else{

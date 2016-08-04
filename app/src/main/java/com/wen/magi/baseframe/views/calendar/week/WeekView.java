@@ -18,7 +18,7 @@ import com.wen.magi.baseframe.utils.LangUtils;
 import com.wen.magi.baseframe.utils.LogUtils;
 import com.wen.magi.baseframe.utils.date.CalendarHelper;
 import com.wen.magi.baseframe.utils.date.DateTime;
-import com.wen.magi.baseframe.views.calendar.CalendarCellView;
+import com.wen.magi.baseframe.views.calendar.unit.CalendarCellView;
 
 
 public class WeekView extends View {
