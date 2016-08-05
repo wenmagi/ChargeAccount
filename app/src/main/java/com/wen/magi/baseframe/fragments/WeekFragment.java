@@ -12,7 +12,7 @@ import com.wen.magi.baseframe.utils.LogUtils;
 import com.wen.magi.baseframe.utils.ViewUtils;
 import com.wen.magi.baseframe.utils.date.CalendarHelper;
 import com.wen.magi.baseframe.utils.date.DateTime;
-import com.wen.magi.baseframe.views.calendar.unit.CalendarDrawerLayout;
+import com.wen.magi.baseframe.views.calendar.SlideDrawerLayout;
 import com.wen.magi.baseframe.views.calendar.week.WeekView;
 import com.wen.magi.baseframe.views.calendar.week.WeekViewPager;
 
@@ -24,14 +24,14 @@ import java.util.List;
 public class WeekFragment extends BaseFragment implements WeekViewPager.OnWeekChangedListener {
     private int mStartDayOfWeek = Calendar.MONDAY;
 
-    private static final String KEY_POSTION = "WeekFragment_position";
-    private static final String KEY_CURRENT_DAY = "WeekFragment_current_day";
+    private static final String KEY_POSTION = "weekfragment_position";
+    private static final String KEY_CURRENT_DAY = "weekfragment_current_day";
 
-    public static final String START_DAY_OF_WEEK = "startDayOfWeek";
+    public static final String START_DAY_OF_WEEK = "start_day_of_week";
     public static final String CELL_HEIGHT_WIDTH = "width_height";
 
     private WeekViewPager mWeekViewPager;
-    private List<WeekView> mWeekViewsList = new ArrayList<WeekView>();
+    private List<WeekView> mWeekViewsList = new ArrayList<>();
     private int mPosition = Constants.MAX_WEEK_SCROLL_COUNT / 2;
     private static final int WEEK_VIEW_COUNT = 3;
 
@@ -281,9 +281,9 @@ public class WeekFragment extends BaseFragment implements WeekViewPager.OnWeekCh
             mWeekViewPager.setUpOrDown(isUpOrDown);
     }
 
-    CalendarDrawerLayout mSlidingLayout;
+    SlideDrawerLayout mSlidingLayout;
 
-    public void setSlidingLayout(CalendarDrawerLayout slidingLayout) {
+    public void setSlidingLayout(SlideDrawerLayout slidingLayout) {
         mSlidingLayout = slidingLayout;
         if (mWeekViewPager != null)
             mWeekViewPager.setSlidingLayout(slidingLayout);

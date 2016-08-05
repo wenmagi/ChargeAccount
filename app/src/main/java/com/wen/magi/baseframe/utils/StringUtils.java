@@ -3,6 +3,8 @@ package com.wen.magi.baseframe.utils;
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 
+import com.wen.magi.baseframe.managers.AppManager;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
@@ -24,6 +26,12 @@ public class StringUtils {
     public static final int TYPE_ENGLISH = 1;
     public static final int TYPE_FUHAO = 2;
     public static final int TYPE_CHINA = 3;
+
+    public static String getString(int resID) {
+        if (resID <= 0)
+            return "";
+        return AppManager.getApplicationContext().getString(resID);
+    }
 
     /**
      * 替换string中的指定字符串

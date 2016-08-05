@@ -5,12 +5,14 @@ import android.view.View;
 import java.util.Date;
 
 /**
- * Created by MVEN on 16/7/29.
+ * Created by MVEN on 16/8/4.
  * <p/>
  * email: magiwen@126.com.
  */
 
-public abstract class WeekChangedListener {
+
+public abstract class MonthChangedListener {
+
     /**
      * 选择日期的回调
      *
@@ -30,21 +32,22 @@ public abstract class WeekChangedListener {
         // Do nothing
     }
 
+
     /**
-     * 周改变的回调
+     * 月份改变的回调
      *
      * @param month
      * @param year
      */
-    public void onChangeWeek(int day, int month, int year) {
+    public void onChangeMonth(int day, int month, int year) {
         // Do nothing
-
     }
 
+
     /**
-     * 周视图创建完毕的回调
+     * View创建完毕的回调
      */
-    public void onKiwiWeekAndDayViewCreated() {
+    public void onCaldroidViewCreated() {
         // Do nothing
     }
 }

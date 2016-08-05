@@ -4,16 +4,22 @@ package com.wen.magi.baseframe.views.calendar.month;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.wen.magi.baseframe.R;
+import com.wen.magi.baseframe.managers.AppManager;
 import com.wen.magi.baseframe.utils.Constants;
 import com.wen.magi.baseframe.utils.LangUtils;
 import com.wen.magi.baseframe.utils.LogUtils;
+import com.wen.magi.baseframe.utils.StringUtils;
+import com.wen.magi.baseframe.utils.ViewUtils;
 import com.wen.magi.baseframe.utils.date.CalendarHelper;
 import com.wen.magi.baseframe.utils.date.DateTime;
+import com.wen.magi.baseframe.utils.date.Lunar;
 import com.wen.magi.baseframe.views.calendar.unit.CalendarCellView;
 
 import java.util.ArrayList;
@@ -56,7 +62,7 @@ public class MonthView extends View {
     }
 
     public void setBackground(Drawable d) {
-        this.setBackground(d);
+        super.setBackground(d);
     }
 
     public void doDestory() {
@@ -102,7 +108,6 @@ public class MonthView extends View {
     }
 
     public void initCells() {
-        double density = getResources().getDisplayMetrics().density;
         if (this.mCells != null) {
             for (CalendarCellView[] week : mCells) {
                 for (CalendarCellView kdc : week) {
@@ -118,16 +123,19 @@ public class MonthView extends View {
             }
             mCells = null;
         }
+
         this.mCells = new CalendarCellView[mDatetimeList.size() / 7][7];
         RectF bound = new RectF(0, 0, mCellWidth, mCellHeight);
+
         for (int week = 0; week < mCells.length; week++) {
             for (int day = 0; day < mCells[week].length; day++) {
                 mCells[week][day] = new CalendarCellView(mDatetimeList.get(week * 7
                         + day), new RectF(bound),
                         CalendarHelper.getContentPaintBlack(),
-                        CalendarHelper.getTipPaintGray(), density);
+                        CalendarHelper.getTipPaintLunarDate());
                 bound.offset(mCellWidth, 0);
             }
+
             bound.offset(0, mCellHeight);
             bound.left = 0;
             bound.right = mCellWidth;
@@ -137,83 +145,167 @@ public class MonthView extends View {
     public void updateCells(DateTime selectedTime, boolean bForceUpdate) {
         if (this.mCells == null
                 || (!bForceUpdate && selectedTime.equals(mSelectedTime))) {
-            LogUtils.d("updateCells dddddddd");
             return;
         }
-
         mSelectedTime = selectedTime;
+
         for (int week = 0; week < mCells.length; week++) {
             for (int day = 0; day < mCells[week].length; day++) {
-
                 DateTime dateTime = mCells[week][day].getDate();
-                if (dateTime.getWeekDay() == Calendar.SATURDAY
-                        || dateTime.getWeekDay() == Calendar.SUNDAY)
-                    mCells[week][day].setContentPaint(CalendarHelper
-                            .getContentPaintGreen());
-                else
-                    mCells[week][day].setContentPaint(CalendarHelper
-                            .getContentPaintBlack());
 
-                if (dateTime.getMonth() == mCurrentDateTime.getMonth())
-                    mCells[week][day].setActiveMonth(true);
-                else {
-                    mCells[week][day].setActiveMonth(false);
-                    mCells[week][day].setContentPaint(CalendarHelper
-                            .getContentPaintGray());
-                }
+                updateTips(mCells[week][day], dateTime);
 
-                if (dateTime.equals(getToday())) {
-                    mCells[week][day].setToday(true);
-                    mCells[week][day].setTodayCirclePaint(CalendarHelper
-                            .getTodayCirclePaint());
-                } else {
-                    mCells[week][day].setToday(false);
-                    mCells[week][day].setTodayCirclePaint(null);
-                }
+                updatePaintColor(mCells[week][day], dateTime);
 
-                mCells[week][day].setDuty(false);
-                mCells[week][day].setBitmapWork(null);
+                updateCellBg(mCells[week][day], dateTime);
 
-                if ((mCurrentDateTime.getMonth() == mSelectedTime.getMonth() && dateTime
-                        .equals(mSelectedTime))
-                        || (mCurrentDateTime.getMonth() != mSelectedTime
-                        .getMonth() && dateTime
-                        .equals(mCurrentDateTime))) {
-                    mCells[week][day].setSelected(true);
-                    mCells[week][day].setContentPaint(CalendarHelper
-                            .getContentPaintWhite());
-                    mCells[week][day].setTipPaint(CalendarHelper
-                            .getTipPaintWhite());
-                    mCells[week][day].setSelectedCirclePaint(CalendarHelper
-                            .getSelectedCirclePaint());
-                } else {
-                    mCells[week][day].setSelected(false);
-                    mCells[week][day].setSelectedCirclePaint(null);
-                }
+                updateChooseState(mCells[week][day], dateTime);
 
-                if (dateTime.getMonth() != mCurrentDateTime.getMonth()) {
-                    mCells[week][day].setEventCount(0);
-                } else {
-                    // TODO 获取事件个数
-                    int eventsCount = 0;
-                    mCells[week][day].setEventCount(eventsCount);
-                    if (eventsCount > 0) {
-                        if (mCells[week][day].isSelected()) {
-                            mCells[week][day]
-                                    .setHasEventsCirclePaint(CalendarHelper
-                                            .getHasEventsCirclePaintWhite());
-                        } else {
-                            mCells[week][day]
-                                    .setHasEventsCirclePaint(CalendarHelper
-                                            .getHasEventsCirclePaintGreen());
-                        }
-                    } else {
-                        mCells[week][day].setEventCount(0);
-                    }
-                }
+                updateEventCount(mCells[week][day], dateTime);
             }
         }
         invalidate();
+    }
+
+    /**
+     * 设置Cell是否有事件
+     *
+     * @param mCell
+     * @param dateTime
+     */
+    private void updateEventCount(CalendarCellView mCell, DateTime dateTime) {
+        if (dateTime.getMonth() != mCurrentDateTime.getMonth()) {
+            mCell.setEventCount(0);
+        } else {
+            // TODO 获取事件个数
+            int eventsCount = 0;
+            mCell.setEventCount(eventsCount);
+            if (eventsCount > 0) {
+                if (mCell.isSelected()) {
+                    mCell.setHasEventsCirclePaint(CalendarHelper
+                            .getHasEventsCirclePaintWhite());
+                } else {
+                    mCell.setHasEventsCirclePaint(CalendarHelper
+                            .getHasEventsCirclePaintGreen());
+                }
+            } else {
+                mCell.setEventCount(0);
+            }
+        }
+    }
+
+    /**
+     * 设置选选中状态
+     *
+     * @param mCell
+     * @param dateTime
+     */
+    private void updateChooseState(CalendarCellView mCell, DateTime dateTime) {
+        //设置选中和未选中的状态
+        if ((mCurrentDateTime.getMonth() == mSelectedTime.getMonth() && dateTime
+                .equals(mSelectedTime))
+                || (mCurrentDateTime.getMonth() != mSelectedTime
+                .getMonth() && dateTime
+                .equals(mCurrentDateTime))) {
+            mCell.setSelected(true);
+            mCell.setContentPaint(CalendarHelper
+                    .getContentPaintWhite());
+            mCell.setTipPaint(mCell.isLunarHoliday() ? CalendarHelper.getTipPaintLunarHolidayWhite() : CalendarHelper.getTipPaintWhite());
+            mCell.setSelectedCirclePaint(CalendarHelper
+                    .getSelectedCirclePaint());
+        } else {
+            if (dateTime.getMonth() == mCurrentDateTime.getMonth()) {
+                if (mCell.isLunarHoliday())
+                    mCell.setTipPaint(CalendarHelper.getTipPaintLunarHolidayRed());
+                else if (mCell.isSolarHoliday())
+                    mCell.setTipPaint(CalendarHelper.getTipPaintSolarHoliday());
+                else
+                    mCell.setTipPaint(CalendarHelper.getTipPaintLunarDate());
+            } else {
+                mCell.setTipPaint(CalendarHelper
+                        .getTipPaintGray());
+            }
+            mCell.setSelected(false);
+            mCell.setSelectedCirclePaint(null);
+        }
+    }
+
+    /**
+     * 设置背景
+     *
+     * @param mCell
+     * @param dateTime
+     */
+    private void updateCellBg(CalendarCellView mCell, DateTime dateTime) {
+        //设置当天或他天背景圆圈
+        if (dateTime.equals(getToday())) {
+            mCell.setToday(true);
+            mCell.setTodayCirclePaint(CalendarHelper
+                    .getTodayCirclePaint());
+        } else {
+            mCell.setToday(false);
+            mCell.setTodayCirclePaint(null);
+        }
+
+        mCell.setDuty(false);
+        mCell.setBitmapWork(null);
+    }
+
+    /**
+     * 设置文本颜色
+     *
+     * @param mCell
+     * @param dateTime
+     */
+    private void updatePaintColor(CalendarCellView mCell, DateTime dateTime) {
+        //设置双休和工作日文本颜色
+        if (dateTime.getWeekDay() == Calendar.SATURDAY
+                || dateTime.getWeekDay() == Calendar.SUNDAY)
+            mCell.setContentPaint(CalendarHelper
+                    .getContentPaintGreen());
+        else
+            mCell.setContentPaint(CalendarHelper
+                    .getContentPaintBlack());
+        //设置当月和他月文本颜色
+        if (dateTime.getMonth() == mCurrentDateTime.getMonth()) {
+            mCell.setActiveMonth(true);
+        } else {
+            mCell.setActiveMonth(false);
+            mCell.setContentPaint(CalendarHelper
+                    .getContentPaintGray());
+        }
+    }
+
+    /**
+     * 设置tips，包括节假日、农历
+     *
+     * @param mCell
+     * @param dateTime
+     */
+    private void updateTips(CalendarCellView mCell, DateTime dateTime) {
+        Lunar lunar = AppManager.lunar;
+        lunar.setCalendar(dateTime.getDate());
+        String lunarStr = lunar.getLunarDayString();
+        String holiday = lunar.getChineseHoliday();
+        String solarHoliday = lunar.getDateHoliday();
+        String tips = null;
+        if (LangUtils.isNotEmpty(holiday)) {
+            mCell.setLunarHoliday(true);
+            tips = holiday;
+        } else if (LangUtils.isNotEmpty(solarHoliday)) {
+            mCell.setSolarHoliday(true);
+            tips = solarHoliday;
+        } else {
+            if (lunarStr != null && lunarStr.contains(StringUtils.getString(R.string.first_day_of_lunar_month))) {
+                tips = lunar.getLunarMonthString();
+            } else {
+                tips = lunarStr;
+            }
+            mCell.setLunarHoliday(false);
+            mCell.setSolarHoliday(false);
+        }
+        if (tips != null)
+            mCell.setStrTip(tips);
     }
 
     public void updateToday() {
@@ -247,8 +339,6 @@ public class MonthView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        // TODO Auto-generated method stub
-
         heightMeasureSpec = MeasureSpec.makeMeasureSpec(mCellHeight * 6,
                 MeasureSpec.EXACTLY);
 
@@ -257,11 +347,8 @@ public class MonthView extends View {
 
     private float lastX, lastY, nowX, nowY;
 
-    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        @SuppressWarnings("unused")
-        boolean isMove = false;
         boolean isHandled = false;
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -287,14 +374,13 @@ public class MonthView extends View {
                             for (CalendarCellView day : week) {
                                 if (day.hitCell((int) event.getX(),
                                         (int) event.getY())) {
+
                                     if (day.getDate().getMonth() == CalendarHelper
                                             .getSelectedDay().getMonth()) {
-                                        CalendarHelper
-                                                .setSelectedDay(day.getDate());
-                                        updateCells(
-                                                CalendarHelper.getSelectedDay(),
-                                                true);
+                                        CalendarHelper.setSelectedDay(day.getDate());
+                                        updateCells(CalendarHelper.getSelectedDay(), true);
                                     }
+
                                     mOnCellClickListener.onCellClick(day.getDate());
                                 }
                             }

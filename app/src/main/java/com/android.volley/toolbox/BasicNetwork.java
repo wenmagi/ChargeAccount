@@ -31,9 +31,8 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
-import com.kuaipao.utils.LangUtils;
-import com.kuaipao.utils.LogUtils;
-import com.kuaipao.web.RequestQueueManager;
+import com.wen.magi.baseframe.managers.RequestQueueManager;
+import com.wen.magi.baseframe.utils.LangUtils;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;

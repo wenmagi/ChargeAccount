@@ -6,7 +6,9 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
+import com.wen.magi.baseframe.utils.LangUtils;
 import com.wen.magi.baseframe.utils.LogUtils;
+import com.wen.magi.baseframe.utils.SysUtils;
 import com.wen.magi.baseframe.utils.ViewUtils;
 import com.wen.magi.baseframe.utils.date.DateTime;
 
@@ -28,6 +30,8 @@ public class CalendarCellView {
     private boolean isDuty = false;
     private boolean isRest = false;
     private boolean isToday = false;
+    private boolean isLunarHoliday = false;
+    private boolean isSolarHoliday = false;
 
     private double mScreenDensity = 0;
 
@@ -43,76 +47,21 @@ public class CalendarCellView {
     private Bitmap mBitmapWork = null;
 
     public CalendarCellView(DateTime date, RectF rect, Paint contentPaint,
-                            Paint tipPaint, double density) {
+                            Paint tipPaint) {
         mBound = rect;
         setContentPaint(contentPaint);
         setTipPaint(tipPaint);
         setDate(date);
-        setScreenDensity(density);
     }
 
     public void draw(Canvas canvas) {
-        String strDay = String.valueOf(mDate.getDay());
-        int padding = ViewUtils.dp2pix(6);
-        int adjustLeftPosition = 0;
-        float centerX = mBound.centerX();
+        drawCellBg(canvas);
 
-        //没选中的今天cell背景
-        if (isToday && isCurrentMonth && !isSelected) {
-            canvas.drawCircle(centerX, mBound.centerY(),
-                    mBound.width() < mBound.height() ? mBound.width() / 2
-                            - padding : mBound.height() / 2 - padding,
-                    mTodayCirclePaint);
-        }
-        //已选中的cell背景
-        if (isSelected) {
-            canvas.drawCircle(centerX, mBound.centerY(),
-                    mBound.width() < mBound.height() ? mBound.width() / 2
-                            - padding : mBound.height() / 2 - padding,
-                    mSelectedCirclePaint);
-        }
-        //绘制今天日期
-        RectF bounds = new RectF(mBound);
-        bounds.right = mContentPaint.measureText(strDay, 0, strDay.length());
-        bounds.bottom = mContentPaint.descent() - mContentPaint.ascent();
-        bounds.left += (mBound.width() - bounds.right) / 2.0f;
-        bounds.top += (mBound.height() - bounds.bottom) / 2.0f;
-        float dayBottom = bounds.top - mContentPaint.ascent()
-                + ViewUtils.dp2pix(-15);
-        if (getScreenDensity() >= 1.5 && getScreenDensity() < 2.0)// hdpi
-            dayBottom = bounds.top - mContentPaint.ascent()
-                    + ViewUtils.dp2pix(-10);
-        canvas.drawText(strDay,
-                bounds.left - adjustLeftPosition,
-                dayBottom + padding, mContentPaint);
+        float dayBottom = drawSolarNum(canvas);
 
-        if (isCurrentMonth) {
-            Rect dayRect = new Rect();
-            mContentPaint.getTextBounds(strDay, 0, strDay.length(), dayRect);
-            float dayHeight = dayRect.height();
-            Rect tipRect = new Rect();
-            String strTipShow = strTip;
-            if (strTipShow.length() > 3) {
-                strTipShow = strTipShow.substring(0, 3);
-            }
-            mTipPaint
-                    .getTextBounds(strTipShow, 0, strTipShow.length(), tipRect);
-            float tipHeight = tipRect.height();
-            float dayAndTipMarginY = ViewUtils.dp2pix(3);
-            canvas.drawText(strTipShow,
-                    centerX - mTipPaint.measureText(strTipShow) / 2, dayBottom
-                            + tipHeight + dayAndTipMarginY, mTipPaint);
+        drawBottomDesc(canvas, dayBottom);
 
-            if (mEventCount > 0) {
-                int radius = ViewUtils.dp2pix(2);
-                int marginY = ViewUtils.dp2pix(2);
-                if (getScreenDensity() >= 1.5 && getScreenDensity() < 2.0)// hdpi
-                    marginY = 0;
-                canvas.drawCircle(centerX - adjustLeftPosition, dayBottom
-                                - dayHeight - radius - marginY, radius,
-                        mHasEventsCirclePaint);
-            }
-        }
+        drawEventCircle(canvas, dayBottom);
 
         try {
             //假期图标的绘制
@@ -143,9 +92,100 @@ public class CalendarCellView {
 
     }
 
+    /**
+     * 绘制每个Cell的背景，当前定位圆圈
+     *
+     * @param canvas 画布
+     */
+    private void drawCellBg(Canvas canvas) {
+        //没选中的今天cell背景
+        float centerX = mBound.centerX();
+        float padding = ViewUtils.dp2pix(1);
+        float edge = mBound.width() < mBound.height() ? mBound.width() : mBound.height();
+        float radius = edge / 2 - padding;
+        if (isToday && isCurrentMonth && !isSelected) {
+            canvas.drawCircle(centerX, mBound.centerY(),
+                    radius,
+                    mTodayCirclePaint);
+        }
+        //已选中的cell背景
+        if (isSelected) {
+            canvas.drawCircle(centerX, mBound.centerY(),
+                    radius,
+                    mSelectedCirclePaint);
+        }
+    }
+
+    /**
+     * 绘制事件存在时的小圆点
+     *
+     * @param canvas    画布
+     * @param dayBottom 文字底部的y坐标
+     */
+    private void drawEventCircle(Canvas canvas, float dayBottom) {
+        if (!isCurrentMonth || mEventCount <= 0)
+            return;
+
+        int eventRadius = ViewUtils.dp2pix(2);
+        int marginY = ViewUtils.dp2pix(2);
+        if (SysUtils.DENSITY >= 1.5 && SysUtils.DENSITY < 2.0)// hdpi
+            marginY = 0;
+        canvas.drawCircle(mBound.centerX(), dayBottom
+                        - ViewUtils.getTextHeight(mContentPaint, "0") - eventRadius - marginY, eventRadius,
+                mHasEventsCirclePaint);
+    }
+
+    /**
+     * 绘制阳历日期底部的文字，没有节日或事件，默认阴历
+     *
+     * @param canvas    画布
+     * @param dayBottom 文字底部的y坐标
+     */
+    private void drawBottomDesc(Canvas canvas, float dayBottom) {
+        if (!isCurrentMonth)
+            return;
+
+        //绘制节日
+        String strTip = getStrTip();
+        if (LangUtils.isNotEmpty(strTip) && strTip.length() > 3) {
+            strTip = strTip.substring(0, 3);
+        }
+
+        float tipLen = mTipPaint.measureText(strTip, 0, strTip.length());
+        float tipLeft = mBound.left + (mBound.width() - tipLen) / 2.0f;
+        float tipBottom = dayBottom + ViewUtils.getTextHeight(mTipPaint, strTip);
+        canvas.drawText(strTip,
+                tipLeft,
+                tipBottom, mTipPaint);
+    }
+
+    /**
+     * 绘制阳历数字
+     *
+     * @param canvas 画布
+     * @return 文字底部的y坐标
+     */
+    private float drawSolarNum(Canvas canvas) {
+        String strDay = String.valueOf(mDate.getDay());
+        //绘制今天日期
+        RectF bounds = new RectF(mBound);
+        bounds.right = mContentPaint.measureText(strDay, 0, strDay.length());
+        bounds.bottom = mContentPaint.descent() - mContentPaint.ascent();
+        bounds.left += (mBound.width() - bounds.right) / 2.0f;
+        bounds.top += (mBound.height() - bounds.bottom) / 2.0f;
+
+        float dayBottom = bounds.top - mContentPaint.ascent()
+                + ViewUtils.dp2pix(-15);
+        if (SysUtils.DENSITY >= 1.5 && SysUtils.DENSITY < 2.0)// hdpi
+            dayBottom = bounds.top - mContentPaint.ascent()
+                    + ViewUtils.dp2pix(-10);
+        canvas.drawText(strDay,
+                bounds.left,
+                dayBottom, mContentPaint);
+        return dayBottom;
+    }
+
     public boolean hitCell(int x, int y) {
-        if (mBound.contains(x, y))
-            LogUtils.d("qqqqqqq hitCell mDate=%s", mDate);
         return mBound.contains(x, y);
     }
 
@@ -269,11 +309,19 @@ public class CalendarCellView {
         this.mBitmapWork = mBitmapWork;
     }
 
-    public double getScreenDensity() {
-        return mScreenDensity;
+    public void setLunarHoliday(boolean isLunarHoliday) {
+        this.isLunarHoliday = isLunarHoliday;
     }
 
-    public void setScreenDensity(double screenDensity) {
-        this.mScreenDensity = screenDensity;
+    public void setSolarHoliday(boolean isSolarHoliday) {
+        this.isSolarHoliday = isSolarHoliday;
+    }
+
+    public boolean isLunarHoliday() {
+        return isLunarHoliday;
+    }
+
+    public boolean isSolarHoliday() {
+        return isSolarHoliday;
     }
 }

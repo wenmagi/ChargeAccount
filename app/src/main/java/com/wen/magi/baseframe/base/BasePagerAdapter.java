@@ -24,7 +24,7 @@ public class BasePagerAdapter<T> extends PagerAdapter {
             this.datas.addAll(datas);
     }
 
-    public void setLists(List<T> datas) {
+    public void setDatas(List<T> datas) {
         if (this.datas == null)
             this.datas = new ArrayList<>();
         else

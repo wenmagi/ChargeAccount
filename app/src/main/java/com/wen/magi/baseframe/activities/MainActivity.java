@@ -5,17 +5,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wen.magi.baseframe.R;
 import com.wen.magi.baseframe.annotations.From;
 import com.wen.magi.baseframe.base.BaseActivity;
 import com.wen.magi.baseframe.fortest.DialogTestActivity;
+import com.wen.magi.baseframe.utils.Constants;
 import com.wen.magi.baseframe.utils.LogUtils;
 import com.wen.magi.baseframe.utils.SysUtils;
+import com.wen.magi.baseframe.views.calendar.month.MonthView;
 import com.wen.magi.baseframe.web.WebActivity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -42,13 +46,13 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         mainTv.setOnClickListener(this);
         mainTv1.setOnClickListener(this);
-        LogUtils.e("wwwwwwwwweeeeewww");
+
     }
 
     @Override
     protected void OnClickView(View v) {
         if (v == mainTv) {
-            Intent intent = new Intent(this, DialogTestActivity.class);
+            Intent intent = new Intent(this, /*DialogTestActivity*/CalendarActivity.class);
 //            startActivity(DialogTestActivity.class);
             if (SysUtils.nowSDKINTBigger(21)) {
                 startActivity(intent,

@@ -15,17 +15,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:numColumns="7"
-            android:stretchMode="columnWidth"></GridView>
+            android:stretchMode="columnWidth" />
     </LinearLayout>
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/layout_week_calendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/layout_week_name"
         android:background="@color/white"
         android:gravity="center_vertical"
-        android:orientation="horizontal"></FrameLayout>
+        android:orientation="vertical"
+        android:visibility="gone" />
 
+    <LinearLayout
+        android:id="@+id/layout_month_calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_week_calendar"
+        android:orientation="vertical" />
 
 </RelativeLayout>

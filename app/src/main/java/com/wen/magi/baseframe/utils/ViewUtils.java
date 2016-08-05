@@ -82,7 +82,7 @@ public class ViewUtils {
     }
 
     public static float pix2dp(int pix) {
-        return pix > 0 ? pix / SysUtils.DENSITYDPI + 0.5f : pix;
+        return pix > 0 ? pix / SysUtils.DENSITY + 0.5f : pix;
     }
 
     public static int sp2pix(float sp) {
@@ -90,7 +90,7 @@ public class ViewUtils {
     }
 
     public static int dp2pix(float dp) {
-        return dp > 0 ? (int) (dp * SysUtils.DENSITYDPI + 0.5f) : (int) dp;
+        return dp > 0 ? (int) (dp * SysUtils.DENSITY + 0.5f) : (int) dp;
     }
 
     /**

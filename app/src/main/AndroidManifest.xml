@@ -17,12 +17,14 @@
         </activity>
         <activity android:name=".fortest.DialogTestActivity"></activity>
         <activity android:name=".web.WebActivity"></activity>
+        <activity android:name=".activities.CalendarActivity"/>
 
         <receiver android:name=".receivers.AppNetWorkReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>

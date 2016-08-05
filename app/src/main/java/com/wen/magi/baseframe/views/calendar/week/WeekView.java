@@ -42,6 +42,10 @@ public class WeekView extends View {
     private CalendarCellView[][] mCells = null;
     private int mPosition = Constants.MAX_WEEK_SCROLL_COUNT / 2;
 
+    public WeekView(Context context) {
+        super(context);
+    }
+
     public WeekView(Context context, int position, int width, int height,
                     int startDayOfWeek) {
         super(context);
@@ -113,7 +117,7 @@ public class WeekView extends View {
                     mCells[week][day] = new CalendarCellView(mDatetimeList.get(week
                             * 7 + day), new RectF(bound),
                             CalendarHelper.getContentPaintBlack(),
-                            CalendarHelper.getTipPaintGray(), density);
+                            CalendarHelper.getTipPaintGray());
                     bound.offset(mCellWidth, 0);
                 }
                 bound.offset(0, mCellHeight);
@@ -135,7 +139,6 @@ public class WeekView extends View {
 
         if (this.mCells == null
                 || (!bForceUpdate && selectedTime.equals(mSelectedTime))) {
-            LogUtils.d("updateCells refresh");
             return;
         }
 
@@ -168,7 +171,7 @@ public class WeekView extends View {
                         .equals(mSelectedTime))
                         || (!CalendarHelper.isInThisWeek(mSelectedTime,
                         mCurrentDateTime, mStartDayOfWeek) && dateTime
-                        .equals(mCurrentDateTime))){
+                        .equals(mCurrentDateTime))) {
 
                     mCells[week][day].setSelected(true);
                     mCells[week][day].setContentPaint(CalendarHelper
@@ -182,6 +185,7 @@ public class WeekView extends View {
                     mCells[week][day].setSelectedCirclePaint(null);
                 }
 
+                //TODO
                 int eventsCount = 1;
                 mCells[week][day].setEventCount(eventsCount);
                 if (eventsCount > 0) {

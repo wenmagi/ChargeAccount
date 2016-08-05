@@ -45,7 +45,7 @@ public class Constants {
     public final static int SELECT_TYPE_FROM_JUMP_TO = 0x5;
 
     /*MonthFragment*/
-    public static final String BUNDLE_MONTH_FRAGMENT_POSITION = "bundle_month_fragment_position";
+    public static final String BUNDLE_MONTH_FRAGMENT = "bundle_month_fragment";
 
 
 }

@@ -24,7 +24,6 @@ public class MonthViewPager extends ViewPager {
      */
     private boolean enabled = true;
 
-    // ******* Setter and getters *********
     public boolean isEnabled() {
         return enabled;
     }
@@ -33,7 +32,6 @@ public class MonthViewPager extends ViewPager {
         this.enabled = enabled;
     }
 
-    // ************** Constructors ********************
     public MonthViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -45,7 +43,6 @@ public class MonthViewPager extends ViewPager {
     @Override
     public void setAdapter(PagerAdapter adapter) {
         super.setAdapter(adapter);
-        // offset first element so that we can scroll to the left
         setCurrentItem(OFFSET);
     }
 

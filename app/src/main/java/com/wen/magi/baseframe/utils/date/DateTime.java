@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
@@ -867,6 +868,12 @@ public final class DateTime implements Comparable<DateTime>, Serializable {
             result = Unit.YEAR;
         }
         return result;
+    }
+
+    public Date getDate() {
+        Date date = new Date();
+        date.setTime(this.getMilliseconds(TimeZone.getDefault()));
+        return date;
     }
 
     /**

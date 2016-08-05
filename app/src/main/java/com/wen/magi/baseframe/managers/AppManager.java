@@ -8,6 +8,7 @@ import com.wen.magi.baseframe.models.AppUser;
 import com.wen.magi.baseframe.utils.Constants;
 import com.wen.magi.baseframe.utils.IOUtils;
 import com.wen.magi.baseframe.utils.SysUtils;
+import com.wen.magi.baseframe.utils.date.Lunar;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 public class AppManager {
 
     private static Context applicationContext;
+    public static Lunar lunar;
 
     public static Context getApplicationContext() {
         return applicationContext;
@@ -26,6 +28,7 @@ public class AppManager {
         applicationContext = context;
         SysUtils.initialize(context);
         algorithms.getInstance();
+        lunar = Lunar.getInstance();
     }
 
     /**

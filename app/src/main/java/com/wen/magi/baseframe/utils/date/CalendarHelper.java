@@ -379,6 +379,9 @@ public class CalendarHelper {
     private static Paint tipPaintGray = null;
     private static Paint tipPaintGreen = null;
     private static Paint tipPaintWhite = null;
+    private static Paint tipLunarHolidayRed = null;
+    private static Paint tipLunarHolidayWhite = null;
+    private static Paint tipPaintLunarNormal = null;
     private static Paint todayCirclePaint = null;
     private static Paint selectedCirclePaint = null;
     private static Paint hasEventsCirclePaintWhite = null;
@@ -391,7 +394,7 @@ public class CalendarHelper {
             contentPaintBlack.setShader(null);
             contentPaintBlack.setFakeBoldText(false);
             contentPaintBlack.setTextSize(AppManager.getApplicationContext()
-                    .getResources().getDimension(R.dimen.text_size_main_title));
+                    .getResources().getDimension(R.dimen.calendar_text_size));
             contentPaintBlack.setColor(AppManager.getApplicationContext()
                     .getResources().getColor(R.color.black));
             // contentPaintBlack.setTypeface(ViewUtils.getLightTypeface());
@@ -399,6 +402,11 @@ public class CalendarHelper {
         return contentPaintBlack;
     }
 
+    /**
+     * tips paint
+     *
+     * @return
+     */
     public static Paint getTipPaintGray() {
         if (tipPaintGray == null) {
             tipPaintGray = new Paint();
@@ -406,27 +414,40 @@ public class CalendarHelper {
             tipPaintGray.setShader(null);
             tipPaintGray.setFakeBoldText(false);
             tipPaintGray.setTextSize(AppManager.getApplicationContext()
-                    .getResources().getDimension(R.dimen.text_size_main_title));
+                    .getResources().getDimension(R.dimen.text_size_minimal));
             tipPaintGray.setColor(AppManager.getApplicationContext()
-                    .getResources().getColor(R.color.text_color_gray_66));
+                    .getResources().getColor(R.color.date_tips_normal_gray));
         }
         return tipPaintGray;
     }
 
-    public static Paint getTipPaintGreen() {
+    public static Paint getTipPaintSolarHoliday() {
         if (tipPaintGreen == null) {
             tipPaintGreen = new Paint();
             tipPaintGreen.setAntiAlias(true);
             tipPaintGreen.setShader(null);
             tipPaintGreen.setFakeBoldText(false);
             tipPaintGreen.setTextSize(AppManager.getApplicationContext()
-                    .getResources().getDimension(R.dimen.text_size_main_title));
+                    .getResources().getDimension(R.dimen.text_size_minimal));
             tipPaintGreen.setColor(AppManager.getApplicationContext()
-                    .getResources().getColor(R.color.green));
+                    .getResources().getColor(R.color.forest_green));
         }
         return tipPaintGreen;
     }
 
+    public static Paint getTipPaintLunarDate(){
+        if (tipPaintLunarNormal == null) {
+            tipPaintLunarNormal = new Paint();
+            tipPaintLunarNormal.setAntiAlias(true);
+            tipPaintLunarNormal.setShader(null);
+            tipPaintLunarNormal.setFakeBoldText(false);
+            tipPaintLunarNormal.setTextSize(AppManager.getApplicationContext()
+                    .getResources().getDimension(R.dimen.text_size_minimal));
+            tipPaintLunarNormal.setColor(AppManager.getApplicationContext()
+                    .getResources().getColor(R.color.date_tips_normal_gray));
+        }
+        return tipPaintLunarNormal;
+    }
     public static Paint getTipPaintWhite() {
         if (tipPaintWhite == null) {
             tipPaintWhite = new Paint();
@@ -434,11 +455,38 @@ public class CalendarHelper {
             tipPaintWhite.setShader(null);
             tipPaintWhite.setFakeBoldText(false);
             tipPaintWhite.setTextSize(AppManager.getApplicationContext()
-                    .getResources().getDimension(R.dimen.text_size_main_title));
+                    .getResources().getDimension(R.dimen.text_size_minimal));
             tipPaintWhite.setColor(AppManager.getApplicationContext()
                     .getResources().getColor(R.color.white));
         }
         return tipPaintWhite;
+    }
+
+    public static Paint getTipPaintLunarHolidayRed() {
+        if (tipLunarHolidayRed == null) {
+            tipLunarHolidayRed = new Paint();
+            tipLunarHolidayRed.setAntiAlias(true);
+            tipLunarHolidayRed.setShader(null);
+            tipLunarHolidayRed.setFakeBoldText(false);
+            tipLunarHolidayRed.setTextSize(AppManager.getApplicationContext()
+                    .getResources().getDimension(R.dimen.text_size_describe));
+            tipLunarHolidayRed.setColor(AppManager.getApplicationContext()
+                    .getResources().getColor(R.color.china_red));
+        }
+        return tipLunarHolidayRed;
+    }
+    public static Paint getTipPaintLunarHolidayWhite() {
+        if (tipLunarHolidayWhite == null) {
+            tipLunarHolidayWhite = new Paint();
+            tipLunarHolidayWhite.setAntiAlias(true);
+            tipLunarHolidayWhite.setShader(null);
+            tipLunarHolidayWhite.setFakeBoldText(false);
+            tipLunarHolidayWhite.setTextSize(AppManager.getApplicationContext()
+                    .getResources().getDimension(R.dimen.text_size_describe));
+            tipLunarHolidayWhite.setColor(AppManager.getApplicationContext()
+                    .getResources().getColor(R.color.china_red));
+        }
+        return tipLunarHolidayWhite;
     }
 
     public static Paint getSelectedCirclePaint() {
@@ -448,7 +496,7 @@ public class CalendarHelper {
             selectedCirclePaint.setShader(null);
             selectedCirclePaint.setStyle(Style.FILL);
             selectedCirclePaint.setColor(AppManager.getApplicationContext()
-                    .getResources().getColor(R.color.green));
+                    .getResources().getColor(R.color.date_choose_color_bg));
         }
         return selectedCirclePaint;
     }
@@ -492,7 +540,7 @@ public class CalendarHelper {
             contentPaintGreen.setShader(null);
             contentPaintGreen.setFakeBoldText(false);
             contentPaintGreen.setTextSize(AppManager.getApplicationContext()
-                    .getResources().getDimension(R.dimen.text_size_main_title));
+                    .getResources().getDimension(R.dimen.calendar_text_size));
             contentPaintGreen.setColor(AppManager.getApplicationContext()
                     .getResources().getColor(R.color.green));
         }
@@ -506,9 +554,9 @@ public class CalendarHelper {
             contentPaintGray.setShader(null);
             contentPaintGray.setFakeBoldText(false);
             contentPaintGray.setTextSize(AppManager.getApplicationContext()
-                    .getResources().getDimension(R.dimen.text_size_main_title));
+                    .getResources().getDimension(R.dimen.calendar_text_size));
             contentPaintGray.setColor(AppManager.getApplicationContext()
-                    .getResources().getColor(R.color.text_color_gray_33));
+                    .getResources().getColor(R.color.text_color_gray_99));
         }
         return contentPaintGray;
     }
@@ -533,7 +581,7 @@ public class CalendarHelper {
             contentPaintWhite.setShader(null);
             contentPaintWhite.setFakeBoldText(false);
             contentPaintWhite.setTextSize(AppManager.getApplicationContext()
-                    .getResources().getDimension(R.dimen.text_size_main_title));
+                    .getResources().getDimension(R.dimen.calendar_text_size));
             contentPaintWhite.setColor(AppManager.getApplicationContext()
                     .getResources().getColor(R.color.white));
         }

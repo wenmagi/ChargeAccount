@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wen.magi.baseframe.utils.ViewUtils;
-import com.wen.magi.baseframe.views.calendar.unit.CalendarDrawerLayout;
+import com.wen.magi.baseframe.views.calendar.SlideDrawerLayout;
 
 public class WeekViewPager extends ViewGroup {
 
@@ -24,7 +24,7 @@ public class WeekViewPager extends ViewGroup {
     private int x = 0, currentX = 0;
     private volatile boolean isAnimation = false;
     private volatile boolean isUpOrDown = false;
-    private CalendarDrawerLayout mSlidingLayout;
+    private SlideDrawerLayout mSlidingLayout;
     private int nUpOrDown = -1;// -1: not; 0: up; 1:down
     private Timer animationTimer;
     private static final int ANIMATION_PERIOD = 10;
@@ -40,7 +40,7 @@ public class WeekViewPager extends ViewGroup {
         this.isUpOrDown = isUpOrDown;
     }
 
-    public void setSlidingLayout(CalendarDrawerLayout slidingLayout) {
+    public void setSlidingLayout(SlideDrawerLayout slidingLayout) {
         this.mSlidingLayout = slidingLayout;
     }
 
@@ -70,9 +70,6 @@ public class WeekViewPager extends ViewGroup {
                 downY = event.getY();
                 clearTimer();
             case MotionEvent.ACTION_MOVE:
-                // LogUtils.d("///////// WeekViewPager onInterceptTouchEvent ACTION_MOVE event.getX()=%s",
-                // event.getX());
-
                 float mx = event.getX();
                 float my = event.getY();
 
@@ -224,7 +221,7 @@ public class WeekViewPager extends ViewGroup {
         this.onWeekChangedListener = onPageChangedListener;
     }
 
-    public static interface OnWeekChangedListener {
+    public interface OnWeekChangedListener {
         void onPrepareNextWeek();
 
         void onPreparePrevWeek();

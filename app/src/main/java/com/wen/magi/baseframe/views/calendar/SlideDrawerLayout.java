@@ -1,5 +1,4 @@
-package com.wen.magi.baseframe.views.calendar.unit;
-
+package com.wen.magi.baseframe.views.calendar;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -11,10 +10,11 @@ import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.wen.magi.baseframe.utils.LogUtils;
 import com.wen.magi.baseframe.utils.ViewUtils;
 
 
-public class CalendarDrawerLayout extends RelativeLayout {
+public class SlideDrawerLayout extends RelativeLayout {
 
     private int nMoveDistanceMin = 10;
 
@@ -24,12 +24,12 @@ public class CalendarDrawerLayout extends RelativeLayout {
         void onSlidingFinish(boolean expand);
     }
 
-    public CalendarDrawerLayout(Context context, AttributeSet attrs) {
+    public SlideDrawerLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         nMoveDistanceMin = ViewUtils.dp2pix(10);
     }
 
-    public CalendarDrawerLayout(Context context) {
+    public SlideDrawerLayout(Context context) {
         super(context);
         nMoveDistanceMin = ViewUtils.dp2pix(10);
     }
@@ -130,6 +130,7 @@ public class CalendarDrawerLayout extends RelativeLayout {
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getAction();
         if (isAnimation) {
+            LogUtils.e("Animation is going ,return");
             return false;
         }
         switch (action) {
@@ -307,6 +308,7 @@ public class CalendarDrawerLayout extends RelativeLayout {
             timer.cancel();
             timer = null;
             isAnimation = false;
+            LogUtils.w("clear Timer maybe exception ,  isExpand %s", isExpand);
             updateLayout(isExpand ? 0 : expandTop);
         }
 
@@ -371,8 +373,8 @@ public class CalendarDrawerLayout extends RelativeLayout {
     }
 
     public interface StayViewChanger {
-        public void onStayViewShow();
+        void onStayViewShow();
 
-        public void onStayViewGone();
+        void onStayViewGone();
     }
 }

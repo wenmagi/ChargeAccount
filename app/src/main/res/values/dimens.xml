@@ -13,6 +13,8 @@
 
     <!-- 文字尺寸分类 -->
     <!-- 文字尺寸分类 -->
+    <dimen name="calendar_text_size">20dp</dimen>
+
     <dimen name="text_size_largest">25sp</dimen>
     <dimen name="text_size_larger">18sp</dimen>
     <dimen name="text_size_large">17sp</dimen>

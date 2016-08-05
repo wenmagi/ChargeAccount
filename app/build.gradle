@@ -5,7 +5,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "com.wen.magi.baseframe"
+        applicationId "com.wen.magi.noteheart"
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
@@ -27,7 +27,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'com.android.support:support-v4:22.1.1'
     compile 'org.greenrobot:eventbus:3.0.0' //EventBus，用于消息传递
-    compile 'com.mcxiaoke.volley:library:1.0.19' //网络处理
     compile 'com.pnikosis:materialish-progress:1.0'//加载wheel
     compile 'de.greenrobot:greendao:2.0.0'//greenDao:轻量极速的ORM解决方案
 
