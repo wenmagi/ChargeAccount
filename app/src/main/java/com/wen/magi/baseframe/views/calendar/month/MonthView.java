@@ -12,6 +12,7 @@ import com.wen.magi.baseframe.R;
 import com.wen.magi.baseframe.managers.AppManager;
 import com.wen.magi.baseframe.utils.Constants;
 import com.wen.magi.baseframe.utils.LangUtils;
+import com.wen.magi.baseframe.utils.LogUtils;
 import com.wen.magi.baseframe.utils.StringUtils;
 import com.wen.magi.baseframe.utils.date.CalendarHelper;
 import com.wen.magi.baseframe.utils.date.DateTime;
@@ -42,6 +43,8 @@ public class MonthView extends View {
     private int mCellWidth = 0, mCellHeight = 0;
     private CalendarCellView[][] mCells = null;
     private int mPosition = Constants.MAX_MONTH_SCROLL_COUNT / 2;
+    //判断日历是否分6行
+    private boolean hasSixLine = false;
 
     public MonthView(Context context) {
         super(context);
@@ -101,6 +104,9 @@ public class MonthView extends View {
                     mDatetimeList);
         }
 
+        if (mDatetimeList.get(5 * 7).getMonth() == mCurrentDateTime.getMonth()) {
+            hasSixLine = true;
+        }
         initCells();
         updateCells(CalendarHelper.getSelectedDay(), true);
     }
@@ -122,19 +128,27 @@ public class MonthView extends View {
             mCells = null;
         }
 
-        this.mCells = new CalendarCellView[mDatetimeList.size() / 7][7];
-        RectF bound = new RectF(0, 0, mCellWidth, mCellHeight);
+        mCells = new CalendarCellView[mDatetimeList.size() / 7][7];
+
+        RectF bound = new RectF(0, 0, mCellWidth, hasSixLine ? mCellHeight : mCellHeight * 6 / 5);
 
         for (int week = 0; week < mCells.length; week++) {
             for (int day = 0; day < mCells[week].length; day++) {
+
+                if (!hasSixLine && week == 5)
+                    break;
+
                 mCells[week][day] = new CalendarCellView(mDatetimeList.get(week * 7
                         + day), new RectF(bound),
                         CalendarHelper.getContentPaintBlack(),
                         CalendarHelper.getTipPaintLunarDate());
+                mCells[week][day].setNeedLargeForFiveLine(!hasSixLine);
+
                 bound.offset(mCellWidth, 0);
+
             }
 
-            bound.offset(0, mCellHeight);
+            bound.offset(0, hasSixLine ? mCellHeight : mCellHeight * 6 / 5);
             bound.left = 0;
             bound.right = mCellWidth;
         }
@@ -149,6 +163,10 @@ public class MonthView extends View {
 
         for (int week = 0; week < mCells.length; week++) {
             for (int day = 0; day < mCells[week].length; day++) {
+
+                if (mCells[week][day] == null)
+                    continue;
+
                 DateTime dateTime = mCells[week][day].getDate();
 
                 updateTips(mCells[week][day], dateTime);
@@ -323,6 +341,10 @@ public class MonthView extends View {
         if (mCells != null) {
             for (CalendarCellView[] week : mCells) {
                 for (CalendarCellView day : week) {
+
+                    if (day == null)
+                        continue;
+
                     day.draw(canvas);
                 }
             }
@@ -370,6 +392,8 @@ public class MonthView extends View {
                     if (mOnCellClickListener != null) {
                         for (CalendarCellView[] week : mCells) {
                             for (CalendarCellView day : week) {
+                                if (day == null)
+                                    continue;
                                 if (day.hitCell((int) event.getX(),
                                         (int) event.getY())) {
 

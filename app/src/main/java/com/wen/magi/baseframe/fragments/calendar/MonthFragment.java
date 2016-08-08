@@ -83,6 +83,7 @@ public class MonthFragment extends BaseFragment {
         monthPager.setAdapter(monthAdapter);
         monthPager.setCurrentItem(Constants.MAX_MONTH_SCROLL_COUNT / 2);
         monthPager.setOnPageChangeListener(new MonthPageChangeListener());
+        monthPager.setOffscreenPageLimit(0);
     }
 
     private class MonthPageChangeListener implements ViewPager.OnPageChangeListener {

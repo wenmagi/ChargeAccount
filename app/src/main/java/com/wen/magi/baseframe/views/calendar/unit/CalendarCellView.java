@@ -45,6 +45,8 @@ public class CalendarCellView {
 
     private Bitmap mBitmapRest = null;
     private Bitmap mBitmapWork = null;
+    //当月日历只有5行时，需要放大元素
+    private boolean needLargeForFiveLine = false;
 
     public CalendarCellView(DateTime date, RectF rect, Paint contentPaint,
                             Paint tipPaint) {
@@ -142,8 +144,8 @@ public class CalendarCellView {
      * @param dayBottom 文字底部的y坐标
      */
     private void drawBottomDesc(Canvas canvas, float dayBottom) {
-        if (!isCurrentMonth)
-            return;
+//        if (!isCurrentMonth)
+//            return;
 
         //绘制节日
         String strTip = getStrTip();
@@ -323,5 +325,9 @@ public class CalendarCellView {
 
     public boolean isSolarHoliday() {
         return isSolarHoliday;
+    }
+
+    public void setNeedLargeForFiveLine(boolean needLargeForFiveLine) {
+        this.needLargeForFiveLine = needLargeForFiveLine;
     }
 }
