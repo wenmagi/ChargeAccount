@@ -1,4 +1,4 @@
-package com.wen.magi.baseframe.fragments;
+package com.wen.magi.baseframe.fragments.calendar;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -13,9 +13,11 @@ import com.wen.magi.baseframe.interfaces.calendar.MonthChangedListener;
 import com.wen.magi.baseframe.models.MonthDatas;
 import com.wen.magi.baseframe.utils.Constants;
 import com.wen.magi.baseframe.utils.LangUtils;
+import com.wen.magi.baseframe.utils.LogUtils;
 import com.wen.magi.baseframe.utils.ViewUtils;
 import com.wen.magi.baseframe.utils.date.CalendarHelper;
 import com.wen.magi.baseframe.utils.date.DateTime;
+import com.wen.magi.baseframe.views.calendar.month.MonthView;
 import com.wen.magi.baseframe.views.calendar.month.MonthView.OnCellClickListener;
 import com.wen.magi.baseframe.views.calendar.month.MonthViewPager;
 
@@ -37,9 +39,10 @@ public class MonthFragment extends BaseFragment {
 
 
     private MonthViewPager monthPager;
+    private MonthPagerAdapter monthAdapter;
     private DateTime mToday;
+    //选中的日期
     private DateTime mCurrentDay;
-    private Date mSelectedDate;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,11 +75,10 @@ public class MonthFragment extends BaseFragment {
     private void initData() {
         mCurrentDay = getToday();
         mOnCellClickListener = getDateCellClickListener();
-        mSelectedDate = new Date();
     }
 
     private void initUI() {
-        MonthPagerAdapter monthAdapter = new MonthPagerAdapter(activity, datas, mOnCellClickListener);
+        monthAdapter = new MonthPagerAdapter(activity, datas, mOnCellClickListener);
         monthPager.setAdapter(monthAdapter);
         monthPager.setCurrentItem(Constants.MAX_MONTH_SCROLL_COUNT / 2);
         monthPager.setOnPageChangeListener(new MonthPageChangeListener());
@@ -87,13 +89,13 @@ public class MonthFragment extends BaseFragment {
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            bMoveToDate = true;
+            bMoveToDate = false;
             ViewUtils.showToast(activity, String.format("position %s", position), Toast.LENGTH_LONG);
         }
 
         @Override
         public void onPageSelected(int position) {
-            bMoveToDate = false;
+            isPageChanged = true;
         }
 
         @Override
@@ -101,46 +103,40 @@ public class MonthFragment extends BaseFragment {
             switch (state) {
                 case ViewPager.SCROLL_STATE_IDLE:
                     if (isPageChanged) {
-                        if (monthListener != null) {
-                            if (!bMoveToDate) {
+                        if (!bMoveToDate) {
 
-                                Calendar firstDayOfTodayMonth = Calendar
-                                        .getInstance();
-                                firstDayOfTodayMonth.set(Calendar.DAY_OF_MONTH,
-                                        1);
-                                Date beginOf = LangUtils
-                                        .cc_dateByMovingToBeginningOfDay(firstDayOfTodayMonth
-                                                .getTime());
+                            Calendar firstDayOfTodayMonth = Calendar
+                                    .getInstance();
+                            firstDayOfTodayMonth.set(Calendar.DAY_OF_MONTH,
+                                    1);
+                            Date beginOf = LangUtils
+                                    .cc_dateByMovingToBeginningOfDay(firstDayOfTodayMonth
+                                            .getTime());
 
+                            int offSet = monthPager
+                                    .getCurrentItem()
+                                    - Constants.MAX_MONTH_SCROLL_COUNT / 2;
 
-                                int offSet = monthPager
-                                        .getCurrentItem()
-                                        - Constants.MAX_MONTH_SCROLL_COUNT / 2;
-
-                                if (offSet > 0)
-                                    mCurrentDay = CalendarHelper
-                                            .convertDateToDateTime(beginOf)
-                                            .plus(0, offSet, 0, 0, 0, 0, 0, DateTime.DayOverflow.LastDay);
+                            if (offSet > 0)
+                                mCurrentDay = CalendarHelper
+                                        .convertDateToDateTime(beginOf)
+                                        .plus(0, offSet, 0, 0, 0, 0, 0, DateTime.DayOverflow.LastDay);
 
 
-                                else if (offSet < 0)
-                                    mCurrentDay = CalendarHelper
-                                            .convertDateToDateTime(beginOf)
-                                            .minus(0, -offSet, 0, 0, 0, 0, 0, DateTime.DayOverflow.LastDay);
+                            else if (offSet < 0)
+                                mCurrentDay = CalendarHelper
+                                        .convertDateToDateTime(beginOf)
+                                        .minus(0, -offSet, 0, 0, 0, 0, 0, DateTime.DayOverflow.LastDay);
 
-                                else
-                                    mCurrentDay = CalendarHelper
-                                            .convertDateToDateTime(beginOf);
+                            else
+                                mCurrentDay = mToday;
 
 
-                                monthListener.onChangeMonth(
-                                        mCurrentDay.getDay(),
-                                        mCurrentDay.getMonth(),
-                                        mCurrentDay.getYear());
-
-                            } else {
-                                bMoveToDate = false;
-                            }
+                            CalendarHelper.setSelectedDay(mCurrentDay);
+                            MonthView view = (MonthView) monthPager.findViewWithTag(monthPager.getCurrentItem());
+                            view.updateCells(CalendarHelper.getSelectedDay(), true);
+                        } else {
+                            bMoveToDate = false;
                         }
                     }
                     break;
@@ -158,14 +154,13 @@ public class MonthFragment extends BaseFragment {
             mOnCellClickListener = new OnCellClickListener() {
                 @Override
                 public void onCellClick(DateTime day) {
-                    if (monthListener != null) {
-                        Date date = CalendarHelper.convertDateTimeToDate(day);
-                        if (CalendarHelper.convertDateToDateTime(date)
-                                .getMonth().equals(mCurrentDay.getMonth())) {
-                            mCurrentDay = day;
-                        }
-                        monthListener.onSelectDate(date, null);
+                    if (day.getMonth().equals(mCurrentDay.getMonth())) {
+                        mCurrentDay = day;
+                    } else {
+                        changeCurrentDateAndMonth(day);
                     }
+
+
                 }
             };
         }
@@ -173,36 +168,24 @@ public class MonthFragment extends BaseFragment {
     }
 
 
-    MonthChangedListener monthListener = new MonthChangedListener() {
-        @Override
-        public void onSelectDate(Date date, View view) {
-            if (mSelectedDate.equals(date)) {
-                return;
-            }
-            if (!LangUtils.isSameMonth(date, mSelectedDate)) {
-            } else {
+    private void changeCurrentDateAndMonth(DateTime day) {
+        Date date = CalendarHelper.convertDateTimeToDate(day);
+        Date curr = CalendarHelper.convertDateTimeToDate(mCurrentDay);
+        int item = monthPager.getCurrentItem();
 
-            }
+        if (date.after(curr)) {
+            monthPager.setCurrentItem(item + 1);
+        } else {
+            monthPager.setCurrentItem(item - 1);
         }
-
-        @Override
-
-
-        public void onChangeMonth(int day, int month, int year) {
-            super.onChangeMonth(day, month, year);
-            Calendar calendar = new GregorianCalendar(year, month - 1, 1);
-            Date date = calendar.getTime();
-
-            if (LangUtils.isSameMonth(date, mSelectedDate)) {
-                return;
-            }
-
-        }
-    };
+        mCurrentDay = day;
+        CalendarHelper.setSelectedDay(mCurrentDay);
+    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        CalendarHelper.setSelectedDay(mToday);
     }
 
     @Override

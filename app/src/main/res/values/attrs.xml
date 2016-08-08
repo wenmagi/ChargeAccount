@@ -33,4 +33,12 @@
         <attr name="leans_height" format="dimension|reference" />
     </declare-styleable>
 
+    <declare-styleable name="TabView">
+        <attr name="text_size" format="dimension|reference"></attr>
+        <attr name="text_select_color" format="reference|color"></attr>
+        <attr name="text_normal_color" format="reference|color"></attr>
+        <attr name="item_padding" format="dimension|reference"></attr>
+        <attr name="image_text_margin" format="dimension|reference"></attr>
+    </declare-styleable>
+
 </resources>

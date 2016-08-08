@@ -1,6 +1,7 @@
 package com.wen.magi.baseframe.utils;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -16,6 +17,8 @@ import android.text.TextUtils;
 import android.view.Display;
 import android.view.TouchDelegate;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -316,5 +319,30 @@ public class ViewUtils {
             toast.setText(toastStr);
         }
         toast.show();
+    }
+
+    /**
+     * Remove a view from viewgroup.
+     *
+     * @param o can be null
+     */
+    public static void removeFromSuperView(Object o) {
+        if (o == null)
+            return;
+
+        if (o instanceof View) {
+            View view = (View) o;
+            final ViewParent parent = view.getParent();
+            if (parent == null)
+                return;
+            if (parent instanceof ViewGroup) {
+                ViewGroup group = (ViewGroup) parent;
+                group.removeView(view);
+            } else
+                LogUtils.w("the parent of view %s is not a viewgroup: %s", view, parent);
+        } else if (o instanceof Dialog) {
+            Dialog dialog = (Dialog) o;
+            dialog.hide();
+        }
     }
 }

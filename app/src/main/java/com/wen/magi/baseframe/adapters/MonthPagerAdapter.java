@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import com.wen.magi.baseframe.R;
 import com.wen.magi.baseframe.models.MonthDatas;
 import com.wen.magi.baseframe.utils.Constants;
+import com.wen.magi.baseframe.utils.LangUtils;
+import com.wen.magi.baseframe.utils.LogUtils;
+import com.wen.magi.baseframe.utils.date.CalendarHelper;
 import com.wen.magi.baseframe.views.calendar.month.MonthView;
 
 /**
@@ -43,8 +46,11 @@ public class MonthPagerAdapter extends PagerAdapter {
             v.setOnCellClickListener(listener);
             v.setBackgroundResource(R.color.white);
             views.put(position, v);
-        } else
+        } else {
             v = views.get(position);
+            v.invalidate();
+        }
+        v.setTag(position);
         container.addView(v);
         return v;
     }

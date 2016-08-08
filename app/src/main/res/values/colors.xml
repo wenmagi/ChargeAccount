@@ -58,9 +58,13 @@
     <color name="line_gray">#ffdddddd</color>
     <!-- 线条的黑色 -->
 
+    <!--Calendar主色调-->
+    <!--Calendar主色调-->
     <color name="date_choose_color_bg">#ffD3D3D3</color>
     <color name="date_tips_normal_gray">#ce2F4F4F</color>
     <color name="china_red">#ffe60000</color>
     <color name="forest_green">#ff008B00</color>
+
+    <color name="tab_view_background_color">#ffffff</color>
 
 </resources>

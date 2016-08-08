@@ -9,7 +9,6 @@
         android:id="@+id/zidingyi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/main_tv1"
         android:background="@color/alpha_30_percent_black"
         app:bitmap_height="50dp"
         app:bitmap_src="@drawable/custom_img"

@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -239,5 +240,15 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     }
 
-
+    /**
+     * 判断viewPagerID的ViewPager中，position位置的Fragment是否存在于内存中
+     *
+     * @param viewPagerID
+     * @param position
+     * @return
+     */
+    protected Fragment getFragmentCache(int viewPagerID, int position) {
+        return getSupportFragmentManager().findFragmentByTag(
+                "android:switcher:" + viewPagerID + ":" + position);
+    }
 }

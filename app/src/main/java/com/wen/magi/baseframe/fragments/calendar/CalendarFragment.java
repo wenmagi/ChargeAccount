@@ -1,37 +1,31 @@
-package com.wen.magi.baseframe.activities;
+package com.wen.magi.baseframe.fragments.calendar;
 
 import android.os.Bundle;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 
 import com.wen.magi.baseframe.R;
 import com.wen.magi.baseframe.adapters.WeekdayArrayAdapter;
 import com.wen.magi.baseframe.annotations.From;
 import com.wen.magi.baseframe.base.BaseActivity;
-import com.wen.magi.baseframe.fragments.MonthFragment;
-import com.wen.magi.baseframe.fragments.WeekFragment;
-import com.wen.magi.baseframe.interfaces.calendar.MonthChangedListener;
+import com.wen.magi.baseframe.base.BaseLazyLoadFragment;
 import com.wen.magi.baseframe.interfaces.calendar.WeekChangedListener;
 import com.wen.magi.baseframe.models.MonthDatas;
 import com.wen.magi.baseframe.utils.Constants;
-import com.wen.magi.baseframe.utils.LangUtils;
 import com.wen.magi.baseframe.utils.SysUtils;
-import com.wen.magi.baseframe.utils.date.CalendarHelper;
 import com.wen.magi.baseframe.utils.date.DayStyles;
-import com.wen.magi.baseframe.views.calendar.SlideDrawerLayout;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import static com.wen.magi.baseframe.utils.ViewUtils.find;
 
 /**
  * Created by MVEN on 16/7/29.
@@ -40,9 +34,7 @@ import java.util.GregorianCalendar;
  */
 
 
-public class CalendarActivity extends BaseActivity {
-    private LinearLayout mLayoutContent;
-    private RelativeLayout mCalendarContent;
+public class CalendarFragment extends BaseLazyLoadFragment {
 
     @From(R.id.layout_week_calendar)
     private LinearLayout mWeekLayout;
@@ -76,10 +68,15 @@ public class CalendarActivity extends BaseActivity {
         }
     };
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calendar);
+    protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.activity_calendar, null);
+        return rootView;
+    }
+
+    @Override
+    protected void lazyLoad() {
         generateData();
         generateUI();
     }
@@ -96,6 +93,9 @@ public class CalendarActivity extends BaseActivity {
         generateCalendarUI();
     }
 
+    /**
+     * month View
+     */
     private void generateCalendarUI() {
         ViewGroup.LayoutParams params = mMonthLayout.getLayoutParams();
         params.height = Constants.ROWS_OF_MONTH_CALENDAR * Cell_height;
@@ -110,7 +110,7 @@ public class CalendarActivity extends BaseActivity {
         args.putSerializable(Constants.BUNDLE_MONTH_FRAGMENT, datas);
         mMonthPagerFragment.setArguments(args);
 
-        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction t = ((BaseActivity) activity).getSupportFragmentManager().beginTransaction();
         t.replace(R.id.layout_month_calendar, mMonthPagerFragment);
         t.commit();
     }
@@ -132,7 +132,7 @@ public class CalendarActivity extends BaseActivity {
         args.putInt(WeekFragment.START_DAY_OF_WEEK, Constants.FIRST_DAY_OF_WEEK);
         mWeekPagerFragment.setArguments(args);
 
-        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction t = ((BaseActivity) activity).getSupportFragmentManager().beginTransaction();
         t.add(R.id.layout_week_calendar, mWeekPagerFragment);
         t.commit();
 
@@ -143,7 +143,7 @@ public class CalendarActivity extends BaseActivity {
      * week header 一 二 三 四 五 六 日
      */
     private void generateWeekHeaderView() {
-        GridView weekDayGridView = (GridView) findViewById(R.id.weekday_gridview);
+        GridView weekDayGridView = find(activity, R.id.weekday_gridview);
 
         ArrayList<String> weekDayNameLists = new ArrayList<>();
         for (int iDay = 0; iDay < Constants.MONTH_CALENDAR_COLUMN; iDay++) {
@@ -152,7 +152,7 @@ public class CalendarActivity extends BaseActivity {
             weekDayNameLists.add(WeekDay);
         }
 
-        WeekdayArrayAdapter weekdaysAdapter = new WeekdayArrayAdapter(this,
+        WeekdayArrayAdapter weekdaysAdapter = new WeekdayArrayAdapter(activity,
                 R.layout.adapter_week_name_list_item, weekDayNameLists);
         weekDayGridView.setAdapter(weekdaysAdapter);
     }
