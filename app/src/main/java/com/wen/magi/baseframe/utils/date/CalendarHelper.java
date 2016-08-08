@@ -435,7 +435,7 @@ public class CalendarHelper {
         return tipPaintGreen;
     }
 
-    public static Paint getTipPaintLunarDate(){
+    public static Paint getTipPaintLunarDate() {
         if (tipPaintLunarNormal == null) {
             tipPaintLunarNormal = new Paint();
             tipPaintLunarNormal.setAntiAlias(true);
@@ -448,6 +448,7 @@ public class CalendarHelper {
         }
         return tipPaintLunarNormal;
     }
+
     public static Paint getTipPaintWhite() {
         if (tipPaintWhite == null) {
             tipPaintWhite = new Paint();
@@ -475,6 +476,7 @@ public class CalendarHelper {
         }
         return tipLunarHolidayRed;
     }
+
     public static Paint getTipPaintLunarHolidayWhite() {
         if (tipLunarHolidayWhite == null) {
             tipLunarHolidayWhite = new Paint();
@@ -484,7 +486,7 @@ public class CalendarHelper {
             tipLunarHolidayWhite.setTextSize(AppManager.getApplicationContext()
                     .getResources().getDimension(R.dimen.text_size_describe));
             tipLunarHolidayWhite.setColor(AppManager.getApplicationContext()
-                    .getResources().getColor(R.color.china_red));
+                    .getResources().getColor(R.color.white));
         }
         return tipLunarHolidayWhite;
     }

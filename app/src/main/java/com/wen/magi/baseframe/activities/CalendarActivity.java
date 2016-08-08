@@ -57,36 +57,6 @@ public class CalendarActivity extends BaseActivity {
     private WeekFragment mWeekPagerFragment;
     private MonthFragment mMonthPagerFragment;
 
-
-    MonthChangedListener monthListener = new MonthChangedListener() {
-        @Override
-        public void onSelectDate(Date date, View view) {
-            if (mSelectedDate.equals(date)) {
-                return;
-            }
-            if (!LangUtils.isSameMonth(date, mSelectedDate)) {
-                refreshSelectedDateDelay(date,
-                        Constants.SELECT_TYPE_FROM_JUMP_TO, 0);
-            } else
-                refreshSelectedDateDelay(date,
-                        Constants.SELECT_TYPE_FROM_MONTH_CLICK, 100);
-        }
-
-        @Override
-        public void onChangeMonth(int day, int month, int year) {
-            super.onChangeMonth(day, month, year);
-            Calendar calendar = new GregorianCalendar(year, month - 1, 1);
-            Date date = calendar.getTime();
-
-            if (LangUtils.isSameMonth(date, mSelectedDate)) {
-                return;
-            }
-
-            refreshSelectedDateDelay(date,
-                    Constants.SELECT_TYPE_FROM_MONTH_SCROLL, 100);
-        }
-    };
-
     WeekChangedListener weekListener = new WeekChangedListener() {
         public void onSelectDate(Date date, View view) {
             if (mSelectedDate.equals(date)) {

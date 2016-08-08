@@ -67,7 +67,7 @@ public class MainActivity extends BaseActivity {
             linearLayout = viewStub.inflate();
             linearLayout.setBackgroundResource(R.color.red_btn_bg_color);
             linearLayout.setOnClickListener(this);
-            viewStub.setBackgroundResource(R.color.blue_btn_bg_color);
+//            viewStub.setBackgroundResource(R.color.blue_btn_bg_color);
         } else if (v == linearLayout) {
             Intent intent = new Intent(this, WebActivity.class);
             intent.putExtra(ACTIVITY_WEB_KEY_INTENT_URL, "https://www.baidu.com");

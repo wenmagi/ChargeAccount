@@ -1,10 +1,8 @@
 package com.wen.magi.baseframe.views.calendar.month;
 
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.view.MotionEvent;
@@ -14,9 +12,7 @@ import com.wen.magi.baseframe.R;
 import com.wen.magi.baseframe.managers.AppManager;
 import com.wen.magi.baseframe.utils.Constants;
 import com.wen.magi.baseframe.utils.LangUtils;
-import com.wen.magi.baseframe.utils.LogUtils;
 import com.wen.magi.baseframe.utils.StringUtils;
-import com.wen.magi.baseframe.utils.ViewUtils;
 import com.wen.magi.baseframe.utils.date.CalendarHelper;
 import com.wen.magi.baseframe.utils.date.DateTime;
 import com.wen.magi.baseframe.utils.date.Lunar;
@@ -36,7 +32,9 @@ public class MonthView extends View {
 
     protected ArrayList<DateTime> mDatetimeList;
     protected Context mContext;
+    //选中的日期
     protected DateTime mCurrentDateTime;
+    //今天
     protected DateTime mToday;
     private DateTime mSelectedTime;
     protected int mStartDayOfWeek;

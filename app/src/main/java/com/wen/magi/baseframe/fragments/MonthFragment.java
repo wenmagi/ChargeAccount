@@ -21,6 +21,7 @@ import com.wen.magi.baseframe.views.calendar.month.MonthViewPager;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Created by MVEN on 16/7/29.
@@ -31,7 +32,6 @@ import java.util.Date;
 public class MonthFragment extends BaseFragment {
 
     private OnCellClickListener mOnCellClickListener;
-    private MonthChangedListener monthListener;
     private MonthDatas datas;
     private volatile boolean bMoveToDate = false;
 
@@ -39,6 +39,7 @@ public class MonthFragment extends BaseFragment {
     private MonthViewPager monthPager;
     private DateTime mToday;
     private DateTime mCurrentDay;
+    private Date mSelectedDate;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class MonthFragment extends BaseFragment {
     private void initData() {
         mCurrentDay = getToday();
         mOnCellClickListener = getDateCellClickListener();
+        mSelectedDate = new Date();
     }
 
     private void initUI() {
@@ -171,9 +173,32 @@ public class MonthFragment extends BaseFragment {
     }
 
 
-    public void setMonthChangeListener(MonthChangedListener changeListener) {
-        monthListener = changeListener;
-    }
+    MonthChangedListener monthListener = new MonthChangedListener() {
+        @Override
+        public void onSelectDate(Date date, View view) {
+            if (mSelectedDate.equals(date)) {
+                return;
+            }
+            if (!LangUtils.isSameMonth(date, mSelectedDate)) {
+            } else {
+
+            }
+        }
+
+        @Override
+
+
+        public void onChangeMonth(int day, int month, int year) {
+            super.onChangeMonth(day, month, year);
+            Calendar calendar = new GregorianCalendar(year, month - 1, 1);
+            Date date = calendar.getTime();
+
+            if (LangUtils.isSameMonth(date, mSelectedDate)) {
+                return;
+            }
+
+        }
+    };
 
     @Override
     public void onDestroy() {
