@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.wen.magi.baseframe.R;
 import com.wen.magi.baseframe.adapters.MonthPagerAdapter;
 import com.wen.magi.baseframe.base.BaseFragment;
 import com.wen.magi.baseframe.interfaces.calendar.MonthChangedListener;

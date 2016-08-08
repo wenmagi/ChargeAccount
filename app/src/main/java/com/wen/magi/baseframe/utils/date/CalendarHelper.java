@@ -416,7 +416,7 @@ public class CalendarHelper {
             tipPaintGray.setTextSize(AppManager.getApplicationContext()
                     .getResources().getDimension(R.dimen.text_size_minimal));
             tipPaintGray.setColor(AppManager.getApplicationContext()
-                    .getResources().getColor(R.color.date_tips_normal_gray));
+                    .getResources().getColor(R.color.text_color_gray_99));
         }
         return tipPaintGray;
     }

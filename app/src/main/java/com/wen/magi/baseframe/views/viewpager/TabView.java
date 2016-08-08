@@ -1,11 +1,5 @@
 package com.wen.magi.baseframe.views.viewpager;
 
-/**
- * Created by MVEN on 16/8/8.
- * <p/>
- * email: magiwen@126.com.
- */
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -26,6 +20,11 @@ import com.wen.magi.baseframe.R;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by MVEN on 16/8/8.
+ * <p/>
+ * email: magiwen@126.com.
+ */
 public class TabView extends LinearLayout implements View.OnClickListener {
 
 

@@ -1,16 +1,16 @@
 package com.wen.magi.baseframe.views.viewpager;
 
-/**
- * Created by MVEN on 16/8/8.
- * <p/>
- * email: magiwen@126.com.
- */
-
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+
+/**
+ * Created by MVEN on 16/8/8.
+ * <p/>
+ * email: magiwen@126.com.
+ */
 public class MainViewPager extends ViewPager {
 
     public MainViewPager(Context context) {
