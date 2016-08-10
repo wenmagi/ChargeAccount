@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wen.magi.baseframe.R;
+import com.wen.magi.baseframe.utils.LangUtils;
 import com.wen.magi.baseframe.utils.ViewUtils;
 
 
@@ -121,10 +122,16 @@ public class BaseTitleBar extends RelativeLayout {
      * @param text 右侧textView内容
      */
     public void setRightText(String text) {
+        if (LangUtils.isEmpty(text))
+            return;
+        if (tvRight.getVisibility() != View.VISIBLE)
+            tvRight.setVisibility(View.VISIBLE);
         tvRight.setText(text);
     }
 
     /**
+     * 设置右侧ImageView src
+     *
      * @param resId
      */
     public void setRightImage(int resId) {
@@ -134,4 +141,28 @@ public class BaseTitleBar extends RelativeLayout {
             ivRightBtn.setVisibility(View.VISIBLE);
         ivRightBtn.setImageResource(resId);
     }
+
+    /**
+     * 设置右侧ImageView src
+     *
+     * @param resId
+     */
+    public void setLeftImage(int resId) {
+        if (resId == 0)
+            return;
+        if (ivBackPressed.getVisibility() != View.VISIBLE)
+            ivBackPressed.setVisibility(View.VISIBLE);
+        ivBackPressed.setImageResource(resId);
+    }
+
+    /**
+     * 自定义左侧View内容
+     *
+     * @param view
+     */
+    public void setLeftContent(View view) {
+        llLeftContent.removeAllViews();
+        llLeftContent.addView(view);
+    }
+
 }

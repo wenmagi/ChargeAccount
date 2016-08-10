@@ -2,6 +2,7 @@ package com.wen.magi.baseframe.base;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -9,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.wen.magi.baseframe.R;
@@ -18,6 +20,7 @@ import com.wen.magi.baseframe.base.net.ARequest;
 import com.wen.magi.baseframe.bundles.BaseBundleParams;
 import com.wen.magi.baseframe.utils.InjectUtils;
 import com.wen.magi.baseframe.utils.LogUtils;
+import com.wen.magi.baseframe.views.BaseTitleBar;
 import com.wen.magi.baseframe.web.UrlRequest;
 
 import org.greenrobot.eventbus.EventBus;
@@ -39,6 +42,10 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     protected TRANSITION transition = TRANSITION.LEFT_IN;
 
+    private BaseTitleBar aTitlebar;
+    private RelativeLayout rootView;
+    private View contentLayout;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,14 +59,95 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void setContentView(int layoutResID) {
-        super.setContentView(layoutResID);
-        InjectUtils.autoInjectR(this);
+        View contentView = View.inflate(this, layoutResID, null);
+        this.setContentView(contentView);
     }
 
     @Override
     public void setContentView(View view) {
-        super.setContentView(view);
+        contentLayout = view;
+        addTitleBar();
+        super.setContentView(rootView);
         InjectUtils.autoInjectR(this);
+    }
+
+    protected void initTitleBar() {
+        aTitlebar = new BaseTitleBar(this);
+        aTitlebar.setId(R.id.base_title_bar_id);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        rootView.addView(aTitlebar, params);
+    }
+
+    private void addTitleBar() {
+
+        if (isTitleBarOverlay()) {
+            aTitlebar.bringToFront();
+            aTitlebar.setBackgroundColor(Color.TRANSPARENT);
+        } else {
+            RelativeLayout.LayoutParams cParams = new RelativeLayout.LayoutParams(-1, -1);
+            cParams.addRule(RelativeLayout.BELOW, aTitlebar.getId());
+            if (contentLayout != null) {
+                rootView.addView(contentLayout, cParams);
+            }
+        }
+
+    }
+
+    /**
+     * 设置标题
+     *
+     * @param title 标题内容
+     */
+    protected void setTitle(String title) {
+        setTitle(title, false);
+    }
+
+    /**
+     * 设置标题
+     *
+     * @param title    标题内容
+     * @param showBack 是否有返回键
+     */
+    protected void setTitle(String title, boolean showBack) {
+        setTitle(title, showBack, (View[]) null);
+    }
+
+    /**
+     * 设置标题
+     *
+     * @param title       标题内容
+     * @param showBack    是否有返回键
+     * @param rightParams 标题右侧内容
+     */
+    protected void setTitle(String title, boolean showBack, View... rightParams) {
+        aTitlebar.setTitle(title, showBack, rightParams);
+    }
+
+    /**
+     * 设置右侧ImageView src
+     *
+     * @param resId
+     */
+    protected void setRightImage(int resId) {
+        aTitlebar.setRightImage(resId);
+    }
+
+    /**
+     * 自定义左侧View内容
+     *
+     * @param view
+     */
+    protected void setLeftContent(View view) {
+        aTitlebar.setLeftContent(view);
+    }
+
+    /**
+     * 设置右侧ImageView src
+     *
+     * @param resId
+     */
+    protected void setLeftImg(int resId) {
+        aTitlebar.setLeftImage(resId);
     }
 
     /**
@@ -101,8 +189,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected abstract void OnClickView(View v);
 
     private void initView() {
-        RelativeLayout contentView = new RelativeLayout(this);
-        setContentView(contentView);
+        rootView = new RelativeLayout(this);
+        initTitleBar();
     }
 
     protected void setTransition(TRANSITION transition) {
@@ -251,4 +339,10 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         return getSupportFragmentManager().findFragmentByTag(
                 "android:switcher:" + viewPagerID + ":" + position);
     }
+
+
+    protected boolean isTitleBarOverlay() {
+        return false;
+    }
+
 }

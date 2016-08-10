@@ -27,12 +27,14 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setLeftImg(R.mipmap.icon_today);
         initPager();
     }
 
     private void initPager() {
-        Fragment calendarFragment;
-        calendarFragment = new CalendarFragment();
+        Fragment calendarFragment = getFragmentCache(R.id.main_viewpager, 0);
+        if (calendarFragment == null)
+            calendarFragment = new CalendarFragment();
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(calendarFragment);
         pagerAdapter = new MainPagerAdapter(fragments, getSupportFragmentManager());

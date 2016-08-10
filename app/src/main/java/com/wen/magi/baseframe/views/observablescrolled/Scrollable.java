@@ -13,4 +13,6 @@ public interface Scrollable {
 
     void setScrollCallback(ObservableScrollCallback callback);
 
+    ScrollState getScrollState();
+
 }

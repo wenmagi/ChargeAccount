@@ -77,6 +77,11 @@ public class ObservableListView extends ListView implements Scrollable {
         mCallback = callback;
     }
 
+    @Override
+    public ScrollState getScrollState() {
+        return mScrollState;
+    }
+
     private void onScrolling(int firstVisibleItem) {
 
         if (hasNoCallbacks() || getChildCount() <= 0)
