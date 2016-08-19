@@ -1,6 +1,7 @@
 package com.wen.magi.baseframe.managers;
 
 import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.wen.magi.baseframe.algorithms;
 import com.wen.magi.baseframe.base.AppApplication;
@@ -26,6 +27,7 @@ public class AppManager {
 
     public static void initInMainThread(Context context) {
         applicationContext = context;
+        MultiDex.install(applicationContext);
         SysUtils.initialize(context);
         algorithms.getInstance();
         lunar = Lunar.getInstance();

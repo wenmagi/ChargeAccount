@@ -1,5 +1,6 @@
 package com.wen.magi.baseframe.activities;
 
+import android.app.ActivityManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +12,9 @@ import com.wen.magi.baseframe.R;
 import com.wen.magi.baseframe.annotations.From;
 import com.wen.magi.baseframe.base.BaseActivity;
 import com.wen.magi.baseframe.fragments.calendar.CalendarFragment;
+import com.wen.magi.baseframe.utils.EnhancedHandler;
+import com.wen.magi.baseframe.utils.LogUtils;
+import com.wen.magi.baseframe.utils.ViewUtils;
 
 import java.util.ArrayList;
 
@@ -28,6 +32,8 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setLeftImg(R.mipmap.icon_today);
+        ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        LogUtils.e("wwwwwwwww %s", am.getMemoryClass());
         initPager();
     }
 

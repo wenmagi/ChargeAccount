@@ -114,5 +114,15 @@
             android:layout_below="@id/layout_week_calendar"
             android:orientation="vertical" />
 
+        <com.wen.magi.baseframe.views.fortest.MoneyScaleView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_month_calendar"
+            android:visibility="gone" />
+
+        <com.wen.magi.baseframe.views.fortest.ScaleMoneyView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_month_calendar" />
     </RelativeLayout>
 </com.wen.magi.baseframe.views.observablescrolled.views.ObservableScrollView>
