@@ -49,4 +49,6 @@
     <dimen name="line_width">0.5dp</dimen>
     <!-- commen Line width -->
 
+    <dimen name="common_title_bar_height">55dp</dimen>
+
 </resources>

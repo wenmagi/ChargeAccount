@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_tv_height"
         android:layout_alignParentBottom="true"
-        android:background="@color/white"
         android:orientation="horizontal"
         app:image_text_margin="2dp"
         app:item_padding="7dp"

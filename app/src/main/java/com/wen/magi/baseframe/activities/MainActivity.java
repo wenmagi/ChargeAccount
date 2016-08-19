@@ -3,24 +3,18 @@ package com.wen.magi.baseframe.activities;
 import android.app.ActivityManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.wen.magi.baseframe.R;
+import com.wen.magi.baseframe.adapters.MainPagerAdapter;
 import com.wen.magi.baseframe.annotations.From;
 import com.wen.magi.baseframe.base.BaseActivity;
 import com.wen.magi.baseframe.fragments.calendar.CalendarFragment;
-import com.wen.magi.baseframe.utils.EnhancedHandler;
-import com.wen.magi.baseframe.utils.LogUtils;
-import com.wen.magi.baseframe.utils.ViewUtils;
 
 import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity {
-
-    private static final int TAB_COUNT = 1;
 
     @From(R.id.main_viewpager)
     private ViewPager viewPager;
@@ -31,9 +25,6 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setLeftImg(R.mipmap.icon_today);
-        ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-        LogUtils.e("wwwwwwwww %s", am.getMemoryClass());
         initPager();
     }
 
@@ -51,22 +42,8 @@ public class MainActivity extends BaseActivity {
     protected void OnClickView(View v) {
     }
 
-    class MainPagerAdapter extends FragmentPagerAdapter {
-        private ArrayList<Fragment> _fragments;
-
-        public MainPagerAdapter(ArrayList<Fragment> fragments, FragmentManager fm) {
-            super(fm);
-            _fragments = fragments;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return _fragments == null ? null : _fragments.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return TAB_COUNT;
-        }
+    @Override
+    protected boolean isTitleBarAvailable() {
+        return false;
     }
 }

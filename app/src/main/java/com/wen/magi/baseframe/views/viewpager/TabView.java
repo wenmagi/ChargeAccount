@@ -54,7 +54,7 @@ public class TabView extends LinearLayout implements View.OnClickListener {
     // api >= 11
     public TabView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setBackgroundColor(context.getResources().getColor(R.color.tab_view_background_color));
+        setBackgroundColor(context.getResources().getColor(R.color.main_theme_color));
         mTextColorSelect = getResources().getColor(R.color.orange);
         mTextColorNormal = getResources().getColor(R.color.text_color_gray_66);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.TabView);

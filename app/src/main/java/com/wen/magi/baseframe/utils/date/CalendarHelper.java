@@ -498,7 +498,8 @@ public class CalendarHelper {
             selectedCirclePaint.setShader(null);
             selectedCirclePaint.setStyle(Style.FILL);
             selectedCirclePaint.setColor(AppManager.getApplicationContext()
-                    .getResources().getColor(R.color.date_choose_color_bg));
+                    .getResources().getColor(R.color.main_theme_color/*date_choose_color_bg*/));
+            selectedCirclePaint.setAlpha(200);
         }
         return selectedCirclePaint;
     }

@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.wen.magi.baseframe.R;
 import com.wen.magi.baseframe.adapters.MonthPagerAdapter;
 import com.wen.magi.baseframe.base.BaseFragment;
+import com.wen.magi.baseframe.interfaces.calendar.DayChangeListener;
 import com.wen.magi.baseframe.interfaces.calendar.MonthChangedListener;
 import com.wen.magi.baseframe.models.MonthDatas;
 import com.wen.magi.baseframe.utils.Constants;
@@ -34,6 +35,7 @@ import java.util.GregorianCalendar;
 
 public class MonthFragment extends BaseFragment {
 
+    private DayChangeListener dayChangeListener;
     private OnCellClickListener mOnCellClickListener;
     private MonthDatas datas;
     private volatile boolean bMoveToDate = false;
@@ -92,7 +94,6 @@ public class MonthFragment extends BaseFragment {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             bMoveToDate = false;
-            ViewUtils.showToast(activity, String.format("position %s", position), Toast.LENGTH_LONG);
         }
 
         @Override
@@ -137,6 +138,9 @@ public class MonthFragment extends BaseFragment {
                             CalendarHelper.setSelectedDay(mCurrentDay);
                             MonthView view = (MonthView) monthPager.findViewWithTag(monthPager.getCurrentItem());
                             view.updateCells(CalendarHelper.getSelectedDay(), true);
+
+                            if (dayChangeListener != null)
+                                dayChangeListener.onDayChangeListener(CalendarHelper.convertDateTimeToDate(mCurrentDay));
                         } else {
                             bMoveToDate = false;
                         }
@@ -161,7 +165,8 @@ public class MonthFragment extends BaseFragment {
                     } else {
                         changeCurrentDateAndMonth(day);
                     }
-
+                    if (dayChangeListener != null)
+                        dayChangeListener.onDayChangeListener(CalendarHelper.convertDateTimeToDate(day));
 
                 }
             };
@@ -169,6 +174,9 @@ public class MonthFragment extends BaseFragment {
         return mOnCellClickListener;
     }
 
+    public void setDayChangeListener(DayChangeListener dayChangeListener) {
+        this.dayChangeListener = dayChangeListener;
+    }
 
     private void changeCurrentDateAndMonth(DateTime day) {
         Date date = CalendarHelper.convertDateTimeToDate(day);

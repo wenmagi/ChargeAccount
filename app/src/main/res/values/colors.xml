@@ -61,6 +61,7 @@
 
     <!-- Calendar主色调 -->
     <!-- Calendar主色调 -->
+
     <color name="date_choose_color_bg">#ffD3D3D3</color>
     <!-- 选中后的圆圈背景灰色 -->
     <color name="date_tips_normal_gray">#ce2F4F4F</color>
@@ -71,4 +72,6 @@
     <!-- 节日绿 -->
     <color name="tab_view_background_color">#ffffff</color>
     <!-- 主页面TabView的背景色 -->
+
+    <color name="main_theme_color">#ff4f4f00</color>
 </resources>

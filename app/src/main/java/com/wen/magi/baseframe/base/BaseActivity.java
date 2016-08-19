@@ -79,7 +79,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     }
 
     private void addTitleBar() {
-
+        if (!isTitleBarAvailable()) {
+            rootView.removeView(aTitlebar);
+            rootView.addView(contentLayout);
+            return;
+        }
         if (isTitleBarOverlay()) {
             aTitlebar.bringToFront();
             aTitlebar.setBackgroundColor(Color.TRANSPARENT);
@@ -343,6 +347,10 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     protected boolean isTitleBarOverlay() {
         return false;
+    }
+
+    protected boolean isTitleBarAvailable() {
+        return true;
     }
 
 }
