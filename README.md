@@ -1,5 +1,5 @@
 # ChargeAccount
 ----------------
-####style
+####软件雏形
 
- ![image](https://github.com/wenmagi/ChargeAccount/tree/master/app/src/main/resraw/charge_account.jpg)
+ ![image](https://github.com/wenmagi/ChargeAccount/app/readmeRes/charge_account.png)
