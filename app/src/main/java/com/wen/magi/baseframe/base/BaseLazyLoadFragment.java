@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.wen.magi.baseframe.R;
 import com.wen.magi.baseframe.utils.ViewUtils;
 
 /**
@@ -123,7 +124,8 @@ public abstract class BaseLazyLoadFragment extends BaseFragment {
      * @return
      */
     protected View createInvisibleView() {
-        return null;
+
+        return View.inflate(activity, R.layout.activity_phone_contacts, null);
     }
 
     @Override

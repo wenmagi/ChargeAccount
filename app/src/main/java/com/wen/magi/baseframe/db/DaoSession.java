@@ -1,15 +1,16 @@
 package com.wen.magi.baseframe.db;
 
-import android.database.sqlite.SQLiteDatabase;
 
 import com.wen.magi.baseframe.models.TestDaoModel;
 
+import org.greenrobot.greendao.AbstractDao;
+import org.greenrobot.greendao.AbstractDaoSession;
+import org.greenrobot.greendao.database.Database;
+import org.greenrobot.greendao.identityscope.IdentityScopeType;
+import org.greenrobot.greendao.internal.DaoConfig;
+
 import java.util.Map;
 
-import de.greenrobot.dao.AbstractDao;
-import de.greenrobot.dao.AbstractDaoSession;
-import de.greenrobot.dao.identityscope.IdentityScopeType;
-import de.greenrobot.dao.internal.DaoConfig;
 
 /**
  * Created by MVEN on 16/6/18.
@@ -24,7 +25,7 @@ public class DaoSession extends AbstractDaoSession {
 
     private final CardOrderDao cardOrderDao;
 
-    public DaoSession(SQLiteDatabase db, IdentityScopeType type, Map<Class<? extends AbstractDao<?, ?>>, DaoConfig>
+    public DaoSession(Database db, IdentityScopeType type, Map<Class<? extends AbstractDao<?, ?>>, DaoConfig>
             daoConfigMap) {
         super(db);
 
@@ -39,8 +40,6 @@ public class DaoSession extends AbstractDaoSession {
     public void clear() {
         cardOrderDaoConfig.getIdentityScope().clear();
     }
-
-//    public CardMerchantDao getCardMerchantDao() {
 
     public CardOrderDao getCardOrderDao() {
         return cardOrderDao;

@@ -9,4 +9,17 @@
     <string name="first_day_of_lunar_month">初一</string>
     <!--for test-->
     <string name="right_top_text">场馆绑定页面，若已定位用户位置，将当前城市的小熊快跑智能健身房置顶显示；若用户还未定位位置或定位失败，则默认置顶北京的小熊快跑智能健身房</string>
+
+
+
+    <!--MainActivity-->
+    <!--MainActivity-->
+    <string name="main_activity_back_warn">再按一次返回推出心记</string>
+    <string name="tab_view_main">日历</string>
+    <string name="tab_view_chart">图表</string>
+    <string name="tab_view_setting">设置</string>
+    <string name="phone_contacts_search_hint">搜索手机通讯录</string>
+    <string name="phone_contacts_title">手机通讯录</string>
+    <string name="phone_contacts_empty">未搜索到联系人</string>
+    <string name="phone_search_cancel">取消</string>
 </resources>

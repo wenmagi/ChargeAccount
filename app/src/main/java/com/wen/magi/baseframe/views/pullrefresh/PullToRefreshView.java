@@ -1,8 +1,5 @@
 package com.wen.magi.baseframe.views.pullrefresh;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -27,9 +24,11 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.wen.magi.baseframe.annotations.InjectView;
-import com.wen.magi.baseframe.utils.BitMapUtils;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 
 public class PullToRefreshView extends LinearLayout {

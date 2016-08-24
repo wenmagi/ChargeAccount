@@ -2,12 +2,14 @@ package com.wen.magi.baseframe.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
 import com.wen.magi.baseframe.utils.LogUtils;
 
-import de.greenrobot.dao.AbstractDaoMaster;
-import de.greenrobot.dao.identityscope.IdentityScopeType;
+import org.greenrobot.greendao.AbstractDaoMaster;
+import org.greenrobot.greendao.AbstractDaoSession;
+import org.greenrobot.greendao.database.Database;
+import org.greenrobot.greendao.database.DatabaseOpenHelper;
+import org.greenrobot.greendao.identityscope.IdentityScopeType;
 
 /**
  * Created by MVEN on 16/6/18.
@@ -18,13 +20,12 @@ import de.greenrobot.dao.identityscope.IdentityScopeType;
 
 public class DaoMaster extends AbstractDaoMaster {
 
-    public static final int SCHEMA_VERSION = 7;
+    public static final int SCHEMA_VERSION = 1;
 
     /**
      * Creates underlying database table using DAOs.
      */
     public static void createAllTables(SQLiteDatabase db, boolean ifNotExists) {
-//        CardMerchantDao.createTable(db, ifNotExists);
         CardOrderDao.createTable(db, ifNotExists);
     }
 
@@ -32,11 +33,10 @@ public class DaoMaster extends AbstractDaoMaster {
      * Drops underlying database table using DAOs.
      */
     public static void dropAllTables(SQLiteDatabase db, boolean ifExists) {
-//        CardMerchantDao.dropTable(db, ifExists);
         CardOrderDao.dropTable(db, ifExists);
     }
 
-    public static abstract class OpenHelper extends SQLiteOpenHelper {
+    public static abstract class OpenHelper extends DatabaseOpenHelper {
 
         public OpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory) {
             super(context, name, factory, SCHEMA_VERSION);
@@ -44,7 +44,6 @@ public class DaoMaster extends AbstractDaoMaster {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-//            Log.i("greenDAO", "Creating tables for schema version " + SCHEMA_VERSION);
             createAllTables(db, false);
         }
     }
@@ -77,9 +76,8 @@ public class DaoMaster extends AbstractDaoMaster {
         }
     }
 
-    public DaoMaster(SQLiteDatabase db) {
+    public DaoMaster(Database db) {
         super(db, SCHEMA_VERSION);
-//        registerDaoClass(CardMerchantDao.class);
         registerDaoClass(CardOrderDao.class);
     }
 
@@ -87,7 +85,9 @@ public class DaoMaster extends AbstractDaoMaster {
         return new DaoSession(db, IdentityScopeType.Session, daoConfigMap);
     }
 
-    public DaoSession newSession(IdentityScopeType type) {
+    @Override
+    public AbstractDaoSession newSession(IdentityScopeType type) {
         return new DaoSession(db, type, daoConfigMap);
     }
+
 }

@@ -1,7 +1,5 @@
 package com.wen.magi.baseframe.adapters;
 
-import java.util.List;
-
 import android.content.Context;
 import android.util.TypedValue;
 import android.view.View;
@@ -10,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.wen.magi.baseframe.R;
+
+import java.util.List;
 
 /**
  * Created by MVEN on 16/7/29.

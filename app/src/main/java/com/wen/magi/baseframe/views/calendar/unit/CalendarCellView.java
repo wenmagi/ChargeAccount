@@ -7,7 +7,6 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 
 import com.wen.magi.baseframe.utils.LangUtils;
-import com.wen.magi.baseframe.utils.LogUtils;
 import com.wen.magi.baseframe.utils.SysUtils;
 import com.wen.magi.baseframe.utils.ViewUtils;
 import com.wen.magi.baseframe.utils.date.DateTime;

@@ -1,14 +1,14 @@
 package com.alibaba.fastjson.parser;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.parser.deserializer.FieldDeserializer;
+import com.alibaba.fastjson.util.TypeUtils;
+
 import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.parser.deserializer.FieldDeserializer;
-import com.alibaba.fastjson.util.TypeUtils;
 
 @SuppressWarnings("rawtypes")
 final class ResolveFieldDeserializer extends FieldDeserializer {

@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-
 import com.wen.magi.baseframe.R;
 
 import java.util.ArrayList;
@@ -56,7 +55,7 @@ public class TabView extends LinearLayout implements View.OnClickListener {
         super(context, attrs, defStyleAttr);
         setBackgroundColor(context.getResources().getColor(R.color.main_theme_color));
         mTextColorSelect = getResources().getColor(R.color.orange);
-        mTextColorNormal = getResources().getColor(R.color.text_color_gray_66);
+        mTextColorNormal = getResources().getColor(R.color.white);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.TabView);
         int N = typedArray.getIndexCount();
         for (int i = 0; i < N; i++) {
@@ -156,8 +155,8 @@ public class TabView extends LinearLayout implements View.OnClickListener {
             TabItem tabItem = new TabItem(getContext());
             LayoutParams params = new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
             tabItem.setPadding(mPadding, mPadding, mPadding, mPadding);
-            tabItem.setIconText(mListener.onIconSelect(i), mListener.onTextSelect(i));
-            tabItem.setTextSize(mTextSize);
+            tabItem.setIconText(mListener == null ? null : mListener.onIconSelect(i), mListener.onTextSelect(i));
+            tabItem.setTextSize(mListener.onIconSelect(i) != null ? mTextSize : 16);
             tabItem.setTextColorNormal(mTextColorNormal);
             tabItem.setTextColorSelect(mTextColorSelect);
             tabItem.setLayoutParams(params);

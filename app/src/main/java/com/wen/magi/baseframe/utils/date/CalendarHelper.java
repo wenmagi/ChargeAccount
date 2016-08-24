@@ -1,12 +1,5 @@
 package com.wen.magi.baseframe.utils.date;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 
@@ -14,6 +7,13 @@ import com.wen.magi.baseframe.R;
 import com.wen.magi.baseframe.managers.AppManager;
 import com.wen.magi.baseframe.utils.LangUtils;
 import com.wen.magi.baseframe.utils.LogUtils;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Convenient helper to work with date, JODA DateTime and String

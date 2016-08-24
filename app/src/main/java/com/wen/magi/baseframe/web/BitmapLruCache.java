@@ -16,11 +16,11 @@
 
 package com.wen.magi.baseframe.web;
 
-import com.android.volley.toolbox.ImageLoader;
-import com.wen.magi.baseframe.utils.LogUtils;
-
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
+
+import com.android.volley.toolbox.ImageLoader;
+import com.wen.magi.baseframe.utils.LogUtils;
 
 
 public class BitmapLruCache extends LruCache<String, Bitmap> implements ImageLoader.ImageCache {

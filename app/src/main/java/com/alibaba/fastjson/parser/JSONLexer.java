@@ -1,5 +1,16 @@
 package com.alibaba.fastjson.parser;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
+
+import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
+
 import static com.alibaba.fastjson.parser.JSONToken.COLON;
 import static com.alibaba.fastjson.parser.JSONToken.COMMA;
 import static com.alibaba.fastjson.parser.JSONToken.EOF;
@@ -10,17 +21,6 @@ import static com.alibaba.fastjson.parser.JSONToken.LPAREN;
 import static com.alibaba.fastjson.parser.JSONToken.RBRACE;
 import static com.alibaba.fastjson.parser.JSONToken.RBRACKET;
 import static com.alibaba.fastjson.parser.JSONToken.RPAREN;
-
-import java.lang.reflect.Field;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Locale;
-import java.util.TimeZone;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONException;
 
 public final class JSONLexer {
 

@@ -13,7 +13,7 @@
         android:orientation="horizontal"
         app:image_text_margin="2dp"
         app:item_padding="7dp"
-        app:text_normal_color="@color/text_color_gray_66"
+        app:text_normal_color="@color/white"
         app:text_select_color="@color/orange"
         app:text_size="@dimen/text_size_minimal" />
 

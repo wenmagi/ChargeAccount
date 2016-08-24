@@ -1,8 +1,5 @@
 package com.wen.magi.baseframe.views.calendar;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
@@ -12,6 +9,9 @@ import android.widget.RelativeLayout;
 
 import com.wen.magi.baseframe.utils.LogUtils;
 import com.wen.magi.baseframe.utils.ViewUtils;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class SlideDrawerLayout extends RelativeLayout {

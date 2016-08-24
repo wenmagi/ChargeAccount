@@ -4,11 +4,11 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.wen.magi.baseframe.algorithms;
-import com.wen.magi.baseframe.base.AppApplication;
 import com.wen.magi.baseframe.models.AppUser;
 import com.wen.magi.baseframe.utils.Constants;
 import com.wen.magi.baseframe.utils.IOUtils;
 import com.wen.magi.baseframe.utils.SysUtils;
+import com.wen.magi.baseframe.utils.ViewUtils;
 import com.wen.magi.baseframe.utils.date.Lunar;
 
 import java.util.ArrayList;
@@ -29,6 +29,7 @@ public class AppManager {
         applicationContext = context;
         MultiDex.install(applicationContext);
         SysUtils.initialize(context);
+        ViewUtils.initialize();
         algorithms.getInstance();
         lunar = Lunar.getInstance();
     }

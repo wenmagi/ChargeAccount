@@ -5,7 +5,6 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -14,12 +13,11 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.wen.magi.baseframe.R;
+import com.wen.magi.baseframe.base.net.ARequest;
 import com.wen.magi.baseframe.base.net.BaseRequestParams;
 import com.wen.magi.baseframe.base.net.EService;
-import com.wen.magi.baseframe.base.net.ARequest;
 import com.wen.magi.baseframe.bundles.BaseBundleParams;
 import com.wen.magi.baseframe.utils.InjectUtils;
-import com.wen.magi.baseframe.utils.LogUtils;
 import com.wen.magi.baseframe.views.BaseTitleBar;
 import com.wen.magi.baseframe.web.UrlRequest;
 

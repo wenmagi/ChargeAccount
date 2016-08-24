@@ -29,7 +29,7 @@ public class TabItem extends View {
    * 字体大小
    * */
 
-    private int mTextSize;
+    private int mTextSize = 16;
 
     /*
      * 字体选中的颜色
@@ -145,7 +145,6 @@ public class TabItem extends View {
 
         mIconPaintNormal = new Paint(Paint.ANTI_ALIAS_FLAG);
         mIconPaintNormal.setAlpha(0xff);
-//      mIconNormal.setWidth(ViewUtils.rp(7));
 
         circleRadius = ViewUtils.dp2pix(3);
         mPaintCircle = new Paint();
@@ -187,7 +186,7 @@ public class TabItem extends View {
         int width = 0, height = 0;
 
         measureText();
-        int contentWidth = Math.max(mBoundText != null ? mBoundText.width() : 0, mIconNormal.getWidth());
+        int contentWidth = Math.max(mBoundText != null ? mBoundText.width() : 0, mIconNormal != null ? mIconNormal.getWidth() : 0);
         int desiredWidth = getPaddingLeft() + getPaddingRight() + contentWidth;
         switch (widthMode) {
             case MeasureSpec.AT_MOST:
@@ -200,7 +199,7 @@ public class TabItem extends View {
                 width = desiredWidth;
                 break;
         }
-        int contentHeight = mBoundText.height() + mIconNormal.getHeight();
+        int contentHeight = mBoundText.height() + (mIconNormal != null ? mIconNormal.getHeight() : 0);
         int desiredHeight = getPaddingTop() + getPaddingBottom() + contentHeight;
         switch (heightMode) {
             case MeasureSpec.AT_MOST:
@@ -220,8 +219,9 @@ public class TabItem extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawColor(Color.WHITE);
-        drawBitmap(canvas);
+        canvas.drawColor(ViewUtils.getColor(R.color.main_theme_color));
+        if (mIconNormal != null && mIconSelect != null)
+            drawBitmap(canvas);
         drawText(canvas);
         drawCircle(canvas);
         drawCircleDigit(canvas);
@@ -246,7 +246,11 @@ public class TabItem extends View {
      * */
     private void drawText(Canvas canvas) {
         float x = (mViewWidth - mBoundText.width()) / 2.0f;
-        float y = (mViewHeight + mIconNormal.getHeight() + mBoundText.height()) / 2.0F + margin;
+        float y;
+        if (mIconNormal != null && mIconSelect != null)
+            y = (mViewHeight + mIconNormal.getHeight() + mBoundText.height()) / 2.0F + margin;
+        else
+            y = (mViewHeight + mBoundText.height()) / 2;
         canvas.drawText(mTextValue, x, y, mTextPaintNormal);
         canvas.drawText(mTextValue, x, y, mTextPaintSelect);
     }
@@ -314,8 +318,8 @@ public class TabItem extends View {
 
     public void setTextSize(int textSize) {
         this.mTextSize = textSize;
-        mTextPaintNormal.setTextSize(textSize);
-        mTextPaintSelect.setTextSize(textSize);
+        mTextPaintNormal.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, textSize, getResources().getDisplayMetrics()));
+        mTextPaintSelect.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, textSize, getResources().getDisplayMetrics()));
     }
 
     public void setTextColorSelect(int mTextColorSelect) {
@@ -335,8 +339,9 @@ public class TabItem extends View {
     }
 
     public void setIconText(int[] iconSelId, String TextValue) {
-        this.mIconSelect = BitmapFactory.decodeResource(getResources(), iconSelId[0]);
-        this.mIconNormal = BitmapFactory.decodeResource(getResources(), iconSelId[1]);
+
+        this.mIconSelect = iconSelId == null ? null : BitmapFactory.decodeResource(getResources(), iconSelId[0]);
+        this.mIconNormal = iconSelId == null ? null : BitmapFactory.decodeResource(getResources(), iconSelId[1]);
         this.mTextValue = TextValue;
     }
 

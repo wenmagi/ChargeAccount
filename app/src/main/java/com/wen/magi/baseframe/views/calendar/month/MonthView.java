@@ -12,7 +12,6 @@ import com.wen.magi.baseframe.R;
 import com.wen.magi.baseframe.managers.AppManager;
 import com.wen.magi.baseframe.utils.Constants;
 import com.wen.magi.baseframe.utils.LangUtils;
-import com.wen.magi.baseframe.utils.LogUtils;
 import com.wen.magi.baseframe.utils.StringUtils;
 import com.wen.magi.baseframe.utils.date.CalendarHelper;
 import com.wen.magi.baseframe.utils.date.DateTime;

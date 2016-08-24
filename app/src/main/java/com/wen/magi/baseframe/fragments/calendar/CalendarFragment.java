@@ -1,13 +1,10 @@
 package com.wen.magi.baseframe.fragments.calendar;
 
 import android.os.Bundle;
-import android.os.Message;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,6 +15,7 @@ import com.wen.magi.baseframe.adapters.WeekdayArrayAdapter;
 import com.wen.magi.baseframe.annotations.From;
 import com.wen.magi.baseframe.base.BaseActivity;
 import com.wen.magi.baseframe.base.BaseLazyLoadFragment;
+import com.wen.magi.baseframe.eventbus.BackTodayEvent;
 import com.wen.magi.baseframe.interfaces.calendar.DayChangeListener;
 import com.wen.magi.baseframe.interfaces.calendar.WeekChangedListener;
 import com.wen.magi.baseframe.managers.AppManager;
@@ -28,6 +26,8 @@ import com.wen.magi.baseframe.utils.SysUtils;
 import com.wen.magi.baseframe.utils.ViewUtils;
 import com.wen.magi.baseframe.utils.date.DayStyles;
 import com.wen.magi.baseframe.utils.date.Lunar;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -60,20 +60,15 @@ public class CalendarFragment extends BaseLazyLoadFragment {
     @From(R.id.tv_sub_title)
     private TextView mSubTitle;
 
-    //选择的日期比今天大
-    private static int LARGER_THAN_TODAY = 1;
-    //选择的日期是今天
-    private static int SAME_WITH_TODAY = 0;
-    //选择的日期比今天小
-    private static int SMALL_THAN_TODAY = -1;
+    @From(R.id.textview)
+    private TextView textView;
+
     private int Cell_Width = 0;
     private int Cell_height = 0;
     private Date mSelectedDate;
     private WeekFragment mWeekPagerFragment;
     private MonthFragment mMonthPagerFragment;
     private Lunar lunar = AppManager.lunar;
-    //当前状态：LARGER_THAN_TODAY LARGER_THAN_TODAY SMALL_THAN_TODAY
-    private int state = 0;
 
     WeekChangedListener weekListener = new WeekChangedListener() {
         public void onSelectDate(Date date, View view) {
@@ -96,9 +91,7 @@ public class CalendarFragment extends BaseLazyLoadFragment {
             if (mSelectedDate.equals(date)) {
                 return;
             }
-            state = LangUtils.compareDate(mSelectedDate, date);
             updateCalendarUI(date);
-            updateTodayIcon();
         }
     };
 
@@ -125,8 +118,10 @@ public class CalendarFragment extends BaseLazyLoadFragment {
         generateWeekPagerView();
         generateCalendarUI();
         ViewUtils.setImageClickStateChangeListener(mIconToday);
+        ViewUtils.setViewClickStateChangeListener(textView);
         mIconToday.setOnClickListener(this);
-        updateCalendarUI(new Date());
+        textView.setOnClickListener(this);
+        updateCalendarUI(LangUtils.cc_dateByMovingToBeginningOfDay(mSelectedDate));
     }
 
     /**
@@ -198,22 +193,19 @@ public class CalendarFragment extends BaseLazyLoadFragment {
     @Override
     protected void OnClickView(View v) {
         if (v == mIconToday) {
-            ViewUtils.showToast(activity, "click iconToday");
+            EventBus.getDefault().post(new BackTodayEvent());
+            mIconToday.setVisibility(View.GONE);
         }
     }
-
-
-    private void updateTodayIcon() {
-        switch (state) {
-            case 0:
-                break;
-        }
-    }
-
 
     private void updateCalendarUI(Date date) {
         lunar.setCalendar(date);
         mTitle.setText(LangUtils.format("yyyy.MM.dd", date));
         mSubTitle.setText(lunar.getLunarMonthString() + lunar.getLunarDayString());
+
+        if (date != null && !date.equals(LangUtils.cc_dateByMovingToBeginningOfDay(new Date()))) {
+            mIconToday.setVisibility(View.VISIBLE);
+        } else
+            mIconToday.setVisibility(View.GONE);
     }
 }

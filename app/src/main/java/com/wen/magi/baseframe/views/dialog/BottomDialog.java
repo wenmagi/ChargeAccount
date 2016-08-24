@@ -10,8 +10,6 @@ import android.view.Window;
 import com.wen.magi.baseframe.R;
 import com.wen.magi.baseframe.utils.SysUtils;
 
-import java.util.ArrayList;
-
 /**
  * Created by MVEN on 16/6/18.
  * <p/>

@@ -4,8 +4,6 @@ import com.wen.magi.baseframe.eventbus.LoginEvent;
 import com.wen.magi.baseframe.eventbus.LogoutEvent;
 import com.wen.magi.baseframe.eventbus.NetConnChangeEvent;
 import com.wen.magi.baseframe.eventbus.NetTypeChangeEvent;
-import com.wen.magi.baseframe.utils.LogUtils;
-import com.wen.magi.baseframe.utils.ViewUtils;
 
 import org.greenrobot.eventbus.EventBus;
 

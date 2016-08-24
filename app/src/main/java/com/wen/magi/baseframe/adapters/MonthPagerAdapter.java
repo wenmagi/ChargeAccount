@@ -9,9 +9,6 @@ import android.view.ViewGroup;
 import com.wen.magi.baseframe.R;
 import com.wen.magi.baseframe.models.MonthDatas;
 import com.wen.magi.baseframe.utils.Constants;
-import com.wen.magi.baseframe.utils.LangUtils;
-import com.wen.magi.baseframe.utils.LogUtils;
-import com.wen.magi.baseframe.utils.date.CalendarHelper;
 import com.wen.magi.baseframe.views.calendar.month.MonthView;
 
 /**

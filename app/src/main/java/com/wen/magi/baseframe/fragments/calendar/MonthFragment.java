@@ -5,27 +5,25 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.wen.magi.baseframe.R;
 import com.wen.magi.baseframe.adapters.MonthPagerAdapter;
 import com.wen.magi.baseframe.base.BaseFragment;
+import com.wen.magi.baseframe.eventbus.BackTodayEvent;
 import com.wen.magi.baseframe.interfaces.calendar.DayChangeListener;
-import com.wen.magi.baseframe.interfaces.calendar.MonthChangedListener;
 import com.wen.magi.baseframe.models.MonthDatas;
 import com.wen.magi.baseframe.utils.Constants;
 import com.wen.magi.baseframe.utils.LangUtils;
-import com.wen.magi.baseframe.utils.LogUtils;
-import com.wen.magi.baseframe.utils.ViewUtils;
 import com.wen.magi.baseframe.utils.date.CalendarHelper;
 import com.wen.magi.baseframe.utils.date.DateTime;
 import com.wen.magi.baseframe.views.calendar.month.MonthView;
 import com.wen.magi.baseframe.views.calendar.month.MonthView.OnCellClickListener;
 import com.wen.magi.baseframe.views.calendar.month.MonthViewPager;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 /**
  * Created by MVEN on 16/7/29.
@@ -134,13 +132,11 @@ public class MonthFragment extends BaseFragment {
                             else
                                 mCurrentDay = mToday;
 
-
-                            CalendarHelper.setSelectedDay(mCurrentDay);
-                            MonthView view = (MonthView) monthPager.findViewWithTag(monthPager.getCurrentItem());
-                            view.updateCells(CalendarHelper.getSelectedDay(), true);
+                            updateMonthCellsForDaysChange();
 
                             if (dayChangeListener != null)
                                 dayChangeListener.onDayChangeListener(CalendarHelper.convertDateTimeToDate(mCurrentDay));
+
                         } else {
                             bMoveToDate = false;
                         }
@@ -154,6 +150,23 @@ public class MonthFragment extends BaseFragment {
         }
     }
 
+    private void updateMonthCellsForDaysChange() {
+        CalendarHelper.setSelectedDay(mCurrentDay);
+        MonthView view = (MonthView) monthPager.findViewWithTag(monthPager.getCurrentItem());
+        view.updateCells(CalendarHelper.getSelectedDay(), true);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onBackTodayEventMainThread(BackTodayEvent event) {
+        if (mCurrentDay.equals(getToday()))
+            return;
+
+        if (monthPager != null && monthPager.getCurrentItem() != Constants.MAX_MONTH_SCROLL_COUNT / 2)
+            monthPager.setCurrentItem(Constants.MAX_MONTH_SCROLL_COUNT / 2);
+
+        mCurrentDay = getToday();
+        updateMonthCellsForDaysChange();
+    }
 
     private OnCellClickListener getDateCellClickListener() {
         if (mOnCellClickListener == null) {
