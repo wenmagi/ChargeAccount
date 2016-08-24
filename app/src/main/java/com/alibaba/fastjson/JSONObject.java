@@ -15,17 +15,9 @@
  */
 package com.alibaba.fastjson;
 
-import static com.alibaba.fastjson.util.TypeUtils.castToBigDecimal;
-import static com.alibaba.fastjson.util.TypeUtils.castToBigInteger;
-import static com.alibaba.fastjson.util.TypeUtils.castToBoolean;
-import static com.alibaba.fastjson.util.TypeUtils.castToByte;
-import static com.alibaba.fastjson.util.TypeUtils.castToBytes;
-import static com.alibaba.fastjson.util.TypeUtils.castToDate;
-import static com.alibaba.fastjson.util.TypeUtils.castToDouble;
-import static com.alibaba.fastjson.util.TypeUtils.castToFloat;
-import static com.alibaba.fastjson.util.TypeUtils.castToInt;
-import static com.alibaba.fastjson.util.TypeUtils.castToLong;
-import static com.alibaba.fastjson.util.TypeUtils.castToShort;
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.parser.ParserConfig;
+import com.alibaba.fastjson.util.TypeUtils;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
@@ -39,9 +31,17 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.parser.ParserConfig;
-import com.alibaba.fastjson.util.TypeUtils;
+import static com.alibaba.fastjson.util.TypeUtils.castToBigDecimal;
+import static com.alibaba.fastjson.util.TypeUtils.castToBigInteger;
+import static com.alibaba.fastjson.util.TypeUtils.castToBoolean;
+import static com.alibaba.fastjson.util.TypeUtils.castToByte;
+import static com.alibaba.fastjson.util.TypeUtils.castToBytes;
+import static com.alibaba.fastjson.util.TypeUtils.castToDate;
+import static com.alibaba.fastjson.util.TypeUtils.castToDouble;
+import static com.alibaba.fastjson.util.TypeUtils.castToFloat;
+import static com.alibaba.fastjson.util.TypeUtils.castToInt;
+import static com.alibaba.fastjson.util.TypeUtils.castToLong;
+import static com.alibaba.fastjson.util.TypeUtils.castToShort;
 
 /**
  * @author wenshao[szujobs@hotmail.com]

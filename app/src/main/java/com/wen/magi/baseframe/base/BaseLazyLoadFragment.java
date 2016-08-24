@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.wen.magi.baseframe.R;
+import com.wen.magi.baseframe.utils.ViewUtils;
+
 /**
  * Created by MVEN on 16/7/20.
  * <p/>
@@ -49,6 +52,7 @@ public abstract class BaseLazyLoadFragment extends BaseFragment {
         inVisibleView = createInvisibleView();
         RelativeLayout.LayoutParams visibleViewParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         RelativeLayout.LayoutParams inVisibleViewParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        ViewUtils.removeFromSuperView(visibleView);
         if (visibleView != null)
             rootView.addView(visibleView, visibleViewParams);
         if (inVisibleView != null)
@@ -72,9 +76,15 @@ public abstract class BaseLazyLoadFragment extends BaseFragment {
         super.setUserVisibleHint(isVisibleToUser);
 
         if (isVisibleToUser && !isLoaded && isCreatedView) {
-            isLoaded = true;
             onVisible();
         }
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (getUserVisibleHint())
+            onVisible();
     }
 
     /**
@@ -91,6 +101,7 @@ public abstract class BaseLazyLoadFragment extends BaseFragment {
      * Fragment可见时执行的操作
      */
     private void onVisible() {
+        isLoaded = true;
         if (inVisibleView != null) {
             rootView.removeView(inVisibleView);
         }
@@ -113,7 +124,8 @@ public abstract class BaseLazyLoadFragment extends BaseFragment {
      * @return
      */
     protected View createInvisibleView() {
-        return null;
+
+        return View.inflate(activity, R.layout.activity_phone_contacts, null);
     }
 
     @Override

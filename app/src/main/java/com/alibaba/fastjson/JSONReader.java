@@ -1,10 +1,10 @@
 package com.alibaba.fastjson;
 
-import static com.alibaba.fastjson.JSONStreamContext.ArrayValue;
-import static com.alibaba.fastjson.JSONStreamContext.PropertyKey;
-import static com.alibaba.fastjson.JSONStreamContext.PropertyValue;
-import static com.alibaba.fastjson.JSONStreamContext.StartArray;
-import static com.alibaba.fastjson.JSONStreamContext.StartObject;
+import com.alibaba.fastjson.parser.DefaultJSONParser;
+import com.alibaba.fastjson.parser.Feature;
+import com.alibaba.fastjson.parser.JSONLexer;
+import com.alibaba.fastjson.parser.JSONToken;
+import com.alibaba.fastjson.util.TypeUtils;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -12,11 +12,11 @@ import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.Map;
 
-import com.alibaba.fastjson.parser.DefaultJSONParser;
-import com.alibaba.fastjson.parser.Feature;
-import com.alibaba.fastjson.parser.JSONLexer;
-import com.alibaba.fastjson.parser.JSONToken;
-import com.alibaba.fastjson.util.TypeUtils;
+import static com.alibaba.fastjson.JSONStreamContext.ArrayValue;
+import static com.alibaba.fastjson.JSONStreamContext.PropertyKey;
+import static com.alibaba.fastjson.JSONStreamContext.PropertyValue;
+import static com.alibaba.fastjson.JSONStreamContext.StartArray;
+import static com.alibaba.fastjson.JSONStreamContext.StartObject;
 
 public class JSONReader implements Closeable {
 

@@ -4,10 +4,10 @@ import com.wen.magi.baseframe.utils.LangUtils;
 import com.wen.magi.baseframe.utils.StringUtils;
 import com.wen.magi.baseframe.web.UrlRequest;
 
-import static com.wen.magi.baseframe.base.net.BaseRequestParams.*;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.wen.magi.baseframe.base.net.BaseRequestParams.URL_PARAMS;
 
 /**
  * Created by MVEN on 16/6/20.

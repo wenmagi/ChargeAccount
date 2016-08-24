@@ -1,7 +1,7 @@
 package com.wen.magi.baseframe.utils.date;
 
-import static com.wen.magi.baseframe.utils.date.DateTime.Unit;
 import static com.wen.magi.baseframe.utils.date.DateTime.DayOverflow;
+import static com.wen.magi.baseframe.utils.date.DateTime.Unit;
 /**
  * Helper class for adding intervals of time.
  * The mental model of this class is similar to that of a car's odometer.

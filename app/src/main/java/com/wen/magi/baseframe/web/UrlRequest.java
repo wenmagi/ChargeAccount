@@ -18,10 +18,12 @@ import com.wen.magi.baseframe.utils.LogUtils;
 import java.net.URL;
 import java.util.HashMap;
 
+import static com.android.volley.Request.Method.GET;
+import static com.android.volley.Request.Method.POST;
+import static com.android.volley.Request.Priority.IMMEDIATE;
+import static com.android.volley.Request.Priority.NORMAL;
 import static com.wen.magi.baseframe.utils.WebUtils.compositeUrl;
 import static com.wen.magi.baseframe.utils.WebUtils.createURL;
-import static com.android.volley.Request.Method.*;
-import static com.android.volley.Request.Priority.*;
 
 /**
  * Created by MVEN on 16/6/19.

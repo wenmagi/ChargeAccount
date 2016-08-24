@@ -1,11 +1,5 @@
 package com.wen.magi.baseframe.views.calendar.week;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Timer;
-
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -19,6 +13,11 @@ import com.wen.magi.baseframe.utils.LogUtils;
 import com.wen.magi.baseframe.utils.date.CalendarHelper;
 import com.wen.magi.baseframe.utils.date.DateTime;
 import com.wen.magi.baseframe.views.calendar.unit.CalendarCellView;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
 
 
 public class WeekView extends View {

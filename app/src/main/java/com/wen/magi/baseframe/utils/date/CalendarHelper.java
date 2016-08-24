@@ -1,12 +1,5 @@
 package com.wen.magi.baseframe.utils.date;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 
@@ -14,6 +7,13 @@ import com.wen.magi.baseframe.R;
 import com.wen.magi.baseframe.managers.AppManager;
 import com.wen.magi.baseframe.utils.LangUtils;
 import com.wen.magi.baseframe.utils.LogUtils;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Convenient helper to work with date, JODA DateTime and String
@@ -416,7 +416,7 @@ public class CalendarHelper {
             tipPaintGray.setTextSize(AppManager.getApplicationContext()
                     .getResources().getDimension(R.dimen.text_size_minimal));
             tipPaintGray.setColor(AppManager.getApplicationContext()
-                    .getResources().getColor(R.color.date_tips_normal_gray));
+                    .getResources().getColor(R.color.text_color_gray_99));
         }
         return tipPaintGray;
     }
@@ -435,7 +435,7 @@ public class CalendarHelper {
         return tipPaintGreen;
     }
 
-    public static Paint getTipPaintLunarDate(){
+    public static Paint getTipPaintLunarDate() {
         if (tipPaintLunarNormal == null) {
             tipPaintLunarNormal = new Paint();
             tipPaintLunarNormal.setAntiAlias(true);
@@ -448,6 +448,7 @@ public class CalendarHelper {
         }
         return tipPaintLunarNormal;
     }
+
     public static Paint getTipPaintWhite() {
         if (tipPaintWhite == null) {
             tipPaintWhite = new Paint();
@@ -475,6 +476,7 @@ public class CalendarHelper {
         }
         return tipLunarHolidayRed;
     }
+
     public static Paint getTipPaintLunarHolidayWhite() {
         if (tipLunarHolidayWhite == null) {
             tipLunarHolidayWhite = new Paint();
@@ -484,7 +486,7 @@ public class CalendarHelper {
             tipLunarHolidayWhite.setTextSize(AppManager.getApplicationContext()
                     .getResources().getDimension(R.dimen.text_size_describe));
             tipLunarHolidayWhite.setColor(AppManager.getApplicationContext()
-                    .getResources().getColor(R.color.china_red));
+                    .getResources().getColor(R.color.white));
         }
         return tipLunarHolidayWhite;
     }
@@ -496,7 +498,8 @@ public class CalendarHelper {
             selectedCirclePaint.setShader(null);
             selectedCirclePaint.setStyle(Style.FILL);
             selectedCirclePaint.setColor(AppManager.getApplicationContext()
-                    .getResources().getColor(R.color.date_choose_color_bg));
+                    .getResources().getColor(R.color.main_theme_color/*date_choose_color_bg*/));
+            selectedCirclePaint.setAlpha(200);
         }
         return selectedCirclePaint;
     }

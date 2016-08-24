@@ -16,8 +16,6 @@
 
 package com.android.volley;
 
-import android.os.Handler;
-
 import java.util.concurrent.Executor;
 
 /**

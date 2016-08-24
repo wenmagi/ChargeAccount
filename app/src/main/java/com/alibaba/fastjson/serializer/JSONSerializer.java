@@ -15,6 +15,9 @@
  */
 package com.alibaba.fastjson.serializer;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.Type;
@@ -26,9 +29,6 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONException;
 
 /**
  * @author wenshao[szujobs@hotmail.com]

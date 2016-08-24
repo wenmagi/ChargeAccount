@@ -6,7 +6,7 @@ import static com.wen.magi.baseframe.base.AppConfig.DEV_BUILD;
 
 
 public class BytePool {
-    private LinkedList<byte[]> pool = new LinkedList<byte[]>();
+    private LinkedList<byte[]> pool = new LinkedList<>();
 
     private static int creation_count = 0;
 

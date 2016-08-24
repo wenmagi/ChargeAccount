@@ -9,11 +9,11 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import static com.wen.magi.baseframe.utils.UrlConstants.*;
-import static com.wen.magi.baseframe.utils.Constants.*;
-
 import com.wen.magi.baseframe.base.BaseActivity;
 import com.wen.magi.baseframe.utils.LangUtils;
+
+import static com.wen.magi.baseframe.utils.Constants.ACTIVITY_WEB_KEY_INTENT_URL;
+import static com.wen.magi.baseframe.utils.UrlConstants.defaultURL;
 
 /**
  * Created by MVEN on 16/7/5.

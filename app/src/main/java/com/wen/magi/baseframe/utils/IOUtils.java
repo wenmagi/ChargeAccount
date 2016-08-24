@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.ParcelFileDescriptor;
 import android.support.annotation.NonNull;
 
-import com.wen.magi.baseframe.base.AppApplication;
 import com.wen.magi.baseframe.managers.AppManager;
 
 import java.io.ByteArrayOutputStream;
@@ -21,7 +20,9 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.HashMap;
-import static com.wen.magi.baseframe.utils.LangUtils.*;
+
+import static com.wen.magi.baseframe.utils.LangUtils.acquireBytes;
+import static com.wen.magi.baseframe.utils.LangUtils.releaseBytes;
 /**
  * Created by MVEN on 16/6/17.
  * <p/>

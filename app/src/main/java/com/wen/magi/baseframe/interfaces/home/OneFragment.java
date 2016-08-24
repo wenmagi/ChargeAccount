@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wen.magi.baseframe.R;
-import com.wen.magi.baseframe.base.BaseFragment;
 import com.wen.magi.baseframe.base.BaseLazyLoadFragment;
 
 /**

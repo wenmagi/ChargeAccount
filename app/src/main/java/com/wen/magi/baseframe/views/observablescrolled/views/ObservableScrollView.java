@@ -66,6 +66,11 @@ public class ObservableScrollView extends ScrollView implements Scrollable {
         mCallbacks = callback;
     }
 
+    @Override
+    public ScrollState getScrollState() {
+        return mScrollState;
+    }
+
 
     private void dispatchOnScrollChanged(int scrollY) {
         if (mCallbacks != null) {

@@ -15,17 +15,7 @@
  */
 package com.alibaba.fastjson;
 
-import static com.alibaba.fastjson.util.TypeUtils.castToBigDecimal;
-import static com.alibaba.fastjson.util.TypeUtils.castToBigInteger;
-import static com.alibaba.fastjson.util.TypeUtils.castToBoolean;
-import static com.alibaba.fastjson.util.TypeUtils.castToByte;
-import static com.alibaba.fastjson.util.TypeUtils.castToDate;
-import static com.alibaba.fastjson.util.TypeUtils.castToDouble;
-import static com.alibaba.fastjson.util.TypeUtils.castToFloat;
-import static com.alibaba.fastjson.util.TypeUtils.castToInt;
-import static com.alibaba.fastjson.util.TypeUtils.castToLong;
-import static com.alibaba.fastjson.util.TypeUtils.castToShort;
-import static com.alibaba.fastjson.util.TypeUtils.castToString;
+import com.alibaba.fastjson.util.TypeUtils;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
@@ -38,7 +28,17 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.RandomAccess;
 
-import com.alibaba.fastjson.util.TypeUtils;
+import static com.alibaba.fastjson.util.TypeUtils.castToBigDecimal;
+import static com.alibaba.fastjson.util.TypeUtils.castToBigInteger;
+import static com.alibaba.fastjson.util.TypeUtils.castToBoolean;
+import static com.alibaba.fastjson.util.TypeUtils.castToByte;
+import static com.alibaba.fastjson.util.TypeUtils.castToDate;
+import static com.alibaba.fastjson.util.TypeUtils.castToDouble;
+import static com.alibaba.fastjson.util.TypeUtils.castToFloat;
+import static com.alibaba.fastjson.util.TypeUtils.castToInt;
+import static com.alibaba.fastjson.util.TypeUtils.castToLong;
+import static com.alibaba.fastjson.util.TypeUtils.castToShort;
+import static com.alibaba.fastjson.util.TypeUtils.castToString;
 
 /**
  * @author wenshao[szujobs@hotmail.com]

@@ -1,14 +1,19 @@
 package com.alibaba.fastjson;
 
+import com.alibaba.fastjson.serializer.JSONSerializer;
+import com.alibaba.fastjson.serializer.SerializeWriter;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+
 import java.io.Closeable;
 import java.io.Flushable;
 import java.io.IOException;
 import java.io.Writer;
 
-import static com.alibaba.fastjson.JSONStreamContext.*;
-import com.alibaba.fastjson.serializer.JSONSerializer;
-import com.alibaba.fastjson.serializer.SerializeWriter;
-import com.alibaba.fastjson.serializer.SerializerFeature;
+import static com.alibaba.fastjson.JSONStreamContext.ArrayValue;
+import static com.alibaba.fastjson.JSONStreamContext.PropertyKey;
+import static com.alibaba.fastjson.JSONStreamContext.PropertyValue;
+import static com.alibaba.fastjson.JSONStreamContext.StartArray;
+import static com.alibaba.fastjson.JSONStreamContext.StartObject;
 
 public class JSONWriter implements Closeable, Flushable {
 

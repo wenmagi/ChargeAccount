@@ -1,24 +1,29 @@
 package com.wen.magi.baseframe.utils;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.ResultReceiver;
-import android.support.annotation.NonNull;
-import android.support.v4.text.TextUtilsCompat;
 import android.text.TextUtils;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.TouchDelegate;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.wen.magi.baseframe.R;
 import com.wen.magi.baseframe.managers.AppManager;
 
 import java.lang.ref.WeakReference;
@@ -61,6 +66,11 @@ public class ViewUtils {
     public static void post(Runnable runnable) {
         if (handler != null)
             handler.post(runnable);
+    }
+
+    public static void postDelayed(Runnable runnable, long delayed) {
+        if (handler != null)
+            handler.postDelayed(runnable, delayed);
     }
 
     /**
@@ -316,5 +326,93 @@ public class ViewUtils {
             toast.setText(toastStr);
         }
         toast.show();
+    }
+
+    /**
+     * Remove a view from viewgroup.
+     *
+     * @param o can be null
+     */
+    public static void removeFromSuperView(Object o) {
+        if (o == null)
+            return;
+
+        if (o instanceof View) {
+            View view = (View) o;
+            final ViewParent parent = view.getParent();
+            if (parent == null)
+                return;
+            if (parent instanceof ViewGroup) {
+                ViewGroup group = (ViewGroup) parent;
+                group.removeView(view);
+            } else
+                LogUtils.w("the parent of view %s is not a viewgroup: %s", view, parent);
+        } else if (o instanceof Dialog) {
+            Dialog dialog = (Dialog) o;
+            dialog.hide();
+        }
+    }
+
+    /**
+     * 设置ImageView点击变色效果,这样不需要为View准备两个Shape文件
+     *
+     * @param targetView 需要添加点击效果的View
+     */
+    public static void setViewClickStateChangeListener(final View targetView) {
+        targetView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        targetView.getBackground().setColorFilter(getColor(R.color.alpha_20_percent_black), PorterDuff.Mode.SRC_ATOP);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        targetView.getBackground().setColorFilter(getColor(R.color.transparency), PorterDuff.Mode.SRC_ATOP);
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                        targetView.getBackground().setColorFilter(getColor(R.color.transparency), PorterDuff.Mode.SRC_ATOP);
+                        break;
+                }
+                return false;
+            }
+        });
+    }
+
+    /**
+     * 设置ImageView点击变色效果,这样不需要为ImageView准备两套图
+     * 点击前不透明/不缩放，点击后透明度变为60%／缩放90%
+     *
+     * @param targetView 需要添加点击效果的ImageView
+     */
+    public static void setImageClickStateChangeListener(final ImageView targetView) {
+        targetView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        targetView.setAlpha(0.6f);
+                        targetView.setScaleX(0.9f);
+                        targetView.setScaleY(0.9f);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        targetView.setAlpha(1f);
+                        targetView.setScaleX(1f);
+                        targetView.setScaleY(1f);
+                        break;
+                }
+                return false;
+            }
+        });
+    }
+
+    public static int getColor(int resID) {
+        if (resID <= 0) {
+            return Color.TRANSPARENT;
+        }
+        try {
+            return AppManager.getApplicationContext().getResources().getColor(resID);
+        } catch (Resources.NotFoundException exception) {
+            return Color.TRANSPARENT;
+        }
     }
 }

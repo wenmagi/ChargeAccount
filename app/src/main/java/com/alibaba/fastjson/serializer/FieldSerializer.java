@@ -15,13 +15,13 @@
  */
 package com.alibaba.fastjson.serializer;
 
-import java.io.IOException;
-import java.lang.reflect.Member;
-import java.util.Collection;
-
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.util.FieldInfo;
+
+import java.io.IOException;
+import java.lang.reflect.Member;
+import java.util.Collection;
 
 /**
  * @author wenshao[szujobs@hotmail.com]

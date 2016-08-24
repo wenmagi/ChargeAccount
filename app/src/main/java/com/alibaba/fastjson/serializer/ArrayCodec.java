@@ -15,10 +15,6 @@
  */
 package com.alibaba.fastjson.serializer;
 
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.lang.reflect.Type;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.parser.DefaultJSONParser;
@@ -26,6 +22,10 @@ import com.alibaba.fastjson.parser.JSONLexer;
 import com.alibaba.fastjson.parser.JSONToken;
 import com.alibaba.fastjson.parser.deserializer.ObjectDeserializer;
 import com.alibaba.fastjson.util.TypeUtils;
+
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 
 /**
  * @author wenshao[szujobs@hotmail.com]

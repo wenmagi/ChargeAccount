@@ -15,22 +15,18 @@
  */
 package com.alibaba.fastjson.parser;
 
-import static com.alibaba.fastjson.parser.JSONLexer.EOI;
-import static com.alibaba.fastjson.parser.JSONToken.EOF;
-import static com.alibaba.fastjson.parser.JSONToken.ERROR;
-import static com.alibaba.fastjson.parser.JSONToken.FALSE;
-import static com.alibaba.fastjson.parser.JSONToken.LBRACE;
-import static com.alibaba.fastjson.parser.JSONToken.LBRACKET;
-import static com.alibaba.fastjson.parser.JSONToken.LITERAL_FLOAT;
-import static com.alibaba.fastjson.parser.JSONToken.LITERAL_INT;
-import static com.alibaba.fastjson.parser.JSONToken.LITERAL_STRING;
-import static com.alibaba.fastjson.parser.JSONToken.NEW;
-import static com.alibaba.fastjson.parser.JSONToken.NULL;
-import static com.alibaba.fastjson.parser.JSONToken.RBRACKET;
-import static com.alibaba.fastjson.parser.JSONToken.SET;
-import static com.alibaba.fastjson.parser.JSONToken.TREE_SET;
-import static com.alibaba.fastjson.parser.JSONToken.TRUE;
-import static com.alibaba.fastjson.parser.JSONToken.UNDEFINED;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.parser.deserializer.ExtraProcessor;
+import com.alibaba.fastjson.parser.deserializer.ExtraTypeProvider;
+import com.alibaba.fastjson.parser.deserializer.FieldDeserializer;
+import com.alibaba.fastjson.parser.deserializer.FieldTypeResolver;
+import com.alibaba.fastjson.parser.deserializer.ObjectDeserializer;
+import com.alibaba.fastjson.serializer.IntegerCodec;
+import com.alibaba.fastjson.serializer.StringCodec;
+import com.alibaba.fastjson.util.TypeUtils;
 
 import java.io.Closeable;
 import java.lang.reflect.ParameterizedType;
@@ -50,18 +46,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONException;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.parser.deserializer.ExtraProcessor;
-import com.alibaba.fastjson.parser.deserializer.ExtraTypeProvider;
-import com.alibaba.fastjson.parser.deserializer.FieldDeserializer;
-import com.alibaba.fastjson.parser.deserializer.FieldTypeResolver;
-import com.alibaba.fastjson.parser.deserializer.ObjectDeserializer;
-import com.alibaba.fastjson.serializer.IntegerCodec;
-import com.alibaba.fastjson.serializer.StringCodec;
-import com.alibaba.fastjson.util.TypeUtils;
+import static com.alibaba.fastjson.parser.JSONLexer.EOI;
+import static com.alibaba.fastjson.parser.JSONToken.EOF;
+import static com.alibaba.fastjson.parser.JSONToken.ERROR;
+import static com.alibaba.fastjson.parser.JSONToken.FALSE;
+import static com.alibaba.fastjson.parser.JSONToken.LBRACE;
+import static com.alibaba.fastjson.parser.JSONToken.LBRACKET;
+import static com.alibaba.fastjson.parser.JSONToken.LITERAL_FLOAT;
+import static com.alibaba.fastjson.parser.JSONToken.LITERAL_INT;
+import static com.alibaba.fastjson.parser.JSONToken.LITERAL_STRING;
+import static com.alibaba.fastjson.parser.JSONToken.NEW;
+import static com.alibaba.fastjson.parser.JSONToken.NULL;
+import static com.alibaba.fastjson.parser.JSONToken.RBRACKET;
+import static com.alibaba.fastjson.parser.JSONToken.SET;
+import static com.alibaba.fastjson.parser.JSONToken.TREE_SET;
+import static com.alibaba.fastjson.parser.JSONToken.TRUE;
+import static com.alibaba.fastjson.parser.JSONToken.UNDEFINED;
 
 /**
  * @author wenshao[szujobs@hotmail.com]

@@ -38,7 +38,7 @@ public class DBManager {
             DaoMaster.OpenHelper helper =
                     new DaoMaster.DevOpenHelper(context, StringUtils.md5(dbName),
                             null);
-            daoMaster = new DaoMaster(helper.getWritableDatabase());
+            daoMaster = new DaoMaster(helper.getWritableDb());
         }
         if (daoSession == null) {
             daoSession = daoMaster.newSession();

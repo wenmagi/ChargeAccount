@@ -15,11 +15,11 @@
  */
 package com.alibaba.fastjson.serializer;
 
-import java.io.IOException;
-import java.lang.reflect.Type;
-
 import com.alibaba.fastjson.parser.DefaultJSONParser;
 import com.alibaba.fastjson.parser.deserializer.ObjectDeserializer;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
 
 /**
  * @author wenshao[szujobs@hotmail.com]

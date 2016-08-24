@@ -5,11 +5,12 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 
 import com.wen.magi.baseframe.utils.IOUtils;
-import static com.wen.magi.baseframe.utils.StringUtils.*;
 import com.wen.magi.baseframe.utils.LogUtils;
 import com.wen.magi.baseframe.utils.SysUtils;
 
 import java.io.File;
+
+import static com.wen.magi.baseframe.utils.StringUtils.md5;
 
 
 /**

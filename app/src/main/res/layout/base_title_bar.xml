@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical">
+
+    <!-- left button: button + text -->
+    <LinearLayout
+        android:id="@+id/ll_left_content"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/common_tv_height"
+        android:layout_alignParentLeft="true"
+        android:layout_gravity="left|center_vertical"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="horizontal"
+        android:paddingRight="@dimen/common_margin_left_right"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_left"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_tv_height"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="@dimen/common_margin_left_right" />
+
+    </LinearLayout>
+
+    <!-- center title: TextView+button -->
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/common_tv_height"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxEms="11"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_main_title" />
+
+    <!-- right button -->
+    <LinearLayout
+        android:id="@+id/ll_right_content"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/common_tv_height"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_tv_height"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:paddingRight="@dimen/common_margin_left_right"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_sub_title" />
+
+        <ImageView
+            android:id="@+id/iv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_tv_height"
+            android:layout_gravity="right|center_vertical"
+            android:gravity="center"
+            android:paddingRight="@dimen/common_margin_left_right"
+            android:scaleType="centerInside"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</merge>

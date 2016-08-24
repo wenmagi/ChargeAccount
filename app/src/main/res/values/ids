@@ -2,4 +2,5 @@
 <resources>
 
     <item name="calendar_month_id" type="id"></item>
+    <item name="base_title_bar_id" type="id"></item>
 </resources>

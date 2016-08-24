@@ -1,86 +1,89 @@
 package com.wen.magi.baseframe.activities;
 
-import android.app.ActivityOptions;
-import android.content.Intent;
+import android.app.ActivityManager;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.ViewStub;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.wen.magi.baseframe.R;
+import com.wen.magi.baseframe.adapters.MainPagerAdapter;
 import com.wen.magi.baseframe.annotations.From;
 import com.wen.magi.baseframe.base.BaseActivity;
-import com.wen.magi.baseframe.fortest.DialogTestActivity;
-import com.wen.magi.baseframe.utils.Constants;
-import com.wen.magi.baseframe.utils.LogUtils;
-import com.wen.magi.baseframe.utils.SysUtils;
-import com.wen.magi.baseframe.views.calendar.month.MonthView;
-import com.wen.magi.baseframe.web.WebActivity;
+import com.wen.magi.baseframe.fragments.calendar.CalendarFragment;
+import com.wen.magi.baseframe.utils.ViewUtils;
+import com.wen.magi.baseframe.views.viewpager.TabView;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Objects;
-
-import static com.wen.magi.baseframe.utils.Constants.ACTIVITY_WEB_KEY_INTENT_URL;
 
 public class MainActivity extends BaseActivity {
 
-    @From(R.id.main_tv)
-    private TextView mainTv;
+    private static final int TAB_NUM = 3;
+    @From(R.id.main_viewpager)
+    private ViewPager viewPager;
 
-    @From(R.id.main_tv1)
-    private TextView mainTv1;
+    @From(R.id.id_tab)
+    private TabView tabView;
 
-    @From(R.id.stub_id1)
-    private ViewStub viewStub;
-
-    private View linearLayout;
-
-    private HashMap<String, Objects> hashMap;
+    private MainPagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mainTv.setOnClickListener(this);
-        mainTv1.setOnClickListener(this);
+        initPager();
+    }
 
+    private void initPager() {
+        Fragment calendarFragment = getFragmentCache(R.id.main_viewpager, 0);
+        if (calendarFragment == null)
+            calendarFragment = new CalendarFragment();
+        Fragment calendarFragment1 = getFragmentCache(R.id.main_viewpager, 1);
+        if (calendarFragment1 == null)
+            calendarFragment1 = new CalendarFragment();
+        Fragment calendarFragment2 = getFragmentCache(R.id.main_viewpager, 2);
+        if (calendarFragment2 == null)
+            calendarFragment2 = new CalendarFragment();
+        ArrayList<Fragment> fragments = new ArrayList<>(TAB_NUM);
+        fragments.add(calendarFragment);
+        fragments.add(calendarFragment1);
+        fragments.add(calendarFragment2);
+
+        pagerAdapter = new MainPagerAdapter(fragments, getSupportFragmentManager());
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.setOffscreenPageLimit(TAB_NUM);
+        tabView.setViewPager(viewPager);
     }
 
     @Override
     protected void OnClickView(View v) {
-        if (v == mainTv) {
-            Intent intent = new Intent(this, /*DialogTestActivity*/CalendarActivity.class);
-//            startActivity(DialogTestActivity.class);
-            if (SysUtils.nowSDKINTBigger(21)) {
-                startActivity(intent,
-                        ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, mainTv, "shareNames").toBundle());
-            } else
-                startActivity(intent);
-
-        } else if (v == mainTv1) {
-//            viewStub.setVisibility(View.VISIBLE);
-            if (linearLayout != null)
-                return;
-            linearLayout = viewStub.inflate();
-            linearLayout.setBackgroundResource(R.color.red_btn_bg_color);
-            linearLayout.setOnClickListener(this);
-            viewStub.setBackgroundResource(R.color.blue_btn_bg_color);
-        } else if (v == linearLayout) {
-            Intent intent = new Intent(this, WebActivity.class);
-            intent.putExtra(ACTIVITY_WEB_KEY_INTENT_URL, "https://www.baidu.com");
-            startActivity(intent);
-        }
     }
 
-    public static ArrayList<String> getDummyData(int num) {
-        ArrayList<String> items = new ArrayList<>();
-        for (int i = 1; i <= num; i++) {
-            items.add("Item " + i);
-        }
-        return items;
+    @Override
+    protected boolean isTitleBarAvailable() {
+        return false;
     }
 
+    private static final long DELAY_EXIT_TIME = 1000;
+    private boolean canExit = false;
+
+    @Override
+    public void onBackPressed() {
+        if (canExit) {
+            ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+            am.killBackgroundProcesses(getPackageName());
+            finish();
+        } else {
+            ViewUtils.showToast(this, getString(R.string.main_activity_back_warn), Toast.LENGTH_SHORT);
+            canExit = true;
+            ViewUtils.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    canExit = false;
+                }
+            }, DELAY_EXIT_TIME);
+        }
+
+    }
 }

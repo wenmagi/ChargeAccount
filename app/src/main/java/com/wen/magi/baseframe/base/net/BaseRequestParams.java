@@ -3,7 +3,6 @@ package com.wen.magi.baseframe.base.net;
 import com.wen.magi.baseframe.utils.LangUtils;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**

@@ -13,7 +13,7 @@
 
     <!-- 文字尺寸分类 -->
     <!-- 文字尺寸分类 -->
-    <dimen name="calendar_text_size">20dp</dimen>
+    <dimen name="calendar_text_size">20.5sp</dimen>
 
     <dimen name="text_size_largest">25sp</dimen>
     <dimen name="text_size_larger">18sp</dimen>
@@ -48,5 +48,9 @@
     <!-- commen EditText height -->
     <dimen name="line_width">0.5dp</dimen>
     <!-- commen Line width -->
+
+    <dimen name="common_title_bar_height">50dp</dimen>
+    <dimen name="edit_tv_height">30dp</dimen>
+    <dimen name="edit_tv_coner">15dp</dimen>
 
 </resources>

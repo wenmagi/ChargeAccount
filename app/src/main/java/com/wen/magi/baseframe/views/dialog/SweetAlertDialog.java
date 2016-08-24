@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import com.pnikosis.materialishprogress.ProgressWheel;
 import com.wen.magi.baseframe.R;
-import com.wen.magi.baseframe.utils.InjectUtils;
 
 import java.util.List;
 

@@ -15,6 +15,11 @@
  */
 package com.alibaba.fastjson.serializer;
 
+import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.annotation.JSONType;
+import com.alibaba.fastjson.util.FieldInfo;
+import com.alibaba.fastjson.util.TypeUtils;
+
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
@@ -25,11 +30,6 @@ import java.util.IdentityHashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.alibaba.fastjson.JSONException;
-import com.alibaba.fastjson.annotation.JSONType;
-import com.alibaba.fastjson.util.FieldInfo;
-import com.alibaba.fastjson.util.TypeUtils;
 
 /**
  * @author wenshao[szujobs@hotmail.com]

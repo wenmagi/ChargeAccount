@@ -1,9 +1,9 @@
 package com.alibaba.fastjson.parser;
 
-import java.lang.reflect.Type;
-
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.parser.deserializer.ObjectDeserializer;
+
+import java.lang.reflect.Type;
 
 @SuppressWarnings("rawtypes")
 public class EnumDeserializer implements ObjectDeserializer {

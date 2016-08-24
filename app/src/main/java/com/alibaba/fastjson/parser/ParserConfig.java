@@ -15,6 +15,21 @@
  */
 package com.alibaba.fastjson.parser;
 
+import com.alibaba.fastjson.annotation.JSONType;
+import com.alibaba.fastjson.parser.deserializer.FieldDeserializer;
+import com.alibaba.fastjson.parser.deserializer.ObjectDeserializer;
+import com.alibaba.fastjson.serializer.ArrayCodec;
+import com.alibaba.fastjson.serializer.BigDecimalCodec;
+import com.alibaba.fastjson.serializer.BooleanCodec;
+import com.alibaba.fastjson.serializer.CollectionCodec;
+import com.alibaba.fastjson.serializer.DateCodec;
+import com.alibaba.fastjson.serializer.IntegerCodec;
+import com.alibaba.fastjson.serializer.MiscCodec;
+import com.alibaba.fastjson.serializer.NumberCodec;
+import com.alibaba.fastjson.serializer.StringCodec;
+import com.alibaba.fastjson.util.FieldInfo;
+import com.alibaba.fastjson.util.IdentityHashMap;
+
 import java.io.Closeable;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -44,21 +59,6 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Pattern;
-
-import com.alibaba.fastjson.annotation.JSONType;
-import com.alibaba.fastjson.parser.deserializer.FieldDeserializer;
-import com.alibaba.fastjson.parser.deserializer.ObjectDeserializer;
-import com.alibaba.fastjson.serializer.ArrayCodec;
-import com.alibaba.fastjson.serializer.BigDecimalCodec;
-import com.alibaba.fastjson.serializer.BooleanCodec;
-import com.alibaba.fastjson.serializer.CollectionCodec;
-import com.alibaba.fastjson.serializer.DateCodec;
-import com.alibaba.fastjson.serializer.IntegerCodec;
-import com.alibaba.fastjson.serializer.MiscCodec;
-import com.alibaba.fastjson.serializer.NumberCodec;
-import com.alibaba.fastjson.serializer.StringCodec;
-import com.alibaba.fastjson.util.FieldInfo;
-import com.alibaba.fastjson.util.IdentityHashMap;
 
 /**
  * @author wenshao[szujobs@hotmail.com]

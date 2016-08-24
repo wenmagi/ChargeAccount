@@ -1,18 +1,12 @@
 package com.wen.magi.baseframe.utils;
 
-import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.Random;
 import java.util.TimeZone;
 
 /**
@@ -53,6 +47,43 @@ public class LangUtils {
 
     public static <E> boolean isNotEmpty(Collection<E> list) {
         return list != null && list.size() > 0;
+    }
+
+    /**
+     * Get a String object with a specific format.
+     *
+     * @param format
+     * @param date
+     * @return String
+     */
+    @NonNull
+    public static String format(String format, Date date) {
+        if (isEmpty(format) || date == null)
+            return null;
+
+        SimpleDateFormat f = new SimpleDateFormat(format);
+        String s = f.format(date);
+
+        return s;
+    }
+
+    /**
+     * Compare the receiver to the specified {@code Date} to determine the relative
+     * ordering.
+     *
+     * @param d1
+     * @param d2
+     * @return 0:d1=d2  1:d1>d2  -1:d1<d2
+     */
+    public static int compareDate(Date d1, Date d2) {
+        if (d1 == null || d2 == null) {
+            if (d1 != null)
+                return 1;
+            if (d2 != null)
+                return -1;
+        }
+        return d1.compareTo(d2);
+
     }
 
     /**

@@ -16,8 +16,8 @@ import java.net.URL;
 import java.util.Map;
 import java.util.Set;
 
-import static com.wen.magi.baseframe.base.AppConfig.*;
-import static com.wen.magi.baseframe.utils.LangUtils.*;
+import static com.wen.magi.baseframe.base.AppConfig.DEFAULT_WEB_URL;
+import static com.wen.magi.baseframe.utils.LangUtils.isEmpty;
 
 /**
  * Created by MVEN on 16/6/19.

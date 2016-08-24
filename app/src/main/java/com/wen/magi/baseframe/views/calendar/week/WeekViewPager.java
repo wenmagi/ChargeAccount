@@ -1,9 +1,5 @@
 package com.wen.magi.baseframe.views.calendar.week;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
@@ -13,6 +9,9 @@ import android.view.ViewGroup;
 
 import com.wen.magi.baseframe.utils.ViewUtils;
 import com.wen.magi.baseframe.views.calendar.SlideDrawerLayout;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class WeekViewPager extends ViewGroup {
 

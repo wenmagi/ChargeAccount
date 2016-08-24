@@ -1,7 +1,5 @@
 package com.wen.magi.baseframe.models;
 
-import com.wen.magi.baseframe.views.calendar.month.MonthView;
-
 import java.io.Serializable;
 
 /**

@@ -43,8 +43,11 @@ public class MonthPagerAdapter extends PagerAdapter {
             v.setOnCellClickListener(listener);
             v.setBackgroundResource(R.color.white);
             views.put(position, v);
-        } else
+        } else {
             v = views.get(position);
+            v.invalidate();
+        }
+        v.setTag(position);
         container.addView(v);
         return v;
     }
