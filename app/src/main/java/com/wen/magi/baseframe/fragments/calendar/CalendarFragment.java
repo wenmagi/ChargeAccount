@@ -68,7 +68,7 @@ public class CalendarFragment extends BaseLazyLoadFragment {
     private Date mSelectedDate;
     private WeekFragment mWeekPagerFragment;
     private MonthFragment mMonthPagerFragment;
-    private Lunar lunar = AppManager.lunar;
+    private Lunar lunar = Lunar.getInstance();
 
     WeekChangedListener weekListener = new WeekChangedListener() {
         public void onSelectDate(Date date, View view) {

@@ -46,6 +46,8 @@ public class SysUtils {
     public static String mUniquePsuedoID;
     public static String APP_VERSION_NAME;
 
+    public static boolean sdCardExist = false;
+
     private SysUtils() {
     }
 
@@ -76,7 +78,7 @@ public class SysUtils {
             DEVICE_NAME = "";
 
         VERSION_NAME = Build.VERSION.RELEASE;
-
+        sdCardExist = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
         try {
             WindowManager wm = (WindowManager) ctx
                     .getSystemService(Context.WINDOW_SERVICE);

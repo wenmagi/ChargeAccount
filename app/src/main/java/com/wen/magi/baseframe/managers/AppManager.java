@@ -19,7 +19,6 @@ import java.util.ArrayList;
 public class AppManager {
 
     private static Context applicationContext;
-    public static Lunar lunar;
 
     public static Context getApplicationContext() {
         return applicationContext;
@@ -31,7 +30,6 @@ public class AppManager {
         SysUtils.initialize(context);
         ViewUtils.initialize();
         algorithms.getInstance();
-        lunar = Lunar.getInstance();
     }
 
     /**
