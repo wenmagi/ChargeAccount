@@ -26,6 +26,11 @@ import com.wen.magi.baseframe.utils.SysUtils;
 import com.wen.magi.baseframe.utils.ViewUtils;
 import com.wen.magi.baseframe.utils.date.DayStyles;
 import com.wen.magi.baseframe.utils.date.Lunar;
+import com.wen.magi.baseframe.views.ultra.PtrFrameLayout;
+import com.wen.magi.baseframe.views.ultra.PtrHandler;
+import com.wen.magi.baseframe.views.ultra.PtrUIHandler;
+import com.wen.magi.baseframe.views.ultra.header.StoreHouseHeader;
+import com.wen.magi.baseframe.views.ultra.indicator.PtrIndicator;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -63,12 +68,14 @@ public class CalendarFragment extends BaseLazyLoadFragment {
     @From(R.id.textview)
     private TextView textView;
 
+
     private int Cell_Width = 0;
     private int Cell_height = 0;
     private Date mSelectedDate;
     private WeekFragment mWeekPagerFragment;
     private MonthFragment mMonthPagerFragment;
     private Lunar lunar = Lunar.getInstance();
+
 
     WeekChangedListener weekListener = new WeekChangedListener() {
         public void onSelectDate(Date date, View view) {
@@ -99,6 +106,12 @@ public class CalendarFragment extends BaseLazyLoadFragment {
     protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_calendar, null);
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
     }
 
     @Override

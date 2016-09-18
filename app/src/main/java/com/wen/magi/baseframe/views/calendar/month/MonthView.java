@@ -298,7 +298,7 @@ public class MonthView extends View {
      * @param dateTime
      */
     private void updateTips(CalendarCellView mCell, DateTime dateTime) {
-        Lunar lunar = AppManager.lunar;
+        Lunar lunar = Lunar.getInstance();
         lunar.setCalendar(dateTime.getDate());
         String lunarStr = lunar.getLunarDayString();
         String holiday = lunar.getChineseHoliday();

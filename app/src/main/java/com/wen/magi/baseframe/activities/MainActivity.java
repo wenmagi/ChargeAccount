@@ -11,6 +11,7 @@ import com.wen.magi.baseframe.R;
 import com.wen.magi.baseframe.adapters.MainPagerAdapter;
 import com.wen.magi.baseframe.annotations.From;
 import com.wen.magi.baseframe.base.BaseActivity;
+import com.wen.magi.baseframe.fragments.ConsumeOfMonthFragment;
 import com.wen.magi.baseframe.fragments.calendar.CalendarFragment;
 import com.wen.magi.baseframe.utils.ViewUtils;
 import com.wen.magi.baseframe.views.viewpager.TabView;
@@ -39,15 +40,15 @@ public class MainActivity extends BaseActivity {
         Fragment calendarFragment = getFragmentCache(R.id.main_viewpager, 0);
         if (calendarFragment == null)
             calendarFragment = new CalendarFragment();
-        Fragment calendarFragment1 = getFragmentCache(R.id.main_viewpager, 1);
-        if (calendarFragment1 == null)
-            calendarFragment1 = new CalendarFragment();
+        Fragment consumeFragment = getFragmentCache(R.id.main_viewpager, 1);
+        if (consumeFragment == null)
+            consumeFragment = new ConsumeOfMonthFragment();
         Fragment calendarFragment2 = getFragmentCache(R.id.main_viewpager, 2);
         if (calendarFragment2 == null)
             calendarFragment2 = new CalendarFragment();
         ArrayList<Fragment> fragments = new ArrayList<>(TAB_NUM);
         fragments.add(calendarFragment);
-        fragments.add(calendarFragment1);
+        fragments.add(consumeFragment);
         fragments.add(calendarFragment2);
 
         pagerAdapter = new MainPagerAdapter(fragments, getSupportFragmentManager());
@@ -71,9 +72,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         if (canExit) {
-            ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-            am.killBackgroundProcesses(getPackageName());
-            finish();
+            moveTaskToBack(true);
         } else {
             ViewUtils.showToast(this, getString(R.string.main_activity_back_warn), Toast.LENGTH_SHORT);
             canExit = true;

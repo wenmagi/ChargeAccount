@@ -22,4 +22,17 @@
     <string name="phone_contacts_title">手机通讯录</string>
     <string name="phone_contacts_empty">未搜索到联系人</string>
     <string name="phone_search_cancel">取消</string>
+
+    <!--Ultra ptr-->
+    <!--Ultra ptr-->
+    <string name="cube_ptr_pull_down">Pull Down</string>
+    <string name="cube_ptr_pull_down_to_refresh">Pull Down to Refresh</string>
+    <string name="cube_ptr_release_to_refresh">Release To Refresh</string>
+    <string name="cube_ptr_refreshing">Updating...</string>
+    <string name="cube_ptr_refresh_complete">Updated.</string>
+
+    <string name="cube_ptr_last_update">last update:&#160;</string>
+    <string name="cube_ptr_seconds_ago">&#160;seconds ago</string>
+    <string name="cube_ptr_minutes_ago">&#160;minutes ago</string>
+    <string name="cube_ptr_hours_ago">&#160;hours ago</string>
 </resources>
