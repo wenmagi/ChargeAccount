@@ -599,7 +599,7 @@ public class PtrFrameLayout extends ViewGroup {
 
     /**
      * Call this when data is loaded.
-     * The UI will perform complete at once or after a delay, depends on the time elapsed is greater then {@link #mLoadingMinTime} or not.
+     * The UI will perform complete at once or after a delay, depends on the time elapsed is greater than {@link #mLoadingMinTime} or not.
      */
     final public void refreshComplete() {
         if (DEBUG) {

@@ -34,9 +34,8 @@ public class PhoneContactsActivity extends BaseActivity implements LoaderManager
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initUI();
-
-        getLoaderManager().initLoader(CONTACTS_LOADER_ID, null,
-                PhoneContactsActivity.this);
+        //initLoader for Contactss
+        getLoaderManager().initLoader(CONTACTS_LOADER_ID, null, this);
     }
 
     private void initUI() {

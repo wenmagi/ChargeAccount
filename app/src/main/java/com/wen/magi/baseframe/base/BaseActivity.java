@@ -1,5 +1,6 @@
 package com.wen.magi.baseframe.base;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -18,6 +19,7 @@ import com.wen.magi.baseframe.base.net.BaseRequestParams;
 import com.wen.magi.baseframe.base.net.EService;
 import com.wen.magi.baseframe.bundles.BaseBundleParams;
 import com.wen.magi.baseframe.utils.InjectUtils;
+import com.wen.magi.baseframe.utils.SysUtils;
 import com.wen.magi.baseframe.views.BaseTitleBar;
 import com.wen.magi.baseframe.web.UrlRequest;
 
@@ -47,6 +49,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (SysUtils.nowSDKINTBigger(Build.VERSION_CODES.M)) {
+            getDelegate().setHandleNativeActionModesEnabled(false);
+        }
+
         initProperties();
         initView();
     }
@@ -67,6 +74,20 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         addTitleBar();
         super.setContentView(rootView);
         InjectUtils.autoInjectR(this);
+    }
+
+    /**
+     * 避免在OPPO上由于节电管理使Service无法启动导致的Crash
+     *
+     * @see <a href="http://bbs.coloros.com/thread-174655-1-1.html">http://bbs.coloros.com/thread-174655-1-1.html</a>
+     */
+    @Override
+    public ComponentName startService(Intent service) {
+        try {
+            return super.startService(service);
+        } catch (RuntimeException ignore) {
+            return null;
+        }
     }
 
     protected void initTitleBar() {

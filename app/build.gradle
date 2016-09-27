@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 24
+    buildToolsVersion "24.0.2"
 
     defaultConfig {
         applicationId "com.wen.magi.noteheart"
         minSdkVersion 15
-        targetSdkVersion 22
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0"
     }
@@ -20,17 +20,24 @@ android {
             multiDexEnabled true
         }
     }
+
+    greendao {
+        schemaVersion 1
+        daoPackage 'com.wen.magi.baseframe.db'
+        targetGenDir 'src/main/java'
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:22.1.1'
-    compile 'com.android.support:support-v4:22.1.1'
+    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:support-v4:24.1.1'
     compile 'org.greenrobot:eventbus:3.0.0' //EventBus，用于消息传递
     compile 'com.pnikosis:materialish-progress:1.0'//加载wheel
     compile 'org.greenrobot:greendao:3.1.0'//greenDao:轻量极速的ORM解决方案
-    compile 'com.android.support:multidex:1.0.0'//配合multiDexEnabled true，再application中初始化，install，突破65535限制
+    compile 'com.android.support:multidex:1.0.0'
+//配合multiDexEnabled true，再application中初始化，install，突破65535限制
 //    compile 'com.github.niorgai:StatusBarCompat:1.1.0'
 //    compile 'com.jaeger.statusbaruitl:library:1.2.4'//https://github.com/laobie/StatusBarUtil 沉浸式状态栏
     //compile 'com.android.support:design:24.1.1'//material design
