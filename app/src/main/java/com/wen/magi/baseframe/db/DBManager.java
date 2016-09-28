@@ -5,8 +5,11 @@ import android.content.Context;
 import com.wen.magi.baseframe.managers.AppManager;
 import com.wen.magi.baseframe.managers.RequestQueueManager;
 import com.wen.magi.baseframe.models.AppUser;
+import com.wen.magi.baseframe.models.Income;
 import com.wen.magi.baseframe.utils.LangUtils;
 import com.wen.magi.baseframe.utils.StringUtils;
+
+import java.util.List;
 
 /**
  * Created by MVEN on 16/6/18.
@@ -17,7 +20,7 @@ import com.wen.magi.baseframe.utils.StringUtils;
 
 public class DBManager {
 
-
+    private static final String DB_NAME = "note_heart_%s_greendao.db";
     private DaoMaster daoMaster;
     private DaoSession daoSession;
 
@@ -31,7 +34,7 @@ public class DBManager {
             } else {
                 name = user.phoneNum;
             }
-            String dbName = StringUtils.format("%s_%s_greendao.db", "papaya_card", name);
+            String dbName = StringUtils.format(DB_NAME, name);
             DaoMaster.OpenHelper helper =
                     new DaoMaster.DevOpenHelper(context, StringUtils.md5(dbName),
                             null);
@@ -52,6 +55,21 @@ public class DBManager {
         daoMaster = null;
     }
 
+    public Income loadIncome(long id) {
+        if (daoSession == null)
+            return null;
+
+        return daoSession.getIncomeDao().load(id);
+    }
+
+    public List<Income> queryIncome(String where, String... params) {
+        if (daoSession == null)
+            return null;
+        return daoSession.getIncomeDao().queryRaw("where" + where, params);
+    }
+
+//    public Income loadByIncomeID(long id){
+//    }
     /**********************
      * CardOrder Func
      ********************************/

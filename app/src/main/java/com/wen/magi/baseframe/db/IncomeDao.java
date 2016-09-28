@@ -30,6 +30,11 @@ public class IncomeDao extends AbstractDao<Income, Long> {
         public final static Property Desc = new Property(3, String.class, "desc", false, "DESC");
         public final static Property IncomeNum = new Property(4, Long.class, "incomeNum", false, "INCOME_NUM");
         public final static Property IncomeDate = new Property(5, java.util.Date.class, "incomeDate", false, "INCOME_DATE");
+        public final static Property DtStart = new Property(6, java.util.Date.class, "dtStart", false, "DT_START");
+        public final static Property DtEnd = new Property(7, java.util.Date.class, "dtEnd", false, "DT_END");
+        public final static Property Location = new Property(8, String.class, "location", false, "LOCATION");
+        public final static Property Picture = new Property(9, String.class, "picture", false, "PICTURE");
+        public final static Property RepeatType = new Property(10, String.class, "repeatType", false, "REPEAT_TYPE");
     }
 
 
@@ -50,7 +55,12 @@ public class IncomeDao extends AbstractDao<Income, Long> {
                 "\"TITLE\" TEXT," + // 2: title
                 "\"DESC\" TEXT," + // 3: desc
                 "\"INCOME_NUM\" INTEGER," + // 4: incomeNum
-                "\"INCOME_DATE\" INTEGER);"); // 5: incomeDate
+                "\"INCOME_DATE\" INTEGER," + // 5: incomeDate
+                "\"DT_START\" INTEGER," + // 6: dtStart
+                "\"DT_END\" INTEGER," + // 7: dtEnd
+                "\"LOCATION\" TEXT," + // 8: location
+                "\"PICTURE\" TEXT," + // 9: picture
+                "\"REPEAT_TYPE\" TEXT);"); // 10: repeatType
     }
 
     /** Drops the underlying database table. */
@@ -92,6 +102,31 @@ public class IncomeDao extends AbstractDao<Income, Long> {
         if (incomeDate != null) {
             stmt.bindLong(6, incomeDate.getTime());
         }
+ 
+        java.util.Date dtStart = entity.getDtStart();
+        if (dtStart != null) {
+            stmt.bindLong(7, dtStart.getTime());
+        }
+ 
+        java.util.Date dtEnd = entity.getDtEnd();
+        if (dtEnd != null) {
+            stmt.bindLong(8, dtEnd.getTime());
+        }
+ 
+        String location = entity.getLocation();
+        if (location != null) {
+            stmt.bindString(9, location);
+        }
+ 
+        String picture = entity.getPicture();
+        if (picture != null) {
+            stmt.bindString(10, picture);
+        }
+ 
+        String repeatType = entity.getRepeatType();
+        if (repeatType != null) {
+            stmt.bindString(11, repeatType);
+        }
     }
 
     @Override
@@ -127,6 +162,31 @@ public class IncomeDao extends AbstractDao<Income, Long> {
         if (incomeDate != null) {
             stmt.bindLong(6, incomeDate.getTime());
         }
+ 
+        java.util.Date dtStart = entity.getDtStart();
+        if (dtStart != null) {
+            stmt.bindLong(7, dtStart.getTime());
+        }
+ 
+        java.util.Date dtEnd = entity.getDtEnd();
+        if (dtEnd != null) {
+            stmt.bindLong(8, dtEnd.getTime());
+        }
+ 
+        String location = entity.getLocation();
+        if (location != null) {
+            stmt.bindString(9, location);
+        }
+ 
+        String picture = entity.getPicture();
+        if (picture != null) {
+            stmt.bindString(10, picture);
+        }
+ 
+        String repeatType = entity.getRepeatType();
+        if (repeatType != null) {
+            stmt.bindString(11, repeatType);
+        }
     }
 
     @Override
@@ -142,7 +202,12 @@ public class IncomeDao extends AbstractDao<Income, Long> {
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // title
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // desc
             cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4), // incomeNum
-            cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)) // incomeDate
+            cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)), // incomeDate
+            cursor.isNull(offset + 6) ? null : new java.util.Date(cursor.getLong(offset + 6)), // dtStart
+            cursor.isNull(offset + 7) ? null : new java.util.Date(cursor.getLong(offset + 7)), // dtEnd
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // location
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // picture
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10) // repeatType
         );
         return entity;
     }
@@ -155,6 +220,11 @@ public class IncomeDao extends AbstractDao<Income, Long> {
         entity.setDesc(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setIncomeNum(cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4));
         entity.setIncomeDate(cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)));
+        entity.setDtStart(cursor.isNull(offset + 6) ? null : new java.util.Date(cursor.getLong(offset + 6)));
+        entity.setDtEnd(cursor.isNull(offset + 7) ? null : new java.util.Date(cursor.getLong(offset + 7)));
+        entity.setLocation(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setPicture(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setRepeatType(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
      }
     
     @Override

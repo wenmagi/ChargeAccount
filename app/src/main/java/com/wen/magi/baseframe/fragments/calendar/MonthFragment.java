@@ -1,11 +1,17 @@
 package com.wen.magi.baseframe.fragments.calendar;
 
+import android.content.res.Resources;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.internal.widget.ThemeUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.wen.magi.baseframe.R;
 import com.wen.magi.baseframe.adapters.MonthPagerAdapter;
 import com.wen.magi.baseframe.base.BaseFragment;
 import com.wen.magi.baseframe.eventbus.BackTodayEvent;
@@ -52,6 +58,7 @@ public class MonthFragment extends BaseFragment {
         Bundle b = getArguments();
         if (b == null)
             return;
+
         datas = (MonthDatas) b.getSerializable(Constants.BUNDLE_MONTH_FRAGMENT);
     }
 
@@ -62,7 +69,6 @@ public class MonthFragment extends BaseFragment {
 
         initData();
         initUI();
-
         return monthPager;
     }
 

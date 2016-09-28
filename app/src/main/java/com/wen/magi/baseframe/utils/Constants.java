@@ -45,5 +45,12 @@ public class Constants {
     /*MonthFragment*/
     public static final String BUNDLE_MONTH_FRAGMENT = "bundle_month_fragment";
 
+    /*Income*/
+    /*Income*/
+    public static final String REPEAT_DAILY = "DAILY";
+    public static final String REPEAT_WEEKLY = "WEEKLY";
+    public static final String REPEAT_MONTHLY = "MONTHLY";
+    public static final String REPEAT_YEARLY = "YEARLY";
+
 
 }
