@@ -50,9 +50,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (SysUtils.nowSDKINTBigger(Build.VERSION_CODES.M)) {
-            getDelegate().setHandleNativeActionModesEnabled(false);
-        }
+//        if (SysUtils.nowSDKINTBigger(Build.VERSION_CODES.M)) {
+//            getDelegate().setHandleNativeActionModesEnabled(false);
+//        }
 
         initProperties();
         initView();
