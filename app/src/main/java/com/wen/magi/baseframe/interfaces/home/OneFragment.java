@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wen.magi.baseframe.R;
+import com.wen.magi.baseframe.activities.MainActivity;
 import com.wen.magi.baseframe.base.BaseLazyLoadFragment;
 
 /**
@@ -34,4 +35,6 @@ public class OneFragment extends BaseLazyLoadFragment {
     protected void OnClickView(View v) {
 
     }
+
+
 }

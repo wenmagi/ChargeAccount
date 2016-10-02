@@ -50,6 +50,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
     @SuppressWarnings("unused")
     public void addPagerItem(final PagerItem pagerItem) {
         mPagerItems.add(pagerItem);
+        notifyDataSetChanged();
     }
 
     @SuppressWarnings("unused")
@@ -61,10 +62,11 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         for (PagerItem pagerItem : pagerItems) {
             mPagerItems.add(pagerItem);
         }
+        notifyDataSetChanged();
 
     }
 
-    private PagerItem getPagerItem(final int position) {
+    public PagerItem getPagerItem(final int position) {
         return mPagerItems.get(position);
     }
 

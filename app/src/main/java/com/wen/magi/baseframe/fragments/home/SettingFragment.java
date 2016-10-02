@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.wen.magi.baseframe.R;
 import com.wen.magi.baseframe.base.BaseLazyLoadFragment;
 
 /**
@@ -16,7 +17,8 @@ public class SettingFragment  extends BaseLazyLoadFragment {
 
     @Override
     protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return null;
+        View root = inflater.inflate(R.layout.dialog_test_fragment, container, false);
+        return root;
     }
 
     @Override

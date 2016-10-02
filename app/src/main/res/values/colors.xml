@@ -76,7 +76,7 @@
     <color name="main_theme_color">#ff4f4f00</color>
 
 
-    <color name="colorPrimaryDark_dark">#FF1E282D</color>
-    <color name="colorPrimaryDark_light">#FF176EB9</color>
+    <color name="colorPrimaryDark_dark">#ff4f4f00</color>
+    <color name="colorPrimaryDark_light">#ff4f4f00</color>
 
 </resources>

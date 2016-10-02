@@ -1,10 +1,14 @@
 package com.wen.magi.baseframe.activities;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.databinding.DataBindingUtil;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.res.ResourcesCompat;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,17 +20,18 @@ import com.wen.magi.baseframe.base.BaseActivity;
 import com.wen.magi.baseframe.base.BaseFragment;
 import com.wen.magi.baseframe.base.graphics.TintDrawable;
 import com.wen.magi.baseframe.databinding.ActivityMainBinding;
-import com.wen.magi.baseframe.fragments.home.ConsumeOfMonthFragment;
 import com.wen.magi.baseframe.fragments.ParentFragment;
+import com.wen.magi.baseframe.fragments.home.ConsumeOfMonthFragment;
 import com.wen.magi.baseframe.fragments.home.SettingFragment;
 import com.wen.magi.baseframe.fragments.home.calendar.CalendarFragment;
 import com.wen.magi.baseframe.managers.ThemeManager;
 import com.wen.magi.baseframe.utils.ViewUtils;
+import com.wen.magi.baseframe.widgets.FooterBehavior;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements TabLayout.OnTabSelectedListener {
+public class MainActivity extends BaseActivity implements TabLayout.OnTabSelectedListener, FragmentManager.OnBackStackChangedListener {
 
     private static final int TAB_NUM = 3;
 
@@ -41,6 +46,21 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
     // 只允许这个 Fragment 对状态栏进行操作
     private String mLatestFragmentName;
 
+    private FooterBehavior footerBehavior;
+    private List<TabLayout.OnTabSelectedListener> mTabObservers = new ArrayList<>();
+
+    public static MainActivity from(final Context pContext) {
+        if (pContext instanceof MainActivity) {
+            return (MainActivity) pContext;
+        } else if (pContext instanceof ContextWrapper) {
+            Context baseContext = ((ContextWrapper) pContext).getBaseContext();
+            if (baseContext instanceof MainActivity) {
+                return (MainActivity) baseContext;
+            }
+        }
+        throw new IllegalArgumentException(pContext.getClass().getName() + " is not MainActivity");
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +74,12 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
         if (getCurrentDisplayFragment() instanceof BaseFragment) {
             mLatestFragmentName = getCurrentDisplayFragment().getClass().getName();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        getSupportFragmentManager().removeOnBackStackChangedListener(this);
     }
 
     @Nullable
@@ -100,7 +126,6 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
     }
 
     private void initTabForPager() {
-        final MainPagerAdapter adapter = (MainPagerAdapter) mBinding.mainViewpager.getAdapter();
 
         final int currentTheme = ThemeManager.getInstance().getCurrentTheme(this);
         final int tabColorRes = currentTheme == ThemeManager.DARK ? R.color.icon_tab_dark : R.color.icon_tab_light;
@@ -126,14 +151,14 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
         iconSetting.setTintColor(ResourcesCompat.getColorStateList(getResources(), tabColorRes, getTheme()));
         items.add(new MainPagerAdapter.PagerItem(ParentFragment.class, iconSetting, discoverItemArgs));
 
-        adapter.addPagerItems(items, true);
+        pagerAdapter.addPagerItems(items, true);
         for (int i = 0; i < TAB_NUM; i++) {
-            mBinding.mainTab.getTabAt(i).setIcon(items.get(i).getIcon());
+            mBinding.mainTab.getTabAt(i).setIcon(pagerAdapter.getPagerItem(i).getIcon());
         }
 
         this.setMainTab(true, true);
         this.mBinding.mainViewpager.setCurrentItem(0, false);
-
+        footerBehavior = new FooterBehavior(this, null);
     }
 
     @Override
@@ -165,14 +190,55 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
 
     }
 
+    /**
+     * 需要监听 Tab 事件的地方，实现 {@link TabLayout.OnTabSelectedListener}，在这里进行注册。
+     */
+    public void registerTabObserver(final TabLayout.OnTabSelectedListener tabObserver) {
+        if (!mTabObservers.contains(tabObserver)) {
+            mTabObservers.add(tabObserver);
+        }
+    }
+
+    /**
+     * 需要监听 Tab 事件的地方，实现 {@link TabLayout.OnTabSelectedListener}，在这里取消注册。
+     */
+    public void unregisterTabObserver(final TabLayout.OnTabSelectedListener tabObserver) {
+        if (mTabObservers.contains(tabObserver)) {
+            mTabObservers.remove(tabObserver);
+        }
+    }
+
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
+        this.mBinding.mainViewpager.setCurrentItem(tab.getPosition(), false);
 
+        for (TabLayout.OnTabSelectedListener tabObserver : mTabObservers) {
+            tabObserver.onTabSelected(tab);
+        }
+
+        this.mBinding.mainTab.post(new Runnable() {
+
+            @Override
+            public void run() {
+                if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1 && MainActivity.this.isFinishing()) || (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && MainActivity.this.isDestroyed())) {
+                    // Bug Fix https://fabric.io/zhihubeta/android/apps/com.zhihu.android/issues/573b376bffcdc04250fb4c72
+                    return;
+                }
+
+                final ParentFragment currentTabItemContainer = MainActivity.this.getCurrentTabItemContainer();
+
+                if (currentTabItemContainer != null) {
+                    currentTabItemContainer.onSelected();
+                }
+            }
+        });
     }
 
     @Override
     public void onTabUnselected(TabLayout.Tab tab) {
-
+        for (TabLayout.OnTabSelectedListener tabObserver : mTabObservers) {
+            tabObserver.onTabUnselected(tab);
+        }
     }
 
     @Override
@@ -192,10 +258,8 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
     /**
      * 设置 MainTab 表现
      *
-     * @param showMainTab
-     * 		显示 MainTab 传 true，隐藏传 false
-     * @param runAnim
-     * 		是否添加动画效果
+     * @param showMainTab 显示 MainTab 传 true，隐藏传 false
+     * @param runAnim     是否添加动画效果
      */
     public void setMainTab(final boolean showMainTab, final boolean runAnim) {
         if (showMainTab) {
@@ -215,5 +279,10 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
                 mBinding.mainTab.setTranslationY(mBinding.mainTab.getHeight());
             }
         }
+    }
+
+    @Override
+    public void onBackStackChanged() {
+
     }
 }

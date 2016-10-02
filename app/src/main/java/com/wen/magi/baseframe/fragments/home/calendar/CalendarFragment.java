@@ -1,6 +1,7 @@
 package com.wen.magi.baseframe.fragments.home.calendar;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wen.magi.baseframe.R;
+import com.wen.magi.baseframe.activities.MainActivity;
 import com.wen.magi.baseframe.adapters.WeekdayArrayAdapter;
 import com.wen.magi.baseframe.annotations.From;
 import com.wen.magi.baseframe.base.BaseActivity;
@@ -42,7 +44,7 @@ import static com.wen.magi.baseframe.utils.ViewUtils.find;
  */
 
 
-public class CalendarFragment extends BaseLazyLoadFragment {
+public class CalendarFragment extends BaseLazyLoadFragment implements TabLayout.OnTabSelectedListener{
 
     @From(R.id.layout_week_calendar)
     private LinearLayout mWeekLayout;
@@ -106,6 +108,12 @@ public class CalendarFragment extends BaseLazyLoadFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MainActivity.from(getContext()).registerTabObserver(this);
     }
 
     @Override
@@ -214,5 +222,20 @@ public class CalendarFragment extends BaseLazyLoadFragment {
             mIconToday.setVisibility(View.VISIBLE);
         } else
             mIconToday.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
     }
 }

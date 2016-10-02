@@ -1,11 +1,13 @@
 package com.wen.magi.baseframe.fragments.home;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.wen.magi.baseframe.R;
+import com.wen.magi.baseframe.activities.MainActivity;
 import com.wen.magi.baseframe.annotations.From;
 import com.wen.magi.baseframe.base.BaseLazyLoadFragment;
 import com.wen.magi.baseframe.utils.LogUtils;
@@ -23,7 +25,7 @@ import com.wen.magi.baseframe.views.ultra.indicator.PtrIndicator;
  */
 
 
-public class ConsumeOfMonthFragment extends BaseLazyLoadFragment {
+public class ConsumeOfMonthFragment extends BaseLazyLoadFragment implements TabLayout.OnTabSelectedListener {
 
     @From(R.id.store_house_ptr_frame)
     private PtrFrameLayout ptrFrameLayout;
@@ -39,6 +41,12 @@ public class ConsumeOfMonthFragment extends BaseLazyLoadFragment {
     @Override
     protected void lazyLoad() {
         initPtrFrame();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MainActivity.from(getContext()).registerTabObserver(this);
     }
 
     @Override
@@ -118,4 +126,18 @@ public class ConsumeOfMonthFragment extends BaseLazyLoadFragment {
         });
     }
 
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
+    }
 }
