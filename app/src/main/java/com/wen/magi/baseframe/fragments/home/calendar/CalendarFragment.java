@@ -1,4 +1,4 @@
-package com.wen.magi.baseframe.fragments.calendar;
+package com.wen.magi.baseframe.fragments.home.calendar;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -18,7 +18,6 @@ import com.wen.magi.baseframe.base.BaseLazyLoadFragment;
 import com.wen.magi.baseframe.eventbus.BackTodayEvent;
 import com.wen.magi.baseframe.interfaces.calendar.DayChangeListener;
 import com.wen.magi.baseframe.interfaces.calendar.WeekChangedListener;
-import com.wen.magi.baseframe.managers.AppManager;
 import com.wen.magi.baseframe.models.MonthDatas;
 import com.wen.magi.baseframe.utils.Constants;
 import com.wen.magi.baseframe.utils.LangUtils;
@@ -26,11 +25,6 @@ import com.wen.magi.baseframe.utils.SysUtils;
 import com.wen.magi.baseframe.utils.ViewUtils;
 import com.wen.magi.baseframe.utils.date.DayStyles;
 import com.wen.magi.baseframe.utils.date.Lunar;
-import com.wen.magi.baseframe.views.ultra.PtrFrameLayout;
-import com.wen.magi.baseframe.views.ultra.PtrHandler;
-import com.wen.magi.baseframe.views.ultra.PtrUIHandler;
-import com.wen.magi.baseframe.views.ultra.header.StoreHouseHeader;
-import com.wen.magi.baseframe.views.ultra.indicator.PtrIndicator;
 
 import org.greenrobot.eventbus.EventBus;
 

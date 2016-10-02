@@ -1,4 +1,4 @@
-package com.wen.magi.baseframe.fragments;
+package com.wen.magi.baseframe.fragments.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

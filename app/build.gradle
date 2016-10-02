@@ -2,16 +2,20 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 24
+    buildToolsVersion "24.0.2"
 
     defaultConfig {
         applicationId "com.wen.magi.noteheart"
         minSdkVersion 15
-        targetSdkVersion 22
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0"
     }
+    dataBinding{
+        enabled = true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -26,14 +30,26 @@ android {
         daoPackage 'com.wen.magi.baseframe.db'
         targetGenDir 'src/main/java'
     }
+    useLibrary 'org.apache.http.legacy'
+}
+
+def supportLibrary(name) {
+    return "com.android.support:${name}:${rootProject.VERSIONS["supportLibrary"]}"
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:22.1.1'
-    compile 'com.android.support:support-v4:22.1.1'
-    compile 'org.greenrobot:eventbus:3.0.0' //EventBus，用于消息传递
+    compile supportLibrary("support-v4")
+    compile supportLibrary("appcompat-v7")
+    compile supportLibrary("cardview-v7")
+    compile supportLibrary("design")
+    compile supportLibrary("palette-v7")
+    compile supportLibrary("recyclerview-v7")
+    compile supportLibrary("customtabs")
+//    compile 'com.android.support:appcompat-v7:22.1.1'
+//    compile 'com.android.support:support-v4:22.1.1'
+    compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.pnikosis:materialish-progress:1.0'//加载wheel
     compile 'org.greenrobot:greendao:3.1.0'//greenDao:轻量极速的ORM解决方案
     compile 'com.android.support:multidex:1.0.0'

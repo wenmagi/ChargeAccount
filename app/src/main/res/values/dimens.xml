@@ -53,4 +53,10 @@
     <dimen name="edit_tv_height">30dp</dimen>
     <dimen name="edit_tv_coner">15dp</dimen>
 
+    <dimen name="navigation_max_width">320dp</dimen>
+    <dimen name="navigation_icon_padding">32dp</dimen>
+    <dimen name="actionBarSize">@dimen/abc_action_bar_default_height_material</dimen>
+    <dimen name="tab_hide_scroll_threshold">20dp</dimen>
+    <dimen name="tab_show_scroll_threshold">12dp</dimen>
+
 </resources>

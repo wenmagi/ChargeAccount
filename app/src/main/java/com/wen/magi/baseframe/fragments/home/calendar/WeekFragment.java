@@ -1,4 +1,4 @@
-package com.wen.magi.baseframe.fragments.calendar;
+package com.wen.magi.baseframe.fragments.home.calendar;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

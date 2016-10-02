@@ -1,28 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
 
-    <com.wen.magi.baseframe.views.viewpager.TabView
-        android:id="@+id/id_tab"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/common_tv_height"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        app:image_text_margin="2dp"
-        app:item_padding="7dp"
-        app:text_normal_color="@color/white"
-        app:text_select_color="@color/orange"
-        app:text_size="@dimen/text_size_minimal" />
+        <variable
+            name="User"
+            type="com.wen.magi.baseframe.models.AppUser" />
+    </data>
 
-
-    <com.wen.magi.baseframe.views.viewpager.MainViewPager
-        android:id="@+id/main_viewpager"
+    <FrameLayout
+        android:id="@+id/content_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/id_tab"
-        android:layout_alignParentTop="true"
-        android:background="@color/white" />
-</RelativeLayout>
+        tools:context="com.wen.magi.baseframe.activities.MainActivity">
+
+
+        <com.wen.magi.baseframe.views.viewpager.MainViewPager
+            android:id="@+id/main_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:background="@color/white" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/main_tab"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_tv_height"
+            android:layout_gravity="bottom|end"
+            android:background="@color/alpha_80_percent_green"
+            android:elevation="8dp" />
+    </FrameLayout>
+</layout>

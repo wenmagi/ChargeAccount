@@ -1,14 +1,18 @@
 package com.wen.magi.baseframe.adapters;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.SparseArray;
+import android.view.ViewGroup;
 
-import com.wen.magi.baseframe.R;
-import com.wen.magi.baseframe.utils.StringUtils;
-import com.wen.magi.baseframe.views.viewpager.TabView;
+import com.wen.magi.baseframe.utils.LangUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by MVEN on 16/8/19.
@@ -17,44 +21,209 @@ import java.util.ArrayList;
  */
 
 
-public class MainPagerAdapter extends FragmentPagerAdapter implements TabView.OnItemIconTextSelectListener {
-    private static final int TAB_COUNT = 3;
-    private ArrayList<Fragment> _fragments;
-    private final int[] normalIcons = {R.mipmap.tab_view_main, R.mipmap.tab_view_chart, R.mipmap.tab_view_setting};
+public class MainPagerAdapter extends FragmentPagerAdapter {
 
-    public MainPagerAdapter(ArrayList<Fragment> fragments, FragmentManager fm) {
-        super(fm);
-        _fragments = fragments;
+    private final List<PagerItem> mPagerItems;
+    private Context mContext;
+    @SuppressWarnings("unused")
+    private Fragment mCurrentPrimaryItem;
+
+    //已经存在的fragment实例
+    private SparseArray<Fragment> mFragments = new SparseArray<>();
+
+    @SuppressWarnings("unused")
+    public MainPagerAdapter(final FragmentActivity activity) {
+        super(activity.getSupportFragmentManager());
+
+        mContext = activity;
+        mPagerItems = new ArrayList<>();
+    }
+
+    @SuppressWarnings("unused")
+    public MainPagerAdapter(final Fragment fragment) {
+        super(fragment.getChildFragmentManager());
+
+        mContext = fragment.getContext();
+        mPagerItems = new ArrayList<>();
+    }
+
+    @SuppressWarnings("unused")
+    public void addPagerItem(final PagerItem pagerItem) {
+        mPagerItems.add(pagerItem);
+    }
+
+    @SuppressWarnings("unused")
+    public void addPagerItems(final List<PagerItem> pagerItems, final boolean clearOld) {
+        if (clearOld) {
+            clearAllItems();
+        }
+
+        for (PagerItem pagerItem : pagerItems) {
+            mPagerItems.add(pagerItem);
+        }
+
+    }
+
+    private PagerItem getPagerItem(final int position) {
+        return mPagerItems.get(position);
     }
 
     @Override
     public Fragment getItem(int position) {
-        return _fragments == null ? null : _fragments.get(position);
+        final PagerItem pagerItem = getPagerItem(position);
+
+        Fragment fragment = Fragment.instantiate(mContext, pagerItem.getFragmentClass().getName(), pagerItem.getArguments());
+        mFragments.put(position, fragment);
+
+        return fragment;
+    }
+
+    /**
+     * 强制触发 notifyDataSetChanged 时刷新 fragment
+     *
+     * @param object 获取该位置已经存在的实例
+     * @return int
+     */
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return getPagerItem(position).getTitle();
     }
 
     @Override
     public int getCount() {
-        return TAB_COUNT;
+        return mPagerItems.size();
     }
 
-    @Override
-    public int[] onIconSelect(int position) {
-        int[] icons = new int[2];
-        icons[0] = normalIcons[position];
-        icons[1] = normalIcons[position];
-        return null;
+    /**
+     * 获取position位置已经存在的Fragment实例
+     *
+     * @param position 位置
+     * @return Fragment实例
+     */
+    @SuppressWarnings("unused")
+    public Fragment retrieveFragment(int position) {
+        return mFragments.get(position);
     }
 
+    /**
+     * 获取当前展示的Fragment
+     *
+     * @return Fragment
+     */
+    @SuppressWarnings("unused")
+    public Fragment getCurrentPrimaryItem() {
+        return mCurrentPrimaryItem;
+    }
+
+    /**
+     * 不断刷新当前展示的Fragment
+     *
+     * @param pContainer pContainer
+     * @param pPosition pPosition
+     * @param pObject pObject
+     */
     @Override
-    public String onTextSelect(int position) {
-        switch (position) {
-            case 0:
-                return StringUtils.getString(R.string.tab_view_main);
-            case 1:
-                return StringUtils.getString(R.string.tab_view_chart);
-            case 2:
-                return StringUtils.getString(R.string.tab_view_setting);
+    public void setPrimaryItem(final ViewGroup pContainer, final int pPosition, final Object pObject) {
+        super.setPrimaryItem(pContainer, pPosition, pObject);
+
+        this.mCurrentPrimaryItem = (Fragment) pObject;
+    }
+
+    /**
+     * 清除所有Item
+     */
+    private void clearAllItems() {
+        if (LangUtils.isEmpty(mPagerItems))
+            return;
+
+        mPagerItems.clear();
+        notifyDataSetChanged();
+    }
+
+    /**
+     * RecyclerView数据类
+     */
+    public static class PagerItem {
+        private final Class<? extends Fragment> _fragmentClass;
+        private CharSequence _title;
+        private final int _iconResId;
+        private final Drawable _icon;
+        private final Bundle _arguments;
+
+        @SuppressWarnings("unused")
+        public PagerItem(final Class<? extends Fragment> fragmentClass, final CharSequence title) {
+            this(fragmentClass, title, null);
         }
-        return "";
+
+        @SuppressWarnings("unused")
+        public PagerItem(final Class<? extends Fragment> fragmentClass, final CharSequence title, final Bundle arguments) {
+            this(fragmentClass, title, 0, arguments);
+        }
+
+        @SuppressWarnings("unused")
+        public PagerItem(final Class<? extends Fragment> fragmentClass, final int iconResId) {
+            this(fragmentClass, iconResId, null);
+        }
+
+        @SuppressWarnings("unused")
+        public PagerItem(final Class<? extends Fragment> fragmentClass, final Drawable icon) {
+            this(fragmentClass, icon, null);
+        }
+
+        @SuppressWarnings("unused")
+        public PagerItem(final Class<? extends Fragment> fragmentClass, final int iconResId, final Bundle arguments) {
+            this(fragmentClass, null, iconResId, arguments);
+        }
+
+        @SuppressWarnings("unused")
+        public PagerItem(final Class<? extends Fragment> fragmentClass, final Drawable icon, final Bundle arguments) {
+            this(fragmentClass, null, icon, arguments);
+        }
+
+        @SuppressWarnings("unused")
+        public PagerItem(final Class<? extends Fragment> fragmentClass, final CharSequence title, final int iconResId, final Bundle arguments) {
+            _fragmentClass = fragmentClass;
+            _title = title;
+            _iconResId = iconResId;
+            _arguments = arguments;
+            _icon = null;
+        }
+
+        @SuppressWarnings("unused")
+        public PagerItem(final Class<? extends Fragment> fragmentClass, final CharSequence title, final Drawable icon, final Bundle arguments) {
+            _fragmentClass = fragmentClass;
+            _title = title;
+            _iconResId = 0;
+            _arguments = arguments;
+            _icon = icon;
+        }
+
+        public Class<? extends Fragment> getFragmentClass() {
+            return _fragmentClass;
+        }
+
+        public CharSequence getTitle() {
+            return _title;
+        }
+
+        @SuppressWarnings("unused")
+        public int getIconResId() {
+            return _iconResId;
+        }
+
+        public Drawable getIcon() {
+            return _icon;
+        }
+
+        public Bundle getArguments() {
+            return _arguments;
+        }
     }
+
+
 }

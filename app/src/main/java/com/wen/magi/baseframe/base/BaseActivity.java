@@ -55,26 +55,26 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 //        }
 
         initProperties();
-        initView();
+//        initView();
     }
 
     private void initProperties() {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
-    @Override
-    public void setContentView(int layoutResID) {
-        View contentView = View.inflate(this, layoutResID, null);
-        this.setContentView(contentView);
-    }
-
-    @Override
-    public void setContentView(View view) {
-        contentLayout = view;
-        addTitleBar();
-        super.setContentView(rootView);
-        InjectUtils.autoInjectR(this);
-    }
+//    @Override
+//    public void setContentView(int layoutResID) {
+//        View contentView = View.inflate(this, layoutResID, null);
+//        this.setContentView(contentView);
+//    }
+//
+//    @Override
+//    public void setContentView(View view) {
+//        contentLayout = view;
+//        addTitleBar();
+//        super.setContentView(rootView);
+//        InjectUtils.autoInjectR(this);
+//    }
 
     /**
      * 避免在OPPO上由于节电管理使Service无法启动导致的Crash
