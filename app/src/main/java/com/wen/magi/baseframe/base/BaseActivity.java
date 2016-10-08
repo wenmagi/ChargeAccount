@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ActionMode;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -43,6 +44,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected TRANSITION transition = TRANSITION.LEFT_IN;
 
     private BaseTitleBar aTitlebar;
+    private ActionMode mCurrentActionMode;
     private RelativeLayout rootView;
     private View contentLayout;
 
@@ -60,6 +62,10 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     private void initProperties() {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        // see http://developer.android.com/intl/zh-cn/about/versions/marshmallow/android-6.0-changes.html#behavior-text-selection
+        if (SysUtils.nowSDKINTBigger(Build.VERSION_CODES.M)) {
+            getDelegate().setHandleNativeActionModesEnabled(false);
+        }
     }
 
 //    @Override
@@ -75,6 +81,25 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 //        super.setContentView(rootView);
 //        InjectUtils.autoInjectR(this);
 //    }
+
+
+    @Override
+    public void onActionModeStarted(ActionMode mode) {
+        super.onActionModeStarted(mode);
+        mCurrentActionMode = mode;
+    }
+
+    @Override
+    public void onActionModeFinished(ActionMode mode) {
+        super.onActionModeFinished(mode);
+        mCurrentActionMode = null;
+    }
+
+    protected void tryFinishActionMode() {
+        if (mCurrentActionMode == null)
+            return;
+        mCurrentActionMode = null;
+    }
 
     /**
      * 避免在OPPO上由于节电管理使Service无法启动导致的Crash

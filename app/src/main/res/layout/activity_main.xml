@@ -31,5 +31,10 @@
             android:background="@color/white"
             android:elevation="10dp"
             app:tabIndicatorColor="@color/transparency"/>
+
+        <FrameLayout
+            android:id="@+id/overlay_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </FrameLayout>
 </layout>

@@ -117,6 +117,12 @@ public class CalendarFragment extends BaseLazyLoadFragment implements TabLayout.
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        MainActivity.from(getContext()).unregisterTabObserver(this);
+    }
+
+    @Override
     protected void lazyLoad() {
         generateData();
         generateUI();

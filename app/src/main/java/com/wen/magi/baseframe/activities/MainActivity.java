@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.res.ResourcesCompat;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.wen.magi.baseframe.fragments.home.ConsumeOfMonthFragment;
 import com.wen.magi.baseframe.fragments.home.SettingFragment;
 import com.wen.magi.baseframe.fragments.home.calendar.CalendarFragment;
 import com.wen.magi.baseframe.managers.ThemeManager;
+import com.wen.magi.baseframe.utils.AppIntent;
 import com.wen.magi.baseframe.utils.ViewUtils;
 import com.wen.magi.baseframe.widgets.FooterBehavior;
 
@@ -48,6 +50,7 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
 
     private FooterBehavior footerBehavior;
     private List<TabLayout.OnTabSelectedListener> mTabObservers = new ArrayList<>();
+    private int currentTab;
 
     public static MainActivity from(final Context pContext) {
         if (pContext instanceof MainActivity) {
@@ -102,19 +105,6 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
     }
 
     private void initPager() {
-        Fragment calendarFragment = getFragmentCache(R.id.main_viewpager, 0);
-        if (calendarFragment == null)
-            calendarFragment = new CalendarFragment();
-        Fragment consumeFragment = getFragmentCache(R.id.main_viewpager, 1);
-        if (consumeFragment == null)
-            consumeFragment = new ConsumeOfMonthFragment();
-        Fragment calendarFragment2 = getFragmentCache(R.id.main_viewpager, 2);
-        if (calendarFragment2 == null)
-            calendarFragment2 = new CalendarFragment();
-        ArrayList<Fragment> fragments = new ArrayList<>(TAB_NUM);
-        fragments.add(calendarFragment);
-        fragments.add(consumeFragment);
-        fragments.add(calendarFragment2);
 
         pagerAdapter = new MainPagerAdapter(this);
         mBinding.mainViewpager.setAdapter(pagerAdapter);
@@ -283,6 +273,98 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
 
     @Override
     public void onBackStackChanged() {
+    }
 
+    /**
+     * 启动新的Fragment
+     *
+     * @param pIntent 启动数据
+     */
+    @SuppressWarnings("unused")
+    public void startFragment(@Nullable final AppIntent pIntent) {
+        if (pIntent == null)
+            return;
+
+        mLatestFragmentName = null;
+
+        if (pIntent.isPopSelf())
+            popupCurrentDisplayFragment();
+
+        boolean startTopLevelFragment = tryToStartTopLevelFragment(pIntent);
+
+        if (startTopLevelFragment)
+            return;
+
+        int tab = pIntent.getPriorityTab();
+        if (tab != 0 && tab != getCurrentTab())
+            mBinding.mainViewpager.setCurrentItem(tab, false);
+
+        final Fragment currentFragment = getCurrentDisplayFragment();
+        if (currentFragment != null && pIntent.getTag().equals(getCurrentDisplayFragment().getTag()))
+            return;
+
+        this.tryFinishActionMode();
+
+        if (pIntent.isOverlay())
+            addFragmentToOverlay(pIntent);
+        else if (getCurrentTabItemContainer() != null) {
+            final Fragment fragment = Fragment.instantiate(this, pIntent.getClazz().getName(), pIntent.getArguments());
+            addFragmentToBackStack(fragment, pIntent.getTag());
+        }
+    }
+
+    private void addFragmentToBackStack(final Fragment fragment, final String tag) {
+        if (fragment instanceof ParentFragment.Child) {
+            final boolean showBottomNavigation = ((ParentFragment.Child) fragment).isShowBottomNavigation();
+            setMainTab(showBottomNavigation, true);
+        } else {
+            setMainTab(true, true);
+        }
+
+        removeSnackBar();
+
+        getCurrentTabItemContainer().addChild(fragment, tag);
+    }
+
+    private void removeSnackBar() {
+        if (((ViewGroup) getSnackBarContainer()).getChildCount() > 0) {
+            ((ViewGroup) getSnackBarContainer()).removeAllViews();
+        }
+    }
+
+    public View getSnackBarContainer() {
+        return this.mBinding.contentContainer;
+    }
+
+
+    private void addFragmentToOverlay(final AppIntent pIntent) {
+        addFragmentToOverlay(pIntent, null, 0);
+    }
+
+    public void addFragmentToOverlay(@Nullable final AppIntent pIntent, final Fragment pTargetFragment, final int pRequestCode) {
+        if (pIntent == null)
+            return;
+        final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        final Fragment fragment = Fragment.instantiate(this, pIntent.getClazz().getName(), pIntent.getArguments());
+        //Optional for fragment,when fragment is finished,pTargetFragment can receive the results.
+        if (pTargetFragment != null)
+            fragment.setTargetFragment(pTargetFragment, pRequestCode);
+
+        fragmentTransaction.add(R.id.overlay_container, fragment, pIntent.getTag());
+        fragmentTransaction.addToBackStack(pIntent.getTag());
+
+        fragmentTransaction.commitAllowingStateLoss();
+    }
+
+    private boolean tryToStartTopLevelFragment(final AppIntent pIntent) {
+        return false;
+    }
+
+    private void popupCurrentDisplayFragment() {
+
+    }
+
+    public int getCurrentTab() {
+        return mBinding.mainViewpager.getCurrentItem();
     }
 }

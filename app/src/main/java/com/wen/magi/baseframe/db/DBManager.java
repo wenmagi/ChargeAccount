@@ -23,6 +23,11 @@ public class DBManager {
     private static final String DB_NAME = "note_heart_%s_greendao.db";
     private DaoMaster daoMaster;
     private DaoSession daoSession;
+    private static DBManager dbManager;
+
+    private DBManager() {
+        initDB(AppManager.getApplicationContext());
+    }
 
     public void initDB(Context context) {
         if (daoMaster == null) {
@@ -43,6 +48,15 @@ public class DBManager {
         if (daoSession == null) {
             daoSession = daoMaster.newSession();
         }
+    }
+
+    public static DBManager getInstance() {
+        if (dbManager == null)
+            synchronized (DBManager.class) {
+                if (dbManager == null)
+                    dbManager = new DBManager();
+            }
+        return dbManager;
     }
 
     public void clear() {

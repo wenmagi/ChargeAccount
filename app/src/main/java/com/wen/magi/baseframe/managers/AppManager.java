@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.wen.magi.baseframe.algorithms;
+import com.wen.magi.baseframe.db.DBManager;
 import com.wen.magi.baseframe.models.AppUser;
 import com.wen.magi.baseframe.utils.Constants;
 import com.wen.magi.baseframe.utils.IOUtils;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 public class AppManager {
 
     private static Context applicationContext;
+    private static DBManager dbManager;
 
     public static Context getApplicationContext() {
         return applicationContext;
@@ -30,6 +32,8 @@ public class AppManager {
         SysUtils.initialize(context);
         ViewUtils.initialize();
         algorithms.getInstance();
+        if (dbManager == null)
+            dbManager = DBManager.getInstance();
     }
 
     /**

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/setting_background_gray">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/setting_background_gray">
 
     <RelativeLayout
         android:id="@+id/title_layout"
@@ -28,7 +28,7 @@
                 android:clickable="true"
                 android:scaleType="centerInside"
                 android:src="@mipmap/icon_today"
-                android:visibility="gone" />
+                android:visibility="gone"/>
 
         </LinearLayout>
 
@@ -49,9 +49,9 @@
                 android:ellipsize="end"
                 android:gravity="center"
                 android:maxEms="11"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_larger" />
+                android:textSize="@dimen/text_size_larger"/>
 
             <TextView
                 android:id="@+id/tv_sub_title"
@@ -66,7 +66,7 @@
                 android:maxEms="11"
                 android:singleLine="true"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_minimal" />
+                android:textSize="@dimen/text_size_minimal"/>
         </RelativeLayout>
         <!-- right button -->
         <LinearLayout
@@ -86,7 +86,7 @@
                 android:gravity="center_vertical"
                 android:paddingRight="@dimen/common_margin_left_right"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_sub_title" />
+                android:textSize="@dimen/text_size_sub_title"/>
 
             <ImageView
                 android:id="@+id/iv_right"
@@ -96,7 +96,7 @@
                 android:gravity="center"
                 android:paddingRight="@dimen/common_margin_left_right"
                 android:scaleType="centerInside"
-                android:visibility="gone" />
+                android:visibility="gone"/>
         </LinearLayout>
     </RelativeLayout>
 
@@ -117,7 +117,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:numColumns="7"
-                android:stretchMode="columnWidth" />
+                android:stretchMode="columnWidth"/>
 
             <LinearLayout
                 android:id="@+id/layout_week_calendar"
@@ -127,24 +127,72 @@
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
-                android:visibility="gone" />
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:id="@+id/layout_month_calendar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/layout_week_calendar"
-                android:orientation="vertical" />
+                android:orientation="vertical"/>
+
 
             <LinearLayout
                 android:id="@+id/layout_test_for_scroll"
                 android:layout_width="match_parent"
-                android:layout_height="600dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/layout_month_calendar"
-                android:layout_marginTop="15dp"
                 android:background="@color/white"
-                android:orientation="horizontal"
-                android:visibility="gone">
+                android:orientation="vertical"
+                >
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/line_gray"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_et_height"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_today_total_price"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:background="#ff06b4c9"
+                        android:gravity="center"
+                        android:text="25元"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_largest"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/common_margin_left_right"
+                        android:layout_toRightOf="@id/tv_today_total_price"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_today_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2016年8月"
+                            android:textColor="@color/text_color_gray_99"
+                            android:textSize="@dimen/text_size_minimal"/>
+
+                        <TextView
+                            android:id="@+id/tv_today_day_detail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="农历十月初一   万圣夜"
+                            android:textColor="@color/text_color_gray_33"
+                            android:textSize="@dimen/text_size_micro"/>
+                    </LinearLayout>
+
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/textview"
@@ -153,7 +201,8 @@
                     android:layout_height="44dp"
                     android:layout_gravity="center_vertical"
                     android:gravity="center"
-                    android:text="立即购买" />
+                    android:text="立即购买"
+                    android:visibility="gone"/>
             </LinearLayout>
         </RelativeLayout>
     </com.wen.magi.baseframe.views.observablescrolled.views.ObservableScrollView>
