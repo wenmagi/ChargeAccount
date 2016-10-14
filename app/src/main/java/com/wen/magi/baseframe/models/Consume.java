@@ -3,44 +3,40 @@ package com.wen.magi.baseframe.models;
 import com.wen.magi.baseframe.utils.LangUtils;
 
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 
 import java.util.Date;
 
-import org.greenrobot.greendao.annotation.Generated;
-
 /**
- * Created by MVEN on 16/9/20.
- * <p/>
- * email: magiwen@126.com.
+ * @author zhangzhaowen @ Zhihu Inc.
+ * @since 10-13-2016
  */
-
 @Entity
-public class Income implements Comparable<Income> {
-
-    @Id(autoincrement = true)
+public class Consume implements Comparable<Consume> {
+    @Id
     private Long _id;
-    private Long incomeID;
+    private Long consumeID;
     private String title;
     private String desc;
-    private Long incomeNum;
-    private Date incomeDate;
+    private Long consumeNum;
+    private Date consumeDate;
     private Date dtStart, dtEnd;
     private String location;
     private String picture;
     //是否重复
     private String repeatType;
 
-    @Generated(hash = 66873794)
-    public Income(Long _id, Long incomeID, String title, String desc,
-                  Long incomeNum, Date incomeDate, Date dtStart, Date dtEnd,
-                  String location, String picture, String repeatType) {
+    @Generated(hash = 1812487999)
+    public Consume(Long _id, Long consumeID, String title, String desc,
+            Long consumeNum, Date consumeDate, Date dtStart, Date dtEnd,
+            String location, String picture, String repeatType) {
         this._id = _id;
-        this.incomeID = incomeID;
+        this.consumeID = consumeID;
         this.title = title;
         this.desc = desc;
-        this.incomeNum = incomeNum;
-        this.incomeDate = incomeDate;
+        this.consumeNum = consumeNum;
+        this.consumeDate = consumeDate;
         this.dtStart = dtStart;
         this.dtEnd = dtEnd;
         this.location = location;
@@ -48,16 +44,16 @@ public class Income implements Comparable<Income> {
         this.repeatType = repeatType;
     }
 
-    @Generated(hash = 1009272208)
-    public Income() {
+    @Generated(hash = 836215753)
+    public Consume() {
     }
 
     @Override
-    public int compareTo(Income another) {
+    public int compareTo(Consume another) {
         if (another == null)
             return 1;
 
-        return incomeDate.compareTo(another.incomeDate);
+        return consumeDate.compareTo(another.consumeDate);
     }
 
     public String getRepeatType() {
@@ -104,20 +100,20 @@ public class Income implements Comparable<Income> {
         this.picture = picture;
     }
 
-    public Date getIncomeDate() {
-        return this.incomeDate;
+    public Date getConsumeDate() {
+        return this.consumeDate;
     }
 
-    public void setIncomeDate(Date incomeDate) {
-        this.incomeDate = incomeDate;
+    public void setConsumeDate(Date consumeDate) {
+        this.consumeDate = consumeDate;
     }
 
-    public Long getIncomeNum() {
-        return this.incomeNum;
+    public Long getConsumeNum() {
+        return this.consumeNum;
     }
 
-    public void setIncomeNum(Long incomeNum) {
-        this.incomeNum = incomeNum;
+    public void setConsumeNum(Long consumeNum) {
+        this.consumeNum = consumeNum;
     }
 
     public String getDesc() {
@@ -136,12 +132,12 @@ public class Income implements Comparable<Income> {
         this.title = title;
     }
 
-    public Long getIncomeID() {
-        return this.incomeID;
+    public Long getConsumeID() {
+        return this.consumeID;
     }
 
-    public void setIncomeID(Long incomeID) {
-        this.incomeID = incomeID;
+    public void setConsumeID(Long consumeID) {
+        this.consumeID = consumeID;
     }
 
     public Long get_id() {
@@ -151,5 +147,4 @@ public class Income implements Comparable<Income> {
     public void set_id(Long _id) {
         this._id = _id;
     }
-
 }

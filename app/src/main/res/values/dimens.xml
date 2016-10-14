@@ -59,4 +59,6 @@
     <dimen name="tab_hide_scroll_threshold">20dp</dimen>
     <dimen name="tab_show_scroll_threshold">12dp</dimen>
 
+    <dimen name="numKeyboardHeight">230.0dp</dimen>
+
 </resources>

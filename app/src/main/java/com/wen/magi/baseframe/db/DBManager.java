@@ -9,6 +9,7 @@ import com.wen.magi.baseframe.models.Income;
 import com.wen.magi.baseframe.utils.LangUtils;
 import com.wen.magi.baseframe.utils.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,40 +70,33 @@ public class DBManager {
         daoMaster = null;
     }
 
-    public Income loadIncome(long id) {
-        if (daoSession == null)
-            return null;
-
-        return daoSession.getIncomeDao().load(id);
-    }
-
-    public List<Income> queryIncome(String where, String... params) {
-        if (daoSession == null)
-            return null;
-        return daoSession.getIncomeDao().queryRaw("where" + where, params);
-    }
-
 //    public Income loadByIncomeID(long id){
 //    }
     /**********************
      * CardOrder Func
      ********************************/
-//    public TestDaoModel loadOrder(long id) {
-//
-//        if (daoSession == null)
-//            return null;
-//        return daoSession.getCardOrderDao().load(id);
-//    }
+    public Income loadIncome(long id) {
 
-//    public CardOrder loadOrderByOrderId(long id) {
-//        List<CardOrder> list =
-//                queryCardOrder(CardOrderDao.Properties.OrderID.columnName + " = ?", String.valueOf(id));
-//        return LangUtils.getFirstObj(list);
-//    }
+        if (daoSession == null)
+            return null;
+        return daoSession.getIncomeDao().load(id);
+    }
 
-//    public List<TestDaoModel> loadOrder() {
-//        return daoSession.getCardOrderDao().loadAll();
-//    }
+    /**
+     * 根据IncomeId查询
+     *
+     * @param id 根据IncomeId查询
+     * @return Income
+     */
+    public Income loadIncomeByIncomeId(long id) {
+        List<Income> list =
+                queryIncome(IncomeDao.Properties.IncomeID.columnName + " = ?", String.valueOf(id));
+        return LangUtils.getFirstObj((ArrayList<? extends Income>) list);
+    }
+
+    public List<Income> loadIncome() {
+        return daoSession.getIncomeDao().loadAll();
+    }
 
     /**
      * query list with where clause ex: begin_date_time >= ? AND end_date_time <= ?
@@ -112,25 +106,25 @@ public class DBManager {
      * @return
      */
 
-//    public List<TestDaoModel> queryCardOrder(String where, String... params) {
-//
-//        if (daoSession == null)
-//            return null;
-//        return daoSession.getCardOrderDao().queryRaw("where " + where, params);
-//    }
+    public List<Income> queryIncome(String where, String... params) {
+
+        if (daoSession == null)
+            return null;
+        return daoSession.getIncomeDao().queryRaw("where " + where, params);
+    }
 
 
     /**
      * insert or update note
      *
-     * @param testDaoModel
+     * @param income
      * @return insert or update note id
      */
-//    public long saveOrder(TestDaoModel testDaoModel) {
-//        if (daoSession == null)
-//            return 0l;
-//        return daoSession.getCardOrderDao().insertOrReplace(testDaoModel);
-//    }
+    public long saveIncome(Income income) {
+        if (daoSession == null || income == null)
+            return 0l;
+        return daoSession.getIncomeDao().insertOrReplace(income);
+    }
 
 
     /**
@@ -138,45 +132,44 @@ public class DBManager {
      *
      * @param list
      */
-//    public void saveOrderLists(final List<TestDaoModel> list) {
-//        if (list == null || list.isEmpty()) {
-//            return;
-//        }
-//
-//        if (daoSession == null)
-//            return;
-//        daoSession.runInTx(new Runnable() {
-//            @Override
-//            public void run() {
-//                for (int i = 0; i < list.size(); i++) {
-//                    TestDaoModel order = list.get(i);
-//                    saveOrder(order);
-//                }
-//            }
-//        });
-//
-//    }
+    public void saveIncomeLists(final List<Income> list) {
+        if (list == null || list.isEmpty()) {
+            return;
+        }
+
+        if (daoSession == null)
+            return;
+        daoSession.runInTx(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < list.size(); i++) {
+                    Income order = list.get(i);
+                    saveIncome(order);
+                }
+            }
+        });
+
+    }
 
     /**
      * delete all note
      */
-//    public void deleteAllOrders() {
-//        daoSession.getCardOrderDao().deleteAll();
-//    }
+    public void deleteAllIncomes() {
+        daoSession.getIncomeDao().deleteAll();
+    }
 
-//    /**
-//     * delete note by id
-//     *
-//     * @param id
-//     */
-//    public void deleteOrder(long id) {
-//        daoSession.getCardOrderDao().deleteByKey(id);
-//        // Log.i(TAG, "delete");
-//    }
+    /**
+     * delete note by id
+     *
+     * @param id
+     */
+    public void deleteIncome(long id) {
+        daoSession.getIncomeDao().deleteByKey(id);
+    }
 
-//    public void deleteOrder(TestDaoModel Order) {
-//        daoSession.getCardOrderDao().delete(Order);
-//    }
+    public void deleteIncome(Income income) {
+        daoSession.getIncomeDao().delete(income);
+    }
 
 //    public TestDaoModel getValidOrderWithClassID(String classID) {
 //        if (LangUtils.isEmpty(classID))

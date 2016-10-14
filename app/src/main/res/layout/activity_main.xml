@@ -30,7 +30,8 @@
             android:layout_gravity="bottom|end"
             android:background="@color/white"
             android:elevation="10dp"
-            app:tabIndicatorColor="@color/transparency"/>
+            app:tabIndicatorColor="@color/transparency"
+            />
 
         <FrameLayout
             android:id="@+id/overlay_container"

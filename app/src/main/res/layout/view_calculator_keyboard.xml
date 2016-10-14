@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge>
+
+    <android.support.percent.PercentRelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/numKeyboardHeight"
+        android:elevation="20dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/account_kb_7"
+            android:layout_width="0.0dip"
+            android:layout_height="0.0dip"
+            android:background="@drawable/skin_bg_view_selector"
+            android:gravity="center"
+            android:text="7"
+            android:textColor="@color/skin_color_text_primary"
+            android:textSize="22.0dip"
+            app:layout_heightPercent="25.0%"
+            app:layout_widthPercent="25.0%"/>
+
+        <TextView
+            android:id="@+id/account_kb_8"
+            android:layout_width="0.0dip"
+            android:layout_height="0.0dip"
+            android:layout_toRightOf="@id/account_kb_7"
+            android:background="@drawable/skin_bg_view_selector"
+            android:gravity="center"
+            android:text="8"
+            android:textColor="@color/skin_color_text_primary"
+            android:textSize="22.0dip"
+            app:layout_heightPercent="25.0%"
+            app:layout_widthPercent="25.0%"/>
+
+        <TextView
+            android:id="@+id/account_kb_9"
+            android:layout_width="0.0dip"
+            android:layout_height="0.0dip"
+            android:layout_toRightOf="@id/account_kb_8"
+            android:background="@drawable/skin_bg_view_selector"
+            android:gravity="center"
+            android:text="9"
+            android:textColor="@color/skin_color_text_primary"
+            android:textSize="22.0dip"
+            app:layout_heightPercent="25.0%"
+            app:layout_widthPercent="25.0%"/>
+
+        <TextView
+            android:id="@+id/account_kb_plus"
+            android:layout_width="0.0dip"
+            android:layout_height="0.0dip"
+            android:layout_toRightOf="@id/account_kb_9"
+            android:background="@drawable/skin_bg_view_selector"
+            android:gravity="center"
+            android:text="+"
+            android:textColor="@color/skin_color_text_primary"
+            android:textSize="22.0dip"
+            app:layout_heightPercent="25.0%"
+            app:layout_widthPercent="25.0%"/>
+
+        <TextView
+            android:id="@+id/account_kb_4"
+            android:layout_width="0.0dip"
+            android:layout_height="0.0dip"
+            android:layout_below="@id/account_kb_7"
+            android:background="@drawable/skin_bg_view_selector"
+            android:gravity="center"
+            android:text="4"
+            android:textColor="@color/skin_color_text_primary"
+            android:textSize="22.0dip"
+            app:layout_heightPercent="25.0%"
+            app:layout_widthPercent="25.0%"/>
+
+        <TextView
+            android:id="@+id/account_kb_5"
+            android:layout_width="0.0dip"
+            android:layout_height="0.0dip"
+            android:layout_alignTop="@id/account_kb_4"
+            android:layout_toRightOf="@id/account_kb_4"
+            android:background="@drawable/skin_bg_view_selector"
+            android:gravity="center"
+            android:text="5"
+            android:textColor="@color/skin_color_text_primary"
+            android:textSize="22.0dip"
+            app:layout_heightPercent="25.0%"
+            app:layout_widthPercent="25.0%"/>
+
+        <TextView
+            android:id="@+id/account_kb_6"
+            android:layout_width="0.0dip"
+            android:layout_height="0.0dip"
+            android:layout_alignTop="@id/account_kb_4"
+            android:layout_toRightOf="@id/account_kb_5"
+            android:background="@drawable/skin_bg_view_selector"
+            android:gravity="center"
+            android:text="6"
+            android:textColor="@color/skin_color_text_primary"
+            android:textSize="22.0dip"
+            app:layout_heightPercent="25.0%"
+            app:layout_widthPercent="25.0%"/>
+
+        <TextView
+            android:id="@+id/account_kb_minus"
+            android:layout_width="0.0dip"
+            android:layout_height="0.0dip"
+            android:layout_alignTop="@id/account_kb_4"
+            android:layout_toRightOf="@id/account_kb_6"
+            android:background="@drawable/skin_bg_view_selector"
+            android:gravity="center"
+            android:text="—"
+            android:textColor="@color/skin_color_text_primary"
+            android:textSize="22.0dip"
+            app:layout_heightPercent="25.0%"
+            app:layout_widthPercent="25.0%"/>
+
+        <TextView
+            android:id="@+id/account_kb_1"
+            android:layout_width="0.0dip"
+            android:layout_height="0.0dip"
+            android:layout_below="@id/account_kb_4"
+            android:background="@drawable/skin_bg_view_selector"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/skin_color_text_primary"
+            android:textSize="22.0dip"
+            app:layout_heightPercent="25.0%"
+            app:layout_widthPercent="25.0%"/>
+
+        <TextView
+            android:id="@+id/account_kb_2"
+            android:layout_width="0.0dip"
+            android:layout_height="0.0dip"
+            android:layout_alignTop="@id/account_kb_1"
+            android:layout_toRightOf="@id/account_kb_1"
+            android:background="@drawable/skin_bg_view_selector"
+            android:gravity="center"
+            android:text="2"
+            android:textColor="@color/skin_color_text_primary"
+            android:textSize="22.0dip"
+            app:layout_heightPercent="25.0%"
+            app:layout_widthPercent="25.0%"/>
+
+        <TextView
+            android:id="@+id/account_kb_3"
+            android:layout_width="0.0dip"
+            android:layout_height="0.0dip"
+            android:layout_alignTop="@id/account_kb_1"
+            android:layout_toRightOf="@id/account_kb_2"
+            android:background="@drawable/skin_bg_view_selector"
+            android:gravity="center"
+            android:text="3"
+            android:textColor="@color/skin_color_text_primary"
+            android:textSize="22.0dip"
+            app:layout_heightPercent="25.0%"
+            app:layout_widthPercent="25.0%"/>
+
+        <ImageView
+            android:id="@+id/account_kb_dot"
+            android:layout_width="0.0dip"
+            android:layout_height="0.0dip"
+            android:layout_below="@id/account_kb_1"
+            android:background="@drawable/skin_bg_view_selector"
+            android:gravity="center"
+            android:scaleType="centerInside"
+            app:layout_heightPercent="25.0%"
+            app:layout_widthPercent="25.0%"
+            app:srcCompat="@drawable/skin_bg_keyboard_dot"/>
+
+        <ImageView
+            android:id="@+id/account_kb_delete"
+            android:layout_width="0.0dip"
+            android:layout_height="0.0dip"
+            android:layout_alignTop="@id/account_kb_dot"
+            android:layout_toRightOf="@id/account_kb_0"
+            android:background="@drawable/skin_bg_view_selector"
+            android:gravity="center"
+            android:scaleType="centerInside"
+            android:textSize="22.0dip"
+            app:imageColor="@color/skin_color_text_primary"
+            app:layout_heightPercent="25.0%"
+            app:layout_widthPercent="25.0%"
+            app:showType="TYPE_COLOR"
+            app:srcCompat="@mipmap/ic_keyboard_delete"/>
+
+        <TextView
+            android:id="@+id/account_kb_OK"
+            android:layout_width="0.0dip"
+            android:layout_height="0.0dip"
+            android:layout_alignTop="@id/account_kb_1"
+            android:layout_toRightOf="@id/account_kb_delete"
+            android:background="@drawable/skin_bg_view_selector"
+            android:gravity="center"
+            android:text="OK"
+            android:textColor="@color/skin_color_text_primary"
+            android:textSize="22.0dip"
+            app:layout_heightPercent="50.0%"
+            app:layout_widthPercent="25.0%"/>
+
+        <ImageView
+            android:layout_width="1.0px"
+            android:layout_height="fill_parent"
+            android:layout_toRightOf="@id/account_kb_7"
+            android:background="@color/skin_color_numkeyboard_divider"/>
+
+        <ImageView
+            android:layout_width="1.0px"
+            android:layout_height="fill_parent"
+            android:layout_toRightOf="@id/account_kb_8"
+            android:background="@color/skin_color_numkeyboard_divider"/>
+
+        <ImageView
+            android:layout_width="1.0px"
+            android:layout_height="fill_parent"
+            android:layout_toRightOf="@id/account_kb_9"
+            android:background="@color/skin_color_numkeyboard_divider"/>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:layout_alignTop="@id/account_kb_7"
+            android:background="@color/skin_color_numkeyboard_divider"/>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:layout_below="@id/account_kb_7"
+            android:background="@color/skin_color_numkeyboard_divider"/>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:layout_below="@id/account_kb_4"
+            android:background="@color/skin_color_numkeyboard_divider"/>
+
+        <ImageView
+            android:layout_width="0.0dip"
+            android:layout_height="1.0px"
+            android:layout_below="@id/account_kb_1"
+            android:background="@color/skin_color_numkeyboard_divider"
+            app:layout_widthPercent="75.0%"/>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:layout_alignBottom="@id/account_kb_dot"
+            android:background="@color/skin_color_numkeyboard_divider"/>
+
+        <TextView
+            android:id="@+id/account_kb_0"
+            android:layout_width="0.0dip"
+            android:layout_height="0.0dip"
+            android:background="@drawable/skin_bg_view_selector"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/skin_color_text_primary"
+            android:textSize="22.0dip"
+            app:layout_heightPercent="25.0%"
+            app:layout_widthPercent="25.0%"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/account_kb_1"
+            android:layout_toEndOf="@+id/account_kb_1"/>
+    </android.support.percent.PercentRelativeLayout>
+</merge>

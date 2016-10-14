@@ -25,12 +25,16 @@ import com.wen.magi.baseframe.fragments.ParentFragment;
 import com.wen.magi.baseframe.fragments.home.ConsumeOfMonthFragment;
 import com.wen.magi.baseframe.fragments.home.SettingFragment;
 import com.wen.magi.baseframe.fragments.home.calendar.CalendarFragment;
+import com.wen.magi.baseframe.managers.AppManager;
 import com.wen.magi.baseframe.managers.ThemeManager;
+import com.wen.magi.baseframe.models.Income;
 import com.wen.magi.baseframe.utils.AppIntent;
+import com.wen.magi.baseframe.utils.LogUtils;
 import com.wen.magi.baseframe.utils.ViewUtils;
 import com.wen.magi.baseframe.widgets.FooterBehavior;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends BaseActivity implements TabLayout.OnTabSelectedListener, FragmentManager.OnBackStackChangedListener {
@@ -111,7 +115,11 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
         mBinding.mainViewpager.setOffscreenPageLimit(TAB_NUM);
         mBinding.mainTab.setupWithViewPager(mBinding.mainViewpager);
         mBinding.mainTab.addOnTabSelectedListener(this);
-
+        Income income = new Income(1l,10l,"title","descddddddddd",109l,new Date(),new Date(),new Date(),null,null,null);
+        AppManager.dbManager.saveIncome(income);
+        Income dbIncome = AppManager.dbManager.loadIncomeByIncomeId(109l);
+        if (dbIncome != null)
+            LogUtils.e("wwwwwwwwww %s", dbIncome.getDesc());
         initTabForPager();
     }
 

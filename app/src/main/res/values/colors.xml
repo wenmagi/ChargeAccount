@@ -74,9 +74,27 @@
     <!-- 主页面TabView的背景色 -->
 
     <color name="main_theme_color">#ff4f4f00</color>
-
+    <!-- 主题色 -->
+    <color name="alpha_20_percent_main_theme_color">#334f4f00</color>
+    <!-- 20%透明度主题色 -->
 
     <color name="colorPrimaryDark_dark">#ff4f4f00</color>
     <color name="colorPrimaryDark_light">#ff4f4f00</color>
+
+    <color name="consume_color_degree_10">#E0F2F1</color>
+    <color name="consume_color_degree_50">#B2DFDB</color>
+    <color name="consume_color_degree_100">#80CBC4</color>
+    <color name="consume_color_degree_150">#4DB6AC</color>
+    <color name="consume_color_degree_200">#26A69A</color>
+    <color name="consume_color_degree_300">#009688</color>
+    <color name="consume_color_degree_400">#00897B</color>
+    <color name="consume_color_degree_600">#00796B</color>
+    <color name="consume_color_degree_800">#00695C</color>
+    <color name="consume_color_degree_other">#004D40</color>
+
+    <color name="skin_color_view_pressed">#ffebebeb</color>
+    <color name="skin_color_text_primary">#ff393939</color>
+    <color name="skin_color_numkeyboard_divider">#ffe5e5e5</color>
+    <color name="text_highlight_light">#FF0077D9</color>
 
 </resources>

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class AppManager {
 
     private static Context applicationContext;
-    private static DBManager dbManager;
+    public static DBManager dbManager;
 
     public static Context getApplicationContext() {
         return applicationContext;

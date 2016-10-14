@@ -66,4 +66,30 @@
     <declare-styleable name="PtrClassicHeader">
         <attr name="ptr_rotate_ani_time" format="integer" />
     </declare-styleable>
+
+    <attr name="layout_widthPercent" format="fraction" />
+    <attr name="layout_heightPercent" format="fraction" />
+    <attr name="imageColor" format="color" />
+    <attr name="showType">
+        <enum name="TYPE_COLOR" value="3" />
+        <enum name="TYPE_FILL" value="2" />
+        <enum name="TYPE_NORMAL" value="0" />
+        <enum name="TYPE_STROKE" value="1" />
+    </attr>
+    <attr name="srcCompat" format="reference" />
+    <declare-styleable name="ArrowButton">
+        <attr name="arrowDirection" format="enum">
+            <enum name="top" value="1"/>
+            <enum name="right" value="2"/>
+            <enum name="bottom" value="3"/>
+            <enum name="left" value="4"/>
+        </attr>
+        <attr name="arrowColor" format="reference|color"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="ExpandableTextLayout">
+        <attr name="containerColor" format="color|integer"/>
+        <attr name="maxLines" format="reference|integer"/>
+    </declare-styleable>
 </resources>

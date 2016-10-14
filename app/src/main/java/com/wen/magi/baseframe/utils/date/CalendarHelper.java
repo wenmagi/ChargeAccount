@@ -594,4 +594,36 @@ public class CalendarHelper {
     public static void setContentPaintWhite(Paint p) {
         contentPaintWhite = p;
     }
+
+    /**
+     * 消费数决定颜色
+     *
+     * @param value
+     * @return
+     */
+    public static int getColorForPrice(int value) {
+        if (value < 0) {
+            return R.color.white;
+        } else if (value <= 10) {
+            return R.color.consume_color_degree_10;
+        } else if (value <= 50) {
+            return R.color.consume_color_degree_50;
+        } else if (value <= 100) {
+            return R.color.consume_color_degree_100;
+        } else if (value <= 150) {
+            return R.color.consume_color_degree_150;
+        } else if (value <= 200) {
+            return R.color.consume_color_degree_200;
+        } else if (value <= 300) {
+            return R.color.consume_color_degree_300;
+        } else if (value <= 400) {
+            return R.color.consume_color_degree_400;
+        } else if (value <= 600) {
+            return R.color.consume_color_degree_600;
+        } else if (value <= 800) {
+            return R.color.consume_color_degree_800;
+        } else {
+            return R.color.consume_color_degree_other;
+        }
+    }
 }

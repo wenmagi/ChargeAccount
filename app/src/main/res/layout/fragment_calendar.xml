@@ -64,7 +64,7 @@
                 android:ellipsize="end"
                 android:gravity="center"
                 android:maxEms="11"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size_minimal"/>
         </RelativeLayout>
@@ -103,10 +103,13 @@
     <com.wen.magi.baseframe.views.observablescrolled.views.ObservableScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/title_layout"
         android:fillViewport="true"
         android:overScrollMode="never"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:layout_below="@id/title_layout"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <RelativeLayout
             android:layout_width="match_parent"

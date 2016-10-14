@@ -43,7 +43,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
     /**
      * 该fragment attach的activity
      */
-    protected Activity activity;
+    protected BaseActivity activity;
 
     /**
      * 初始化activity，子Fragment代替{@link #getActivity()}方法
@@ -53,7 +53,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.activity = activity;
+        this.activity = (BaseActivity) activity;
     }
 
     /**

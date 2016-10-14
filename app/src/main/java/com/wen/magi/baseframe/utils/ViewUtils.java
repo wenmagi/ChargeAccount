@@ -11,6 +11,7 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.ResultReceiver;
 import android.text.TextUtils;
 import android.view.Display;
@@ -413,6 +414,20 @@ public class ViewUtils {
             return AppManager.getApplicationContext().getResources().getColor(resID);
         } catch (Resources.NotFoundException exception) {
             return Color.TRANSPARENT;
+        }
+    }
+
+    /**
+     * 给View设置background，适配JELLY_BEAN
+     *
+     * @param view     view
+     * @param drawable bg
+     */
+    public static void setBackground(View view, Drawable drawable) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            view.setBackground(drawable);
+        } else {
+            view.setBackgroundDrawable(drawable);
         }
     }
 }
