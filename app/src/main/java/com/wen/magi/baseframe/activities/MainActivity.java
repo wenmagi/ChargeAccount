@@ -1,16 +1,22 @@
 package com.wen.magi.baseframe.activities;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -29,6 +35,7 @@ import com.wen.magi.baseframe.managers.AppManager;
 import com.wen.magi.baseframe.managers.ThemeManager;
 import com.wen.magi.baseframe.models.Income;
 import com.wen.magi.baseframe.utils.AppIntent;
+import com.wen.magi.baseframe.utils.ConsumeTypeUtils;
 import com.wen.magi.baseframe.utils.LogUtils;
 import com.wen.magi.baseframe.utils.ViewUtils;
 import com.wen.magi.baseframe.widgets.FooterBehavior;
@@ -72,7 +79,47 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE)) {
+                LogUtils.e("wwwwwwwww permission denied, show dialog");
+            } else {
+                LogUtils.e("wwwwwwwwwwww request requestPermissions failed");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
+            }
+        } else {
+            LogUtils.e("wwwwwwwwwwww request permission failed");
+        }
         initPager();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                } else {
+                }
+                return;
+            }
+        }
+    }
+
+
+    private void accessContacts() {
+        //your code once you receive permission
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LogUtils.e("wwwwwwwwwwww onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LogUtils.e("wwwwwwwwwwww onResume");
     }
 
     @Override
@@ -115,7 +162,7 @@ public class MainActivity extends BaseActivity implements TabLayout.OnTabSelecte
         mBinding.mainViewpager.setOffscreenPageLimit(TAB_NUM);
         mBinding.mainTab.setupWithViewPager(mBinding.mainViewpager);
         mBinding.mainTab.addOnTabSelectedListener(this);
-        Income income = new Income(1l,10l,"title","descddddddddd",109l,new Date(),new Date(),new Date(),null,null,null);
+        Income income = new Income(1l, 10l, "title", "descddddddddd", 109l, new Date(), new Date(), new Date(), null, null, null);
         AppManager.dbManager.saveIncome(income);
         Income dbIncome = AppManager.dbManager.loadIncomeByIncomeId(109l);
         if (dbIncome != null)

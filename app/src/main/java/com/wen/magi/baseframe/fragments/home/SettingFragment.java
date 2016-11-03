@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
+import android.support.percent.PercentRelativeLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -34,6 +35,7 @@ import com.wen.magi.baseframe.utils.ViewUtils;
 public class SettingFragment extends BaseLazyLoadFragment implements TabLayout.OnTabSelectedListener {
 
     private LinearLayout container;
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,13 +47,13 @@ public class SettingFragment extends BaseLazyLoadFragment implements TabLayout.O
     @RequiresApi(api = Build.VERSION_CODES.M)
 
     private void initCoordinatorLayout(View root) {
-        container = (LinearLayout)root.findViewById(R.id.container_layout);
-
+        container = (LinearLayout) root.findViewById(R.id.container_layout);
         LayoutTransition layoutTransition = new LayoutTransition();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             layoutTransition.disableTransitionType(LayoutTransition.APPEARING);
             layoutTransition.disableTransitionType(LayoutTransition.DISAPPEARING);
         }
+
         container.setLayoutTransition(layoutTransition);
         //设置ImageView表面蒙层
         ImageView imageView = (ImageView) root.findViewById(R.id.image_view);
@@ -84,7 +86,7 @@ public class SettingFragment extends BaseLazyLoadFragment implements TabLayout.O
             switch (menuItem.getItemId()) {
                 case R.id.action_edit:
                     msg += "Click edit";
-                    View view = View.inflate(activity,R.layout.activity_dialog_test,null);
+                    View view = View.inflate(activity, R.layout.activity_dialog_test, null);
                     container.addView(view);
                     break;
                 case R.id.action_share:

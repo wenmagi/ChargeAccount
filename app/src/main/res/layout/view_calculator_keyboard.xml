@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.percent.PercentRelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/percent_relativeLayout"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/numKeyboardHeight"
-        android:elevation="20dp"
         android:background="@color/white"
+        android:elevation="20dp"
         android:orientation="vertical">
 
         <TextView
@@ -169,6 +169,21 @@
             app:layout_widthPercent="25.0%"
             app:srcCompat="@drawable/skin_bg_keyboard_dot"/>
 
+        <TextView
+            android:id="@+id/account_kb_0"
+            android:layout_width="0.0dip"
+            android:layout_height="0.0dip"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@+id/account_kb_1"
+            android:layout_toRightOf="@+id/account_kb_1"
+            android:background="@drawable/skin_bg_view_selector"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/skin_color_text_primary"
+            android:textSize="22.0dip"
+            app:layout_heightPercent="25.0%"
+            app:layout_widthPercent="25.0%"/>
+
         <ImageView
             android:id="@+id/account_kb_delete"
             android:layout_width="0.0dip"
@@ -248,19 +263,5 @@
             android:layout_alignBottom="@id/account_kb_dot"
             android:background="@color/skin_color_numkeyboard_divider"/>
 
-        <TextView
-            android:id="@+id/account_kb_0"
-            android:layout_width="0.0dip"
-            android:layout_height="0.0dip"
-            android:background="@drawable/skin_bg_view_selector"
-            android:gravity="center"
-            android:text="0"
-            android:textColor="@color/skin_color_text_primary"
-            android:textSize="22.0dip"
-            app:layout_heightPercent="25.0%"
-            app:layout_widthPercent="25.0%"
-            android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/account_kb_1"
-            android:layout_toEndOf="@+id/account_kb_1"/>
     </android.support.percent.PercentRelativeLayout>
 </merge>
