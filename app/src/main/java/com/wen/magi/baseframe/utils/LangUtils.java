@@ -2,6 +2,8 @@ package com.wen.magi.baseframe.utils;
 
 import android.support.annotation.NonNull;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -47,6 +49,14 @@ public class LangUtils {
 
     public static <E> boolean isNotEmpty(Collection<E> list) {
         return list != null && list.size() > 0;
+    }
+
+    public static boolean isEmpty(JSONObject jsonObject) {
+        return jsonObject == null || jsonObject.size() == 0;
+    }
+
+    public static boolean isNotEmpty(JSONObject jsonObject) {
+        return !isEmpty(jsonObject);
     }
 
     /**

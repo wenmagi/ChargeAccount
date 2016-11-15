@@ -1,16 +1,12 @@
 package com.wen.magi.baseframe.fragments.home;
 
 import android.animation.LayoutTransition;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
-import android.support.percent.PercentRelativeLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -23,9 +19,9 @@ import android.widget.Toast;
 import com.wen.magi.baseframe.R;
 import com.wen.magi.baseframe.activities.MainActivity;
 import com.wen.magi.baseframe.base.BaseLazyLoadFragment;
-import com.wen.magi.baseframe.managers.ThemeManager;
 import com.wen.magi.baseframe.utils.SysUtils;
 import com.wen.magi.baseframe.utils.ViewUtils;
+import com.wen.magi.baseframe.views.NumKeyboardView;
 
 /**
  * @author MVEN @ Zhihu Inc.
@@ -86,7 +82,8 @@ public class SettingFragment extends BaseLazyLoadFragment implements TabLayout.O
             switch (menuItem.getItemId()) {
                 case R.id.action_edit:
                     msg += "Click edit";
-                    View view = View.inflate(activity, R.layout.activity_dialog_test, null);
+//                    View view = View.inflate(activity, R.layout.activity_dialog_test, null);
+                    View view = new NumKeyboardView(getContext());
                     container.addView(view);
                     break;
                 case R.id.action_share:

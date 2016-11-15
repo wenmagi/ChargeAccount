@@ -1,5 +1,6 @@
 package com.wen.magi.baseframe.models;
 
+import com.wen.magi.baseframe.utils.ConsumeTypeUtils;
 import com.wen.magi.baseframe.utils.LangUtils;
 
 import org.greenrobot.greendao.annotation.Entity;
@@ -19,6 +20,8 @@ public class Consume implements Comparable<Consume> {
     private Long consumeID;
     private String title;
     private String desc;
+    private int consumeType;
+    private String consumeTitle;
     private Long consumeNum;
     private Date consumeDate;
     private Date dtStart, dtEnd;
@@ -27,14 +30,17 @@ public class Consume implements Comparable<Consume> {
     //是否重复
     private String repeatType;
 
-    @Generated(hash = 1812487999)
+    @Generated(hash = 1283314236)
     public Consume(Long _id, Long consumeID, String title, String desc,
-            Long consumeNum, Date consumeDate, Date dtStart, Date dtEnd,
-            String location, String picture, String repeatType) {
+            int consumeType, String consumeTitle, Long consumeNum,
+            Date consumeDate, Date dtStart, Date dtEnd, String location,
+            String picture, String repeatType) {
         this._id = _id;
         this.consumeID = consumeID;
         this.title = title;
         this.desc = desc;
+        this.consumeType = consumeType;
+        this.consumeTitle = consumeTitle;
         this.consumeNum = consumeNum;
         this.consumeDate = consumeDate;
         this.dtStart = dtStart;
@@ -146,5 +152,21 @@ public class Consume implements Comparable<Consume> {
 
     public void set_id(Long _id) {
         this._id = _id;
+    }
+
+    public int getConsumeType() {
+        return consumeType;
+    }
+
+    public void setConsumeType(int consumeType) {
+        this.consumeType = consumeType;
+    }
+
+    public String getConsumeTitle() {
+        return consumeTitle;
+    }
+
+    public void setConsumeTitle(String consumeTitle) {
+        this.consumeTitle = consumeTitle;
     }
 }

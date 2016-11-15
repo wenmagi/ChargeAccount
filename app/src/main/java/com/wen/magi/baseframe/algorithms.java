@@ -1,8 +1,15 @@
 package com.wen.magi.baseframe;
 
-import com.wen.magi.baseframe.utils.LangUtils;
+import android.util.Base64;
 
+import com.wen.magi.baseframe.utils.LangUtils;
+import com.wen.magi.baseframe.utils.LogUtils;
+import com.wen.magi.baseframe.utils.date.CalendarHelper;
+
+import java.nio.ByteBuffer;
+import java.util.Calendar;
 import java.util.Stack;
+import java.util.UUID;
 
 /**
  * Created by MVEN on 16/7/1.
@@ -37,6 +44,7 @@ public class algorithms {
         sum(longer, shorter, longer, a.length, b.length);
         printNODE(reverse(longer));
         quickSort(a, 0, a.length - 1);
+        LogUtils.e("wwwwwwww UUID %s",testUUID());
     }
 
 
@@ -339,5 +347,19 @@ public class algorithms {
         int[][] array = new int[26][];
         int[] zimu = new int[26];
         zimu['a'] = 10;
+
+        Calendar c = Calendar.getInstance();
+        int currentMonth = c.get(Calendar.MONTH);
+        if(currentMonth == Calendar.DECEMBER){
+
+        }
+        if (c.get(Calendar.MONTH) == Calendar.DECEMBER) {
+
+        }
+    }
+
+    private String testUUID(){
+        UUID randomUUID = UUID.randomUUID();
+        return Base64.encodeToString(ByteBuffer.allocate(16).putLong(randomUUID.getMostSignificantBits()).putLong(randomUUID.getLeastSignificantBits()).array(), 2);
     }
 }
