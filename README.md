@@ -2,4 +2,4 @@
 ----------------
 ####软件雏形
 
- ![Alt text](https://github.com/wenmagi/ChargeAccount/tree/master/app/readmeRes/charge_account.png)
+ ![Alt text](https://github.com/wenmagi/README_PICS/blob/master/ChargeAccount/month_page.png)
