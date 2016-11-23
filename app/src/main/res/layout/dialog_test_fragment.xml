@@ -15,8 +15,8 @@
             android:id="@+id/collapsing_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="@color/main_theme_color"
             app:expandedTitleGravity="top"
+            android:textAllCaps="true"
             app:expandedTitleMarginStart="40dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 

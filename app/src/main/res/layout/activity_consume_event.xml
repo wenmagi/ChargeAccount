@@ -4,7 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <com.wen.magi.baseframe.views.DraggableGridView
+        android:id="@+id/consume_event_drag_view"
+        android:listSelector="@android:color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@android:color/transparent"
+        android:verticalSpacing="10dip"
+        android:horizontalSpacing="10dip"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        android:numColumns="3" >
+    </com.wen.magi.baseframe.views.DraggableGridView>
 
 
 </LinearLayout>

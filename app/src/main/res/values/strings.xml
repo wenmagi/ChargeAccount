@@ -35,4 +35,6 @@
     <string name="cube_ptr_seconds_ago">&#160;seconds ago</string>
     <string name="cube_ptr_minutes_ago">&#160;minutes ago</string>
     <string name="cube_ptr_hours_ago">&#160;hours ago</string>
+    <string name="color_test">&lt;font color=\'#FFFFFF\'&gt;CollapsingToolbarLayout&lt;/font&gt;</string>
+    <string name="color_test1">&lt;font color=\'#ffe60000\'&gt;&lt;big&gt;&lt;big&gt;&lt;big&gt;&lt;big&gt;外出携带好&lt;/big&gt;&lt;/big&gt;&lt;/big&gt;&lt;/big&gt;&lt;/font&gt;口罩</string>
 </resources>
